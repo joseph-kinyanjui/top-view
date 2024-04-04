@@ -7,52 +7,112 @@ const tenantsStore = useTenantsList()
 const propertiesStore = usePropertiesList()
 
 const tenants = tenantsStore.tenants
+const tenants_full_rent_form = tenantsStore.tenants_full_rent_form
 
 const properties = propertiesStore.properties
 
-let showTenants = ref([])
+const showTenants = ref([])
+const showPayments = ref([])
+const showUpdateTenant = ref([])
 
-const filterdTenantsList = ref([]);
+const filteredTenantsList = ref([]);
+const filteredPaymentsList = ref([]);
+const filteredUpdateTenant = ref([])
 
 const showingTenantsList = ref(false)
-const showingProprtiesList = ref(true)
+const showingPropertiesList = ref(true)
+const showingPaymentsDetails = ref(false)
+const showingUpdateTenant = ref(false)
+
+const payment_months_options = ref([
+    { month: 'April-24' },
+    { month: 'May-24' },
+    { month: 'June-24' },
+    { month: 'July-24' },
+    { month: 'August-24' },
+    { month: 'September-24' },
+    { month: 'October-24' },
+    { month: 'November-24' },
+    { month: 'December-24' },
+    { month: 'January-25' },
+    { month: 'February-5' },
+    { month: 'March-25' }
+])
+
+const tempShowProperty = ref([])
 
 const total_commision = computed(() => {
     return properties.reduce((acc, item) => acc + item.commision, 0);
 });
 
 const total_rent_collected = computed(() => {
-    return filterdTenantsList.value.reduce((acc, item) => acc + item.rent_paid, 0);
+    return filteredTenantsList.value.reduce((acc, item) => acc + item.rent_paid, 0);
 });
 
 const total_unpaid_rent = computed(() => {
-    return filterdTenantsList.value.reduce((acc, item) => acc + item.unpaid_rent, 0);
+    return filteredTenantsList.value.reduce((acc, item) => acc + item.unpaid_rent, 0);
 });
 
 
 const total_deposit_held = computed(() => {
-    return filterdTenantsList.value.reduce((acc, item) => acc + item.deposit_held, 0);
+    return filteredTenantsList.value.reduce((acc, item) => acc + item.deposit_held, 0);
 });
 
 const total_arrears_cf = computed(() => {
-    return filterdTenantsList.value.reduce((acc, item) => acc + item.arrears_cf, 0);
+    return filteredTenantsList.value.reduce((acc, item) => acc + item.arrears_cf, 0);
 });
 
 const total_arrears_bf = computed(() => {
-    return filterdTenantsList.value.reduce((acc, item) => acc + item.arrears_bf, 0);
+    return filteredTenantsList.value.reduce((acc, item) => acc + item.arrears_bf, 0);
 });
 
 const back_to_properties_list = () => {
     showingTenantsList.value = false
-    showingProprtiesList.value = true
+    showingPropertiesList.value = true
+}
+
+const back_to_tenants_list = () => {
+    showingUpdateTenant.value = false
+    showingTenantsList.value = true
+
+}
+
+const from_payments_details = () => {
+    showingPaymentsDetails.value = false
+    showingPropertiesList.value = true
+}
+
+const view_tenants_from_payments = (propertyName) => {
+    showingTenantsList.value = true
+    showingPaymentsDetails.value = false
+    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === propertyName);
+}
+
+const view_payments_details = (propertyName) => {
+    showPayments.value = propertyName
+    tempShowProperty.value = propertyName
+    showingPaymentsDetails.value = true
+    showingPropertiesList.value = false
+    filteredPaymentsList.value = properties.filter((property) => property.property_name === propertyName);
+}
+
+const update_tenant = (hseNumber) => {
+    showUpdateTenant.value = hseNumber
+    showingUpdateTenant.value = true
+    showingTenantsList.value = false
+    filteredUpdateTenant.value = filteredTenantsList.value.filter((tenant) => tenant.hse_number === hseNumber);
 }
 
 const addLandlord = (propertyName) => {
-    console.log(tenants.length)
     showTenants.value = propertyName
     showingTenantsList.value = true
-    showingProprtiesList.value = false
-    filterdTenantsList.value = tenants.filter((tenant) => tenant.property_name === propertyName);
+    showingPropertiesList.value = false
+    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === propertyName);
+}
+
+const submit_full_rent = () => {
+    console.log(tenants_full_rent_form)
+    alert('Rent for house number ' + tenants_full_rent_form.hse_number + ' for ' + tenants_full_rent_form.payment_date + ' has been updated succesfully ')
 }
 
 
@@ -63,32 +123,37 @@ const addLandlord = (propertyName) => {
 <template>
 
     <div class="property_list">
-        <div class="properties" v-show="showingProprtiesList == true">
+        <div class="properties" v-show="showingPropertiesList == true">
             <table style="width: 100%;">
-                <caption><h2>Properties List </h2></caption>
+                <caption>
+                    <h2>Properties List </h2>
+                </caption>
                 <tr class="table_header">
                     <th class="landlord_name">Landlord Name: </th>
                     <th class="property_name">Property Name </th>
                     <th class="property_location">Location </th>
                     <th class="landlord_contact">Contact </th>
-                    <th class="commision">Commision</th>
-                    <th class="payment_date">Payment Date</th>
-                    <th class="payment_mode">Mode</th>
-                    <th class="bank_name"> Bank Name</th>
-                    <th class="account_number">Account Number</th>
+                    <th class="commision">Payment Details </th>
                     <th class="view_tenats">View Tenants</th>
 
                 </tr>
                 <tr class="house" v-for="property in properties" :key="property.property_name">
-                    <td class="landlord_name">{{ property.landlord_name }} </td>
-                    <td class="property_name">{{ property.property_name }} </td>
-                    <td class="property_location">{{ property.property_location }}</td>
-                    <td class="owner_contact">{{ property.contact }} </td>
-                    <td class="commision-due">{{ property.commision }}</td>
-                    <td class="payment">{{ property.payment_date }}</td>
-                    <td class="payment_mode"> {{ property.payment_mode }}</td>
-                    <td class="bank_name"> {{ property.bank_name }}</td>
-                    <td class="owner_account_number">{{ property.account_number }} </td>
+                    <td class="landlord_name">
+                        <div>{{ property.landlord_name }} </div>
+                    </td>
+                    <td class="property_name">
+                        <div>{{ property.property_name }} </div>
+                    </td>
+                    <td class="property_location">
+                        <div>{{ property.property_location }} </div>
+                    </td>
+                    <td class="owner_contact">
+                        <div>{{ property.contact }} </div>
+                    </td>
+                    <td class="commision-due"><button @click="view_payments_details(property.property_name)"
+                            class="view_tenants_button">
+                            View Payments Deatils </button>
+                    </td>
                     <td class="view_tenant__link">
                         <button @click="addLandlord(property.property_name)" class="view_tenants_button">
                             View Tenants</button>
@@ -97,23 +162,159 @@ const addLandlord = (propertyName) => {
                 </tr>
 
                 <tr class="totals_row">
-                    <td  colspan="4">Total Commision Collected</td>
-                    <td>{{ total_commision }}</td>
-                    <td  colspan="5"></td>
+                    <td colspan="6"></td>
                 </tr>
 
             </table>
         </div>
+
+        <template v-if="showPayments">
+            <div class="payment_details" v-show="showingPaymentsDetails">
+                <div class="payment_datils_nav">
+                    <div class="back_to_properties_list">
+                        <button @click.prevent="from_payments_details" class="back_to_propeties_button">Back to
+                            Properties
+                            List</button>
+                    </div>
+                    <div class="back_to_properties_list">
+                        <button @click="view_tenants_from_payments(tempShowProperty)" class="view_tenants_button">
+                            View Tenants List</button>
+                    </div>
+                </div>
+
+                <div>
+                    <table style="width: 100%;">
+                        <caption>
+                            <h2>Payments Details for {{ showPayments }} </h2>
+                        </caption>
+                        <tr class="table_header">
+                            <th class="property_name">Property Name </th>
+                            <th class="landlord_contact">Contact </th>
+                            <th class="commision">Commision</th>
+                            <th class="payment_date">Payment Date</th>
+                            <th class="payment_mode">Mode</th>
+                            <th class="bank_name"> Bank Name</th>
+                            <th class="account_number">Account Number</th>
+
+                        </tr>
+                        <tr class="house" v-for="property in filteredPaymentsList" :key="property.property_name">
+                            <td class="property_name">{{ property.property_name }} </td>
+                            <td class="owner_contact">{{ property.contact }} </td>
+                            <td class="commision-due">{{ property.commision }}</td>
+                            <td class="payment">{{ property.payment_date }}</td>
+                            <td class="payment_mode"> {{ property.payment_mode }}</td>
+                            <td class="bank_name"> {{ property.bank_name }}</td>
+                            <td class="owner_account_number">{{ property.account_number }} </td>
+
+                        </tr>
+
+                        <tr class="totals_row">
+                            <td colspan="7"></td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="property_utility">
+                    <div class="water_electricity">
+                        <table style="width: 100%;">
+                            <caption>
+                                <h2> Water & Electricity Bills for {{ showPayments }} </h2>
+                            </caption>
+                            <tr class="table_header">
+                                <th class="utility_name">Utility Name</th>
+                                <th class="meter_number">Meter Number </th>
+                                <th class="landlord_contact">Units </th>
+                                <th class="commision">Ammount</th>
+                                <th class="payment_date">Date</th>
+                            </tr>
+                            <tr class="house" v-for="property in filteredPaymentsList" :key="property.property_name">
+                                <td class="payment_mode"> KPLC </td>
+                                <td class="property_name">{{ property.kplc_meter }} </td>
+                                <td class="owner_contact">{{ property.kplc_units }} </td>
+                                <td class="commision-due">{{ property.kplc_amount }}</td>
+                                <td class="payment">{{ property.payment_date }}</td>
+                            </tr>
+                            <tr class="house" v-for="property in filteredPaymentsList" :key="property.property_name">
+                                <td class="payment_mode"> Water </td>
+                                <td class="property_name">{{ property.water_meter }} </td>
+                                <td class="owner_contact">{{ property.water_units }} </td>
+                                <td class="commision-due">{{ property.water_amount }}</td>
+                                <td class="payment">{{ property.payment_date }}</td>
+                            </tr>
+
+                            <tr class="totals_row">
+                                <td colspan="7"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="mri_bill">
+                        <table style="width: 100%;">
+                            <caption>
+                                <h2> MRI Bills for {{ showPayments }} </h2>
+                            </caption>
+                            <tr class="table_header">
+                                <th class="utility_name">Utility Name</th>
+                                <th class="meter_number">KRA PIN </th>
+                                <th class="landlord_contact">I-TAX Password </th>
+                                <th class="commision">Units </th>
+                                <th class="commision">Amount </th>
+                                <th class="payment_date">Date </th>
+                            </tr>
+                            <tr class="house" v-for="property in filteredPaymentsList" :key="property.property_name">
+                                <td class="payment_mode"> MRI </td>
+                                <td class="property_name">{{ property.mri_kra_pin }} </td>
+                                <td class="owner_contact">{{ property.mri_itax_pass }} </td>
+                                <td class="owner_contact">{{ property.mri_units }} </td>
+                                <td class="commision-due">{{ property.mri_amount }}</td>
+                                <td class="payment">{{ property.payment_date }}</td>
+                            </tr>
+                            <tr class="totals_row">
+                                <td colspan="6"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="other_property_expenses">
+                        <table style="width: 100%;">
+                            <caption>
+                                <h2> Expenses for {{ showPayments }} </h2>
+                            </caption>
+                            <tr class="table_header">
+                                <th class="utility_name">Date</th>
+                                <th class="meter_number">Type </th>
+                                <th class="landlord_contact">Particulars </th>
+                                <th class="commision">Amount </th>
+                            </tr>
+                            <tr class="house" v-for="property in filteredPaymentsList" :key="property.property_name">
+                                <td class="owner_contact">{{ property.mri_itax_pass }} </td>
+                                <td class="owner_contact">{{ property.mri_units }} </td>
+                                <td class="commision-due">{{ property.mri_amount }}</td>
+                                <td class="payment">{{ property.payment_date }}</td>
+                            </tr>
+                            <tr class="totals_row">
+                                <td colspan="4"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+
         <template v-if="showTenants">
             <div class="tenant_per_property" v-show="showingTenantsList == true">
                 <div class="back_to_properties_list">
-                    <button @click.prevent="back_to_properties_list" class="back_to_propeties_button">Back to Properties List</button>
+                    <button @click.prevent="back_to_properties_list" class="back_to_propeties_button">Back to Properties
+                        List</button>
                 </div>
                 <div class="tenant">
                     <table style="width:100%">
-                        <caption><h2>Tenants List for {{ showTenants }}</h2></caption>
+                        <caption>
+                            <h2>Tenants List for {{ showTenants || tempShowProperty }}</h2>
+                        </caption>
                         <tr class="table_header">
-                            <th class="property_name">Property Name: </th>
                             <th class="hse_number">Hse Number: </th>
                             <th class="teenant_name">Tenant's name </th>
                             <th class="house_rate">Rate </th>
@@ -126,9 +327,9 @@ const addLandlord = (propertyName) => {
                             <th class="alternative_number">Alternative number </th>
                             <th class="id_number">Id Number</th>
                             <th class="status">Status</th>
+                            <th class="property_name">Update Tenant Details </th>
                         </tr>
-                        <tr class="house" v-for="hse in filterdTenantsList" :key="hse.hse_number">
-                            <td class="hse_property_name">{{ hse.property_name }} </td>
+                        <tr class="house" v-for="hse in filteredTenantsList" :key="hse.hse_number">
                             <td class="hse_number">{{ hse.hse_number }} </td>
                             <td class="teenant_name">{{ hse.tenant_name }} </td>
                             <td class="house_rate">{{ hse.house_rate }} </td>
@@ -141,20 +342,80 @@ const addLandlord = (propertyName) => {
                             <td class="alternative_number">{{ hse.alternative_number }} </td>
                             <td class="id_number">{{ hse.id_number }} </td>
                             <td class="status">{{ hse.status }}</td>
+                            <td class="view_tenant__link">
+                                <button @click="update_tenant(hse.hse_number)" class="view_tenants_button">
+                                    Update Tenant</button>
+                            </td>
                         </tr>
 
                         <tr class="totals_row">
-                            <td colspan="4">Totals</td>
+                            <td colspan="3">Totals</td>
                             <td>{{ total_rent_collected }}</td>
                             <td>{{ total_unpaid_rent }}</td>
                             <td>{{ total_deposit_held }}</td>
                             <td>{{ total_arrears_bf }}</td>
                             <td>{{ total_arrears_cf }}</td>
-                            <td colspan="4"></td>
+                            <td colspan="5"></td>
                         </tr>
 
                     </table>
                 </div>
+            </div>
+            <div class="update_tenant" v-if="showUpdateTenant">
+                <div v-show="showingUpdateTenant">
+                    <div class="back_to_properties_list">
+                        <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to Tenants
+                            List</button>
+                    </div>
+                    <div class="tenant_updates_header">
+                        <h2>Update details for House Number: {{ showUpdateTenant }}</h2>
+                    </div>
+                    <div class="update">
+                        <div class="paid_in_full">
+                            <div class="paid_in_full_header">
+                                <h3>Full Payment</h3>
+                            </div>
+                            <div class="paid_in_full_form">
+                                <form @submit.prevent="submit_full_rent">
+                                    <select v-model="tenants_full_rent_form.hse_number" class="select">
+                                        <option disabled value="">Please select one</option>
+                                        <option>{{ showUpdateTenant }}</option>
+                                    </select>
+                                    <select v-model="tenants_full_rent_form.payment_date" class="select">
+                                        <option disabled value="">Please select one</option>
+                                        <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                        </option>
+                                    </select>
+
+                                    <button class="view_tenants_button submit_button">submit</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="paid_in_full">
+                            <div class="paid_in_full_header">
+                                <h3>Partial Payment</h3>
+                            </div>
+                            <div class="paid_in_full_form">
+                                <form @submit.prevent="submit_full_rent">
+                                    <select v-model="tenants_full_rent_form.hse_number" class="select">
+                                        <option disabled value="">Please select one</option>
+                                        <option>{{ showUpdateTenant }}</option>
+                                    </select>
+                                    <select v-model="tenants_full_rent_form.payment_date" class="select">
+                                        <option disabled value="">Please select one</option>
+                                        <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                        </option>
+                                    </select>
+                                    <input v-model="tenants_full_rent_form.rent_paid" placeholder="Input Amount">
+
+                                    <button class="view_tenants_button submit_button">submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </template>
     </div>
@@ -163,5 +424,17 @@ const addLandlord = (propertyName) => {
 </template>
 
 <style scoped>
+.select {
+    border-radius: 2em;
+    padding: 0.75em;
+    margin-bottom: 2em;
+    border: none;
+    font-weight: bold;
+    color: #000;
+    background-color: rgb(145, 234, 228, 0.33);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
+}
 
 </style>

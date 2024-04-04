@@ -91,4 +91,9 @@ const total_deposit_terminated_tenants = computed(() => {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.active_tenant{
+    max-height: 55vh;
+    overflow: scroll;
+}
+</style>

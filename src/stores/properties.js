@@ -12,7 +12,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Co-operative Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Movens Apartment",
@@ -23,7 +33,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Equity Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Stephen Murathi",
@@ -34,7 +54,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Family Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Elizabeth",
@@ -45,7 +75,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Absa Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Pithoni Irungu",
@@ -56,7 +96,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "KCB",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Kanyumbani",
@@ -67,7 +117,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "NCBA",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Agnes Kamau",
@@ -78,7 +138,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "PRIME BANK",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Samuel Mwangi",
@@ -89,7 +159,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Co-operative Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Tabitha Njambi",
@@ -100,7 +180,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Equity Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Henry",
@@ -111,7 +201,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Family Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "ZabLon mwangi",
@@ -122,7 +222,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Absa Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Boaz keronche",
@@ -133,7 +243,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "KCB",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Clara",
@@ -144,7 +264,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "NCBA",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "koech",
@@ -155,7 +285,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "PRIME BANK",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "osim",
@@ -166,7 +306,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Co-operative Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Kabui",
@@ -177,7 +327,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Equity Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Ogega",
@@ -188,7 +348,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Family Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "John",
@@ -199,7 +369,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Absa Bank",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Gedion",
@@ -210,7 +390,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "KCB",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Joseph",
@@ -221,7 +411,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "NCBA",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Kamotho",
@@ -232,7 +432,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "PRIME BANK",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       },
       {
         "landlord_name": "Justus",
@@ -243,7 +453,17 @@ export const usePropertiesList = defineStore('propertiesList', {
         "payment_date": "05.04.2024",
         "payment_mode": "Bank",
         "bank_name": "Stanbic",
-        "account_number": "01192514551000"
+        "account_number": "01192514551000",
+        "kplc_meter": "8880888",
+        "kplc_units": "888",
+        "kplc_amount":800,
+        "water_amount":900,
+        "water_meter": "9990999",
+        "water_units": "999",
+        "mri_kra_pin":"7770777",
+        "mri_itax_pass":"strong pass",
+        "mri_units":"777",
+        "mri_amount":700
       }
     ]
 

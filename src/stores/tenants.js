@@ -2,6 +2,15 @@ import { defineStore } from 'pinia'
 
 export const useTenantsList = defineStore('tenantsList', {
   state: () => ({
+    tenants_full_rent_form: {
+      "hse_number": "",
+      "rent_paid":"",
+      "payment_date": "",
+      "unpaid_rent":"",
+    "arrears":"",
+    "arrears_bf":"",
+    "arrears_cf":"",
+    },
     tenants : [
  
   {
@@ -6546,10 +6555,15 @@ export const useTenantsList = defineStore('tenantsList', {
     "tenant_number": "768613074",
     "alternative_number": "768613074",
     "id_number": "56482747",
-    "status": "active",
+    "status": "terminated",
     "deposit_refunded": "FALSE"
-  },
+  }
 ]
-  })
+  }),
+  actions: {
+   update_tenants_full_rent_form(field ){
+   this.tenants_full_rent_form[field] = value
+  }}
+
 })
   
