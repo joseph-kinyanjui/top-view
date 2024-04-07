@@ -11,6 +11,10 @@ export const useTenantsList = defineStore('tenantsList', {
     "arrears_bf":"",
     "arrears_cf":"",
     },
+    current_payment_date: [
+      { month: 'April-24' }
+    ]
+    ,
     tenants : [
  
   {
