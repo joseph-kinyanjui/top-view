@@ -109,6 +109,11 @@ tr:nth-child(even) {
   padding: 1em;
 }
 
+.update_tenant_header{
+  display: flex;
+  justify-content: space-between;
+}
+
 .paid_in_full{
   border: 0.5px solid rgb(82,49,157, 0.75);
   border-radius: 5px;

@@ -29,7 +29,7 @@ const total_deposit_terminated_tenants = computed(() => {
                     <h2>Active Tenants</h2>
                 </caption>
                 <tr class="table_header">
-                    <th class="teenant_name">Tenant's name</th>
+                    <th class="tenant_name">Tenant's name</th>
                     <th class="property_name">Property Name:</th>
                     <th class="tenant_number">Contact:</th>
                     <th class="hse_number">Hse Number:</th>
@@ -61,7 +61,7 @@ const total_deposit_terminated_tenants = computed(() => {
                     <h2>Terminated Tenants</h2>
                 </caption>
                 <tr class="table_header">
-                    <th class="teenant_name">Tenant's name</th>
+                    <th class="tenant_name">Tenant's name</th>
                     <th class="property_name">Property Name:</th>
                     <th class="tenant_number">Contact:</th>
                     <th class="hse_number">Hse Number:</th>

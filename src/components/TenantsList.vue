@@ -34,7 +34,7 @@ const total_arrears_cf = computed(() => {
       <tr>
         <th class="property_name">Property Name: </th>
         <th class="hse_number">Hse Number: </th>
-        <th class="teenant_name">Tenant's name </th>
+        <th class="tenant_name">Tenant's name </th>
         <th class="house_rate">Rate </th>
         <th class="rent_paid">Rent Paid </th>
         <th class="unpaid_rent">Unpaid Rent</th>
@@ -49,7 +49,7 @@ const total_arrears_cf = computed(() => {
 
         <td class="hse_number">{{ hse.property_name }} </td>
         <td class="hse_number">{{ hse.hse_number }} </td>
-        <td class="teenant_name">{{ hse.tenant_name }} </td>
+        <td class="tenant_name">{{ hse.tenant_name }} </td>
         <td class="house_rate">{{ hse.house_rate }} </td>
         <td class="rent_paid">{{ hse.rent_paid }}</td>
         <td class="unpaid_rent">{{ hse.unpaid_rent }}</td>

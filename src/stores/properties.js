@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
+
+const PROPERTIES_URL = "https://top-view-server-pacpqd0zx-joseph-kinyanjuis-projects.vercel.app/properties"
 
 export const usePropertiesList = defineStore('propertiesList', {
   state: () => ({
-    properties : [
+    properties: [
       {
         "landlord_name": "Stephen Miiri- SM",
         "contact": "0711222333",
@@ -465,8 +468,29 @@ export const usePropertiesList = defineStore('propertiesList', {
         "mri_units":"777",
         "mri_amount":700
       }
-    ]
+    ],
+    loading: false,
 
-  })
+  }),
+  actions: {
+    async fetchProperties() {
+      try{
+        this.loading = true;
+        const response = await axios.get(PROPERTIES_URL)
+        this.properties = response.data
+        this.loading = false
+      } catch(error){
+        console.error('error fetchig properties list', error)
+      }
+    },
+    async updateData(newProperty) {
+      await fetch('/properties', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newProperty),
+      });
+      this.properties = newProperty; // Update local state
+    }
+  }
 })
   

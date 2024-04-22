@@ -1,13 +1,23 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { usePropertiesList } from '../stores/properties.js'
 import { useTenantsList } from '../stores/tenants.js'
 
 const tenantsStore = useTenantsList()
 const propertiesStore = usePropertiesList()
 
+onMounted(() => {
+    propertiesStore.fetchProperties()
+    tenantsStore.fetchTenants()
+    tenantsStore.fetchTenantStatements()
+})
+
+const holy_test = tenantsStore.holy_test
 const tenants = tenantsStore.tenants
+const tenants_statements = tenantsStore.tenants_statements
+const temp_tenants_statements = ref([])
 const tenants_full_rent_form = tenantsStore.tenants_full_rent_form
+const tenants_partial_rent_form = tenantsStore.tenants_partial_rent_form
 const current_payment_date = tenantsStore.current_payment_date[0].month
 
 const properties = propertiesStore.properties
@@ -45,6 +55,7 @@ const payment_months_options = ref([
 
 const tempShowProperty = ref([])
 const tempShowTenant = ref([])
+const loading = propertiesStore.loading
 
 
 const total_commision = computed(() => {
@@ -52,24 +63,24 @@ const total_commision = computed(() => {
 });
 
 const total_rent_collected = computed(() => {
-    return filteredTenantsList.value.reduce((acc, item) => acc + item.rent_paid, 0);
+    return filteredTenantStatements.value.reduce((acc, item) => acc + item.tenant.rent_paid, 0);
 });
 
 const total_unpaid_rent = computed(() => {
-    return filteredTenantsList.value.reduce((acc, item) => acc + item.unpaid_rent, 0);
+    return filteredTenantStatements.value.reduce((acc, item) => acc + item.tenant.unpaid_rent, 0);
 });
 
 
 const total_deposit_held = computed(() => {
-    return filteredTenantsList.value.reduce((acc, item) => acc + item.deposit_held, 0);
+    return filteredTenantStatements.value.reduce((acc, item) => acc + item.tenant.deposit_held, 0);
 });
 
 const total_arrears_cf = computed(() => {
-    return filteredTenantsList.value.reduce((acc, item) => acc + item.arrears_cf, 0);
+    return filteredTenantStatements.value.reduce((acc, item) => acc + item.tenant.arrears_cf, 0);
 });
 
 const total_arrears_bf = computed(() => {
-    return filteredTenantsList.value.reduce((acc, item) => acc + item.arrears_bf, 0);
+    return filteredTenantStatements.value.reduce((acc, item) => acc + item.tenant.arrears_bf, 0);
 });
 
 const back_to_properties_list = () => {
@@ -89,44 +100,64 @@ const from_payments_details = () => {
     showingPropertiesList.value = true
 }
 
-const view_tenants_from_payments = (propertyName) => {
+const view_tenants_from_payments = (property) => {
     showingTenantsList.value = true
     showingPaymentsDetails.value = false
-    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === propertyName);
+    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === property.property_name);
 }
 
-const view_payments_details = (propertyName) => {
-    showPayments.value = propertyName
-    tempShowProperty.value = propertyName
-    showingPaymentsDetails.value = true
-    showingPropertiesList.value = false
-    filteredPaymentsList.value = properties.filter((property) => property.property_name === propertyName);
-}
-
-const view_tenant_statements = (hseNumber, propertyName) => {
-    tempShowTenant.value = hseNumber
-    showingTenantStatements.value = true
-    showingTenantsList.value = false
-    filteredTenantStatements.value = tenants.filter((tenant) => tenant.hse_number === hseNumber && tenant.property_name == propertyName);
-    showTenantStatements.value = filteredTenantStatements.value[0]
-}
-
-const update_tenant = (hseNumber) => {
+const update_tenant = (tempShowTenant) => {
     showingUpdateTenant.value = true
     showingTenantsList.value = false
-    filteredUpdateTenant.value = filteredTenantsList.value.filter((tenant) => tenant.hse_number === hseNumber);
+    filteredUpdateTenant.value = filteredTenantsList.value.filter((tenant) => tenant.hse_number === tempShowTenant.hse_number);
     showUpdateTenant.value = filteredUpdateTenant.value[0]
+    tenantsStore.fetchTenantStatements()
 }
 
-const addLandlord = (propertyName) => {
-    showTenants.value = propertyName
+const update_tenant_from_tenant_statements = (tempShowTenant) => {
+    showingUpdateTenant.value = true
+    showingTenantsList.value = false
+    showingTenantStatements.value = false
+    filteredUpdateTenant.value = filteredTenantsList.value.filter((tenant) => tenant.hse_number === tempShowTenant.hse_number);
+    showUpdateTenant.value = filteredUpdateTenant.value[0]
+    tenantsStore.fetchTenantStatements()
+}
+
+const view_payments_details = (property) => {
+    showPayments.value = property
+    tempShowProperty.value = property
+    showingPaymentsDetails.value = true
+    showingPropertiesList.value = false
+    filteredPaymentsList.value = properties.filter((property) => property.property_name === property.property_name);
+}
+
+const view_tenant_list = (property) => {
+    showTenants.value = property
     showingTenantsList.value = true
     showingPropertiesList.value = false
-    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === propertyName);
+    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === property.property_name);
 }
 
-const submit_full_rent = () => {
-    console.log(tenants_full_rent_form)
+const view_tenant_statements = (hse) => {
+    tenantsStore.fetchTenantStatements()
+    tempShowTenant.value = hse
+    showingTenantStatements.value = true
+    showingTenantsList.value = false
+    filteredTenantStatements.value = tenants_statements.filter((tenant_statement) => tenant_statement.tenant.property_name === hse.property_name && tenant_statement.tenant.hse_number === hse.hse_number);
+    /*  showTenantStatements.value = filteredTenantStatements.value*/
+}
+
+const view_tenant_statements_from_update_tenant = (hse) => {
+    tenantsStore.fetchTenantStatements()
+    tempShowTenant.value = hse
+    showingTenantStatements.value = true
+    showingUpdateTenant.value = false;
+    filteredTenantStatements.value = tenants_statements.filter((tenant_statement) => tenant_statement.tenant.hse_number === hse.hse_number && tenant_statement.tenant.property_name == hse.property_name);
+
+    /*  showTenantStatements.value = filteredTenantStatements.value*/
+}
+
+const submit_full_rent = (showUpdateTenant) => {
     if (tenants_full_rent_form.hse_number == '' && tenants_full_rent_form.payment_date == '') {
         alert('Select valid house number & the payment date')
     } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.payment_date == '') {
@@ -134,7 +165,46 @@ const submit_full_rent = () => {
     } else if (tenants_full_rent_form.hse_number == '' && tenants_full_rent_form.payment_date !== '') {
         alert('Select a valid house number')
     } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.payment_date !== '' && tenants_full_rent_form.payment_date == current_payment_date) {
-        alert('Full rent for house number ' + tenants_full_rent_form.hse_number + ' for ' + tenants_full_rent_form.payment_date + ' has been updated succesfully ')
+
+        const newStatementItem = {
+            "property_name": showUpdateTenant.property_name,
+            "hse_number": tenants_full_rent_form.hse_number,
+            "tenant_name": showUpdateTenant.tenant_name,
+            "payment_date": tenants_full_rent_form.payment_date,
+            "house_rate": showUpdateTenant.house_rate,
+            "rent_paid": showUpdateTenant.house_rate,
+            "unpaid_rent": 0,
+            "arrears": 0,
+            "arrears_bf": 0,
+            "arrears_cf": 0,
+            "tenant_number": "0729490094",
+        }
+
+        const existingStatement = tenants_statements.find(item => item.tenant.payment_date === newStatementItem.payment_date && item.tenant.property_name == newStatementItem.property_name && item.tenant.hse_number == newStatementItem.hse_number)
+
+        if (!existingStatement && temp_tenants_statements.value.length === 0) {
+            tenantsStore.updateTenantStatements(newStatementItem)
+            temp_tenants_statements.value.push(newStatementItem)
+            alert('Full rent for house number ' + newStatementItem.hse_number + ' for ' + newStatementItem.payment_date + ' has been updated succesfully ')
+        } else if (!existingStatement && temp_tenants_statements.value.length > 0) {
+            if (tempShowTenant.value.arrears === 0) {
+                alert('Rent for ' + current_payment_date + ' is fully paid')
+            } else if (tempShowTenant.value.arrears > 0) {
+                alert('Use partial rent tab to update partial rent')
+            }
+
+        }
+        else if (existingStatement) {
+            if (existingStatement.tenant.arrears === 0) {
+                alert('Rent for ' + current_payment_date + ' is fully paid')
+            } else if (existingStatement.tenant.arrears > 0) {
+                alert('Use partial rent tab to update partial rent')
+            }
+
+        } else {
+            alert('invalid input')
+        }
+
     }
     else {
         alert('Invalid input, check entries & try again')
@@ -142,14 +212,87 @@ const submit_full_rent = () => {
 
 }
 
+const submit_partial_rent = (showUpdateTenant) => {
+    console.log(showUpdateTenant)
+    if (tenants_partial_rent_form.hse_number == '' && tenants_partial_rent_form.payment_date == '') {
+        alert('Select valid house number & the payment date')
+    } else if (tenants_partial_rent_form.hse_number !== '' && tenants_partial_rent_form.payment_date == '') {
+        alert('Select a valid payment date')
+    } else if (tenants_partial_rent_form.hse_number == '' && tenants_partial_rent_form.payment_date !== '') {
+        alert('Select a valid house number')
+    } else if (tenants_partial_rent_form.hse_number !== '' && tenants_partial_rent_form.payment_date !== '' && tenants_partial_rent_form.payment_date == current_payment_date) {
+        const newStatementItem = {
+            "property_name": showUpdateTenant.property_name,
+            "hse_number": tenants_partial_rent_form.hse_number,
+            "tenant_name": showUpdateTenant.tenant_name,
+            "payment_date": tenants_partial_rent_form.payment_date,
+            "house_rate": showUpdateTenant.house_rate,
+            "rent_paid": Number(tenants_partial_rent_form.rent_paid),
+            "unpaid_rent": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.rent_paid),
+            "current_month_fully_paid": false,
+            "arrears": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.rent_paid),
+            "arrears_bf": 0,
+            "arrears_cf": 0,
+            "tenant_number": "0729490094",
+        }
+        const existingStatement = tenants_statements.find(item => item.tenant.payment_date === newStatementItem.payment_date && item.tenant.property_name == newStatementItem.property_name && item.tenant.hse_number == newStatementItem.hse_number)
 
+        if (!existingStatement && temp_tenants_statements.value.length === 0) {
+            if (newStatementItem.rent_paid > newStatementItem.house_rate ) {
+                alert('Input an amount equal to or less than arrears for the month, arrears for the current month is KES: ' + showUpdateTenant.house_rate)
+            }else if (newStatementItem.rent_paid === newStatementItem.house_rate){
+                tenantsStore.updateTenantStatements(newStatementItem)
+                temp_tenants_statements.value.push(newStatementItem)
+                alert('Rent for ' + current_payment_date + ' is fully paid')
+            }
+            else if (newStatementItem.rent_paid <= newStatementItem.house_rate && newStatementItem.rent_paid <= 0){
+                alert('Input an amount greater than 0')
+            }else if (newStatementItem.rent_paid <= newStatementItem.house_rate && newStatementItem.rent_paid > 0){
+                tenantsStore.updateTenantStatements(newStatementItem)
+                temp_tenants_statements.value.push(newStatementItem)
+                alert('Partial rent for house number ' + newStatementItem.hse_number + ' for ' + newStatementItem.payment_date + ' has been updated succesfully ')
+            }
+        } else if (!existingStatement && temp_tenants_statements.value.length > 0) {
+            if (temp_tenants_statements.value.arrears === 0) {
+                alert('Rent for ' + current_payment_date + ' is fully paid')
+            } else if (newStatementItem.rent_paid > temp_tenants_statements.value.arrears ) {
+                alert('Input an amount equal to or less than arrears for the month, arrears for the currennt month is KES: ' + existingStatement.tenant.arrears )
+            }else if (temp_tenants_statements.value.arrears <= newStatementItem.rent_paid) {
+                alert('Update us here finnaly')
+            }
+
+        }
+
+        else if (existingStatement) {
+            if (existingStatement.tenant.arrears === 0) {
+                alert('Rent for ' + current_payment_date + ' is fully paid')
+            } else if (existingStatement.tenant.arrears > 0) {
+                if(existingStatement.tenant.arrears >= newStatementItem.rent_paid){
+                    alert('update statement here 101010')
+                }else if(newStatementItem.rent_paid > existingStatement.tenant.arrears){
+                    alert('Input an amount equal to or less than arrears for the month, arrears for the currennt month is KES: ' + existingStatement.tenant.arrears )
+                }
+                
+            }
+        }
+
+    }
+    else {
+        alert('Invalid input, check entries & try again')
+    }
+
+}
+
+const addholy = function () {
+    holy_test.push('new')
+}
 
 </script>
 
 /*HTML*/
 <template>
 
-    <div class="property_list">
+    <div class="property_list" v-if="!loading">
         <div class="properties" v-show="showingPropertiesList == true">
             <table style="width: 100%;">
                 <caption>
@@ -177,12 +320,12 @@ const submit_full_rent = () => {
                     <td class="owner_contact">
                         <div>{{ property.contact }} </div>
                     </td>
-                    <td class="commision-due"><button @click="view_payments_details(property.property_name)"
+                    <td class="commision-due"><button @click="view_payments_details(property)"
                             class="view_tenants_button">
                             Property Statements </button>
                     </td>
                     <td class="view_tenant__link">
-                        <button @click="addLandlord(property.property_name)" class="view_tenants_button">
+                        <button @click="view_tenant_list(property)" class="view_tenants_button">
                             Tenants List</button>
                     </td>
 
@@ -212,7 +355,7 @@ const submit_full_rent = () => {
                 <div>
                     <table style="width: 100%;">
                         <caption>
-                            <h2>Payments Details for {{ showPayments }} </h2>
+                            <h2>Payments Details for {{ showPayments.property_name }} </h2>
                         </caption>
                         <tr class="table_header">
                             <th class="property_name">Property Name </th>
@@ -245,7 +388,7 @@ const submit_full_rent = () => {
                     <div class="water_electricity">
                         <table style="width: 100%;">
                             <caption>
-                                <h2> Water & Electricity Bills for {{ showPayments }} </h2>
+                                <h2> Water & Electricity Bills for {{ showPayments.property_name }} </h2>
                             </caption>
                             <tr class="table_header">
                                 <th class="utility_name">Utility Name</th>
@@ -278,7 +421,7 @@ const submit_full_rent = () => {
                     <div class="mri_bill">
                         <table style="width: 100%;">
                             <caption>
-                                <h2> MRI Bills for {{ showPayments }} </h2>
+                                <h2> MRI Bills for {{ showPayments.property_name }} </h2>
                             </caption>
                             <tr class="table_header">
                                 <th class="utility_name">Utility Name</th>
@@ -305,7 +448,7 @@ const submit_full_rent = () => {
                     <div class="other_property_expenses">
                         <table style="width: 100%;">
                             <caption>
-                                <h2> Expenses for {{ showPayments }} </h2>
+                                <h2> Expenses for {{ showPayments.property_name }} </h2>
                             </caption>
                             <tr class="table_header">
                                 <th class="utility_name">Date</th>
@@ -339,11 +482,11 @@ const submit_full_rent = () => {
                 <div class="tenant">
                     <table style="width:100%">
                         <caption>
-                            <h2>Tenants List for {{ showTenants || tempShowProperty }}</h2>
+                            <h2>Tenants List for {{ showTenants.property_name }}</h2>
                         </caption>
                         <tr class="table_header">
                             <th class="hse_number">Hse Number: </th>
-                            <th class="teenant_name">Tenant's name </th>
+                            <th class="tenant_name">Tenant's name </th>
                             <th class="house_rate">Rate </th>
                             <th class="rent_paid">Rent Paid for current month </th>
                             <th class="tenant_number">Contact:</th>
@@ -355,86 +498,111 @@ const submit_full_rent = () => {
                         </tr>
                         <tr class="house" v-for="hse in filteredTenantsList" :key="hse.hse_number">
                             <td class="hse_number">{{ hse.hse_number }} </td>
-                            <td class="teenant_name">{{ hse.tenant_name }} </td>
+                            <td class="tenant_name">{{ hse.tenant_name }} </td>
                             <td class="house_rate">{{ hse.house_rate }} </td>
-                            <td class="rent_paid">True </td>
+                            <td class="rent_paid">{{ hse.current_month_fully_paid }} </td>
                             <td class="tenant_number">{{ hse.tenant_number }} </td>
                             <td class="alternative_number">{{ hse.alternative_number }} </td>
                             <td class="id_number">{{ hse.id_number }} </td>
                             <td class="status">{{ hse.status }}</td>
                             <td class="view_tenant_statements">
-                                <button @click="view_tenant_statements(hse.hse_number, hse.property_name)"
-                                    class="view_tenants_button">
+                                <button @click="view_tenant_statements(hse)" class="view_tenants_button">
                                     Tenant Statements</button>
                             </td>
                             <td class="view_tenant__link">
-                                <button @click="update_tenant(hse.hse_number)" class="view_tenants_button">
+                                <button @click="update_tenant(hse)" class="view_tenants_button">
                                     Update Tenant</button>
                             </td>
                         </tr>
 
                         <tr class="totals_row">
-                            <td colspan="9"></td>
+                            <td colspan="10"></td>
                         </tr>
 
                     </table>
                 </div>
             </div>
             <div class="tenant_per_property" v-show="showingTenantStatements == true">
-                <div class="back_to_properties_list">
-                    <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to Tenants
-                        List</button>
+                <div class="payment_datils_nav">
+                    <div class="back_to_properties_list">
+                        <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to Tenants
+                            List
+                        </button>
+                    </div>
+                    <div class="back_to_properties_list">
+                        <button @click.prevent="update_tenant_from_tenant_statements(tempShowTenant)"
+                            class="back_to_propeties_button">
+                            Update Tenant
+                        </button>
+                    </div>
                 </div>
                 <div class="tenant">
-                    <table style="width:100%">
+                    <table style="width:100%" ref="pdfContent">
                         <caption>
-                            <h2>Tenant Statements for house number {{ tempShowTenant }}</h2>
+                            <h2>Tenant Statements for house number {{ tempShowTenant.hse_number }}</h2>
                         </caption>
                         <tr class="table_header">
                             <th class="hse_number">Hse Number: </th>
-                            <th class="teenant_name">Tenant's name </th>
+                            <th class="tenant_name">Tenant's name </th>
+                            <th class="payment_date">Payment Date </th>
                             <th class="house_rate">Rate </th>
                             <th class="rent_paid">Rent Paid </th>
                             <th class="unpaid_rent">Arrears</th>
-                            <th class="deposit_held">Deposit Paid</th>
                             <th class="arrears">Arrears BF</th>
                             <th class="arrears_cf"> Arrears CF:</th>
                             <th class="tenant_number">Contact:</th>
                         </tr>
                         <tr class="house" v-for="hse in filteredTenantStatements" :key="hse.hse_number">
-                            <td class="hse_number">{{ hse.hse_number }} </td>
-                            <td class="teenant_name">{{ hse.tenant_name }} </td>
-                            <td class="house_rate">{{ hse.house_rate }} </td>
-                            <td class="rent_paid">{{ hse.rent_paid }}</td>
-                            <td class="unpaid_rent">{{ hse.unpaid_rent }}</td>
-                            <td class="deposit_held">{{ hse.deposit_held }}</td>
-                            <td class="arrears"> {{ hse.arrears }}</td>
-                            <td class="arrears_cf"> {{ hse.arrears_cf }}</td>
-                            <td class="tenant_number">{{ hse.tenant_number }} </td>
+                            <td class="hse_number">{{ hse.tenant.hse_number }} </td>
+                            <td class="tenant_name">{{ hse.tenant.tenant_name }} </td>
+                            <td class="payment_date">{{ hse.tenant.payment_date }} </td>
+                            <td class="house_rate">{{ hse.tenant.house_rate }} </td>
+                            <td class="rent_paid">{{ hse.tenant.rent_paid }}</td>
+                            <td class="arrears"> {{ hse.tenant.arrears }}</td>
+                            <td class="unpaid_rent">{{ hse.tenant.arrears_bf }}</td>
+                            <td class="arrears_cf"> {{ hse.tenant.arrears_cf }}</td>
+                            <td class="tenant_number">{{ hse.tenant.tenant_number }} </td>
                         </tr>
 
                         <tr class="totals_row">
-                            <td colspan="3">Totals</td>
+                            <td colspan="4">
+                                <div class="totals"> Totals</div>
+                            </td>
                             <td>{{ total_rent_collected }}</td>
                             <td>{{ total_unpaid_rent }}</td>
-                            <td>{{ total_deposit_held }}</td>
                             <td>{{ total_arrears_bf }}</td>
                             <td>{{ total_arrears_cf }}</td>
                             <td></td>
                         </tr>
 
                     </table>
+
+                    <button @click='hj'
+                        class="back_to_propeties_button"
+                    >Download PDF</button>
                 </div>
             </div>
             <div class="update_tenant" v-if="showUpdateTenant">
                 <div v-show="showingUpdateTenant">
-                    <div class="back_to_properties_list">
-                        <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to Tenants
-                            List</button>
-                    </div>
-                    <div class="tenant_updates_header">
-                        <h2>Update details for House Number: {{ showUpdateTenant.hse_number }} for {{ showUpdateTenant }}
-                        </h2>
+                    <div class="update_tenant_header">
+                        <div>
+                            <div class="back_to_properties_list">
+                                <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to
+                                    Tenants
+                                    List</button>
+                            </div>
+                            <div class="tenant_updates_header">
+                                <h4>Property Name: {{ showUpdateTenant.property_name }}</h4>
+                                <h4>House Number: {{ showUpdateTenant.hse_number }}</h4>
+                                <h4>Tenant Name: {{ showUpdateTenant.tenant_name }}</h4>
+                                <h4>House Rate: {{ showUpdateTenant.house_rate }}</h4>
+                            </div>
+                        </div>
+                        <div class="back_to_properties_list">
+                            <button @click.prevent="view_tenant_statements_from_update_tenant(showUpdateTenant)"
+                                class="back_to_propeties_button">View Tenant
+                                Statements</button>
+                        </div>
                     </div>
                     <div class="update">
                         <div class="paid_in_full">
@@ -442,13 +610,15 @@ const submit_full_rent = () => {
                                 <h3>Full Payment</h3>
                             </div>
                             <div class="paid_in_full_form">
-                                <form @submit.prevent="submit_full_rent">
-                                    <select v-model="tenants_full_rent_form.hse_number" class="select">
-                                        <option disabled value="">Please select one</option>
+                                <form @submit.prevent="submit_full_rent(showUpdateTenant)">
+                                    House No: <select v-model="tenants_full_rent_form.hse_number" required
+                                        class="select">
+                                        <option disabled value="">Please select house number</option>
                                         <option>{{ showUpdateTenant.hse_number }}</option>
                                     </select>
-                                    <select v-model="tenants_full_rent_form.payment_date" class="select">
-                                        <option disabled value="">Please select one</option>
+                                    Month: <select v-model="tenants_full_rent_form.payment_date" required
+                                        class="select">
+                                        <option disabled value="">Please select month</option>
                                         <option v-for="month in payment_months_options" :key="month">{{ month.month }}
                                         </option>
                                     </select>
@@ -463,17 +633,20 @@ const submit_full_rent = () => {
                                 <h3>Partial Payment</h3>
                             </div>
                             <div class="paid_in_full_form">
-                                <form @submit.prevent="submit_full_rent">
-                                    <select v-model="tenants_full_rent_form.hse_number" class="select">
-                                        <option disabled value="">Please select one</option>
+                                <form @submit.prevent="submit_partial_rent(showUpdateTenant)">
+                                    House No:<select v-model="tenants_partial_rent_form.hse_number" required
+                                        class="select">
+                                        <option disabled value="">Please select house number</option>
                                         <option>{{ showUpdateTenant.hse_number }}</option>
                                     </select>
-                                    <select v-model="tenants_full_rent_form.payment_date" required class="select">
-                                        <option disabled value="">Please select one</option>
+                                    Month: <select v-model="tenants_partial_rent_form.payment_date" required
+                                        class="select">
+                                        <option disabled value="">Please select month</option>
                                         <option v-for="month in payment_months_options" :key="month">{{ month.month }}
                                         </option>
                                     </select>
-                                    <input v-model="tenants_full_rent_form.rent_paid" placeholder="Input Amount">
+                                    Ammount Paid <input v-model="tenants_partial_rent_form.rent_paid" required
+                                        placeholder="Input Amount">
 
                                     <button class="view_tenants_button submit_button">submit</button>
                                 </form>
@@ -484,6 +657,9 @@ const submit_full_rent = () => {
 
             </div>
         </template>
+    </div>
+    <div class="loading_page" v-else>
+        <h1>You See me loading</h1>
     </div>
 
 
@@ -501,5 +677,10 @@ const submit_full_rent = () => {
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+.tenant_updates_header h4 {
+    padding-bottom: 1em;
+    font-weight: bold;
 }
 </style>
