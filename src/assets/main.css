@@ -188,4 +188,26 @@ option{
   padding: 0.33em;
 }
 
+.tenant_statement_download{
+  border: 1px solid blueviolet;
+  border-radius: 10px;
+}
 
+.tenant_statement_header_items{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 5%;
+}
+
+.tenant_statement_header_items h2, .tenant_statement_header_items h3{
+  margin-top: 0.5em;
+  padding: 0.5em;
+  color: #52319d;
+  font-weight: bold;
+}
+
+.tenant_statement_download_header{
+  display: flex;
+  justify-content: space-between;
+}

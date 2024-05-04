@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const TENANT_URL = "https://top-view-server-pacpqd0zx-joseph-kinyanjuis-projects.vercel.app/tenants";
-const TENANT_STATEMENT_URL = "https://top-view-server-pacpqd0zx-joseph-kinyanjuis-projects.vercel.app/tenants/api/tenants/statements";
+const TENANT_URL = "http://127.0.0.1:3000/api/tenants/";
+const TENANT_STATEMENT_URL = "http://127.0.0.1:3000/api/tenants/statements/";
 
 export const useTenantsList = defineStore("tenantsList", {
   state: () => ({
@@ -16,11 +16,13 @@ export const useTenantsList = defineStore("tenantsList", {
       rent_paid: "",
       payment_date: "",
     },
+    update_payment_month_form: {
+      payment_date: "",
+    },
     loading: false,
-    current_payment_date: [{ month: "April-24" }],
+    current_payment_date: 'April-2024',
     tenants: [],
     tenants_statements: [],
-    holy_test: []
   }),
   actions: {
     async fetchTenants() {
@@ -57,7 +59,15 @@ export const useTenantsList = defineStore("tenantsList", {
       try {
         await axios.post(TENANT_STATEMENT_URL, newStatementItem);
       } catch (error) {
-        console.error("error updating tenent statemennts", error);
+        console.error("error updating tenant statemennts", error);
+      }
+    },
+    async updatePartialStatements(newStatementItem) {
+      try {
+        console.log(newStatementItem.id)
+        await axios.put(TENANT_STATEMENT_URL, {newStatementItem});
+      } catch (error) {
+        console.error("error updating tenant statements", error);
       }
     },
     update_tenants_full_rent_form(field) {
