@@ -1,16 +1,139 @@
-@import './base.css';
-
 body{
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  font-size: 1.15em;
-  line-height: 1.33em;
+  font-size: 22px;
+  line-height: 36px;
 }
+/*
+@media screen and (max-width: 960px) {
+  .property_list, .all_tenants_wrap{
+    display: flex;
+    flex-direction: column;
+    color: red;
+  }
+
+  .change_current_month_properties form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 5%;
+  }
+}*/
+
+@media screen and (max-width: 1324px) {
+  .property_list, .all_tenants_wrap{
+    display: flex;
+    flex-direction: column;
+    color: green;
+  }
+
+  .change_current_month_properties form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 5%;
+  }
+
+  .change_current_month_properties{
+    border: 0.25px solid rgba(151,60,238, 0.35);
+    border-radius: 2.5em;
+    margin-top: 2.5em;
+    padding: 0.75em;
+    margin-bottom: 1em !important;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  }
+  
+  .change_current_month_properties form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.submit_button{
+  font-size: large;
+  font-weight: bold;
+  width: 33%;
+  padding: 0.33em;
+  border-radius: 1em;
+  margin-top: 1.25em;
+  outline: none;
+  border: 0.25px solid rgba(151,60,238, 0.35);
+  background-color: rgb(145,234,228, 0.5);
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.change_current_month_properties{
+  border: 0.25px solid rgba(151,60,238, 0.35);
+  border-radius: 2.5em;
+  margin-top: 2.5em;
+  padding: 0.75em;
+  margin-bottom: 2.5em;
+  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.55);
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.55);
+  -moz-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.55);
+}
+
+.change_current_month_properties form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select{
+  font-size: large;
+  font-weight: bold;
+  width: 33%;
+  padding: 0.33em;
+  border-radius: 1em;
+  border: 0.5px solid rgba(151,60,238, 0.35);
+  background-color: rgb(145,234,228, 0.15);
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+
+}
+
+.view_tenants_button{
+  border-radius: 2em;
+  padding: 0.35em;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  background-color: rgb(145,234,228);
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.back_to_propeties_button{
+  border-radius: 2em;
+  padding: 0.75em;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  background-color: rgb(145,234,228);
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.download_button_wrap{
+  padding-bottom: 1.25em;
+  padding-top: 1.25em;
+}
+
 
 .property_list, .all_tenants_wrap{
   display: flex;
   flex-direction: column;
-  padding-left: 6%;
-  padding-right: 6%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 
@@ -53,7 +176,7 @@ td{
 
 th, 
 table h2{
-  font-size: larger;
+  font-size: large;
   font-weight: bold;
 }
 
@@ -75,44 +198,22 @@ tr:nth-child(even) {
   background-image: linear-gradient(to right bottom, rgb(151,60,238, 0.45), rgb(132,59,218, 0.45), rgb(114,56,198, 0.45), rgb(97,53,177, 0.45), rgb(82,49,157, 0.45)) !important;
 }
 
-.view_tenants_button{
-  border-radius: 2em;
-  padding: 0.35em;
-  border: none;
-  font-weight: bold;
-  color: #000;
-  background-color: rgb(145,234,228);
-  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-}
-
-.back_to_propeties_button{
-  border-radius: 2em;
-  padding: 0.75em;
-  border: none;
-  font-weight: bold;
-  color: #000;
-  background-color: rgb(145,234,228);
-  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
-}
-
 .terminated_tenant_header h2, .active_tenant_header h2, caption h2{
   margin-top: 1em;
   padding: 1em;
   color: #52319d;
 }
 
+
+
 .update_tenant{
   padding: 1em;
 }
-
+/*
 .update_tenant_header{
   display: flex;
   justify-content: space-between;
-}
+}*/
 
 .paid_in_full{
   border: 0.5px solid rgb(82,49,157, 0.75);
@@ -154,9 +255,9 @@ tr:nth-child(even) {
   border-radius: 5px;
 }
 
-.paid_in_full_form form select{
+/*.paid_in_full_form form select{
   color: red;
-}
+}*/
 
 .paid_in_full_form form input{
   padding: 0.75em;
@@ -189,8 +290,9 @@ option{
 }
 
 .tenant_statement_download{
-  border: 1px solid blueviolet;
+  border: 0.5px solid rgb(132,59,218, 0.25);
   border-radius: 10px;
+  margin-top: 1.25em;
 }
 
 .tenant_statement_header_items{
@@ -198,6 +300,31 @@ option{
   flex-direction: column;
   justify-content: center;
   padding-right: 5%;
+}
+
+.update_property_header_nav{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.tenant_updates_header_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #52319d;
+}
+
+h3 span{
+  color: #52319d;
+}
+
+.select_payment_month{
+  display: flex;
+}
+
+.tenant_updates_header_title h2{
+  font-weight: bolder;
 }
 
 .tenant_statement_header_items h2, .tenant_statement_header_items h3{
