@@ -214,6 +214,13 @@ const view_tenant_statements_from_update_tenant = (hse) => {
 
     /*  showTenantStatements.value = filteredTenantStatements.value*/
 }
+const view_property_statements_from_update_property = (property) =>{
+    propertiesStore.fetchPropertiesStatements
+    tempShowProperty.value = property
+    showingPropertyStatements.value = true
+    showingUpdateProperty.value = false;
+    filteredPropertyStatements.value = properties_statements.filter((property_statement) => property_statement.property_id === property._id);
+}
 
 const submit_modified_property_statement = (property) => {
     let newPropertyStatement = {
@@ -226,15 +233,15 @@ const submit_modified_property_statement = (property) => {
         "bank_name": property.bank_name,
         "account_number": property.account_number,
         "kplc_meter": property.kplc_meter,
-        "kplc_units": property.kplc_units,
-        "kplc_amount": 0,
-        "water_amount": 0,
+        "kplc_units": property_partial_payment_form.kplc_units,
+        "kplc_amount": property_partial_payment_form.kplc_amount,
+        "water_amount": property_partial_payment_form.water_amount,
         "water_meter": property.water_meter,
-        "water_units": 0,
+        "water_units": property_partial_payment_form.water_units,
         "mri_kra_pin": property.mri_kra_pin,
         "mri_itax_pass": property.mri_itax_pass,
-        "mri_units": 0,
-        "mri_amount": 0
+        "mri_units": property_partial_payment_form.mri_units,
+        "mri_amount": property_partial_payment_form.mri_amount
     }
 
     const existingStatement = properties_statements.find(item => item.payment_date === newPropertyStatement.payment_date && item.property_id == newPropertyStatement.property_id)
@@ -512,6 +519,28 @@ const change_current_month = (payment_month) => {
     <div class="property_list" v-else>
         <template v-if="showPayments">
             <div class="properties" v-show="showingPropertiesList == true">
+                <!--div class="prop_list_wrap">
+                    <div class="prop_list_wrap_header">
+                                                   <h2>Properties List</h2>
+                    </div>
+                
+                </div-->
+                <!--template>
+                    <div class="data-table">
+                        <table>
+                        <thead>
+                            <tr>
+                            <th v-for="(header, index) in tableHeaders" :key="index">{{ header }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in data" :key="item.id">
+                            <td v-for="(value, key) in item" :key="[item.id, key]">{{ value }}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </template-->
                 <table style="width: 100%;">
                     <caption>
                         <h2>Properties List </h2>
@@ -554,6 +583,48 @@ const change_current_month = (payment_month) => {
                     </tr>
 
                 </table>
+                <!--table style="width: 100%;">
+                    <caption>
+                        <h2>Properties List </h2>
+                    </caption>
+                    <tr class="table_header">
+                        <th class="landlord_name">Landlord Name: </th>
+                        <th class="property_name">Property Name </th>
+                        <th class="property_location">Location </th>
+                        <th class="landlord_contact">Contact </th>
+                        <th class="commision">Payment Details </th>
+                        <th class="view_tenats">Tenants List</th>
+
+                    </tr>
+                    <tr class="house" v-for="property in properties" :key="property.property_name">
+                        <td class="landlord_name">
+                            <div>{{ property.landlord_name }} </div>
+                        </td>
+                        <td class="property_name">
+                            <div>{{ property.property_name }} </div>
+                        </td>
+                        <td class="property_location">
+                            <div>{{ property.property_location }} </div>
+                        </td>
+                        <td class="owner_contact">
+                            <div>{{ property.contact }} </div>
+                        </td>
+                        <td class="commision-due"><button @click="view_property_statements(property)"
+                                class="view_tenants_button">
+                                Property Statements </button>
+                        </td>
+                        <td class="view_tenant_link">
+                            <button @click="view_tenant_list(property)" class="view_tenants_button">
+                               View Tenants List</button>
+                        </td>
+
+                    </tr>
+
+                    <tr class="totals_row">
+                        <td colspan="6"></td>
+                    </tr>
+
+                </table-->
             </div>
 
             <div class="payment_details" v-show="showingPropertyStatements">
@@ -710,7 +781,7 @@ const change_current_month = (payment_month) => {
                             <div class="tenant_updates_header_title">
                                 <h2>Update Property Statements</h2>
                             </div>
-                            <div class="poperty_statement_details">
+                            <div class="property_statement_details">
                                 <h3> <span>Property Name: </span>{{ showPayments.property_name }}</h3>
 
                                 <div class="change_current_month_properties">
@@ -734,45 +805,78 @@ const change_current_month = (payment_month) => {
 
                     </div>
                     <div class="update">
-                        <div class="paid_in_full">
-                            <div class="paid_in_full_header">
-                                <h3>Update full Property Statement</h3>
+                        <div class="paid_in_full_form_properties">
+                            <div class="paid_in_full_header total_rent_per_property_h2">
+                                <h3>Update Total Rent Collected per Property</h3>
                             </div>
-                            <div class="paid_in_full_form">
-                                <form @submit.prevent="submit_full_property_statement(showPayments)">
-                                    Month: <select v-model="property_full_payment_form.payment_date" required
-                                        class="select">
-                                        <option disabled value="">Please select month</option>
-                                        <option v-for="month in payment_months_options" :key="month">{{ month.month }}
-                                        </option>
-                                    </select>
-
-                                    <button class="view_tenants_button submit_button">submit</button>
+                            <div class="">
+                                <form @submit.prevent="submit_full_property_statement(showPayments)" class="modify_property_statements">
+                                    <div>    
+                                        <span class="input_text">Select Month: </span><select v-model="property_full_payment_form.payment_date" required
+                                            class="select">
+                                            <option disabled value="">Please select month</option>
+                                            <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button class="view_tenants_button submit_button">submit</button>
+                                    </div>
+                                    
                                 </form>
                             </div>
                         </div>
 
-                        <div class="paid_in_full">
+                        <div class="paid_in_full_form_properties_partial">
                             <div class="paid_in_full_header">
                                 <h3>Partial Payment</h3>
                             </div>
                             <div class="tenant_paid_in_full_form">
-                                <form @submit.prevent="submit_modified_property_statement(showUpdateProperty)">
-                                    House No:<select v-model="property_partial_payment_form.property_name" required
+                                <form @submit.prevent="submit_modified_property_statement(showPayments)" class="modify_property_statements_form">
+                                    <div>
+                                        Property Name:<select v-model="property_partial_payment_form.property_name" required
                                         class="select">
-                                        <option disabled value="">Please select house number</option>
-                                        <option>{{ showUpdateTenant.hse_number }}</option>
-                                    </select>
-                                    Month: <select v-model="tenants_partial_rent_form.payment_date" required
+                                        <option disabled value="">Please select property name</option>
+                                        <option>{{ showPayments.property_name }}</option>
+                                        </select>    
+                                    </div>
+                                    <div>
+                                        Select Month: <select v-model="property_partial_payment_form.payment_date" required
                                         class="select">
                                         <option disabled value="">Please select month</option>
                                         <option v-for="month in payment_months_options" :key="month">{{ month.month }}
                                         </option>
                                     </select>
-                                    Ammount Paid <input v-model="tenants_partial_rent_form.rent_paid" required
-                                        placeholder="Input Amount">
-
-                                    <button class="view_tenants_button submit_button">submit</button>
+                                    </div>
+                                    <div>
+                                        KPLC Amount : <input v-model="property_partial_payment_form.kplc_amount" class="select" required
+                                        placeholder="Input KPLC Amount">
+                                    </div>
+                                    <div>
+                                        KPLC Units <input v-model="property_partial_payment_form.kplc_units" class="select" required
+                                        placeholder="Input KPLC Units">
+                                    </div>
+                                    <div>
+                                        Water Amount <input v-model="property_partial_payment_form.water_amount" class="select" required
+                                    placeholder="Input Water Amount">
+                                    </div>
+                                    <div>
+                                        Water Units <input v-model="property_partial_payment_form.water_units" class="select" required
+                                    placeholder="Input Water Units">
+                                    </div>
+                                    <div>
+                                        MRI Amount <input v-model="property_partial_payment_form.mri_amount" class="select" required
+                                    placeholder="Input  MRI Amount">
+                                    </div>
+                                   <div>
+                                        MRI Units <input v-model="property_partial_payment_form.mri_units" class="select" required
+                                        placeholder="Input MRI Units">
+                                    </div>
+                                    
+                                    <div>
+                                        <button class="view_tenants_button submit_button">submit</button> 
+                                    </div>
+                                    
                                 </form>
                             </div>
                         </div>
@@ -1024,19 +1128,26 @@ const change_current_month = (payment_month) => {
                             </div>
                             <div class="paid_in_full_form">
                                 <form @submit.prevent="submit_full_rent(showUpdateTenant)">
-                                    House No: <select v-model="tenants_full_rent_form.hse_number" required
-                                        class="select">
-                                        <option disabled value="">Please select house number</option>
-                                        <option>{{ showUpdateTenant.hse_number }}</option>
-                                    </select>
-                                    Month: <select v-model="tenants_full_rent_form.payment_date" required
+                                    <div>
+                                        House No: <select v-model="tenants_full_rent_form.hse_number" required
+                                            class="select">
+                                            <option disabled value="">Please select house number</option>
+                                            <option>{{ showUpdateTenant.hse_number }}</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        Month: <select v-model="tenants_full_rent_form.payment_date" required
                                         class="select">
                                         <option disabled value="">Please select month</option>
                                         <option v-for="month in payment_months_options" :key="month">{{ month.month }}
                                         </option>
-                                    </select>
-
-                                    <button class="view_tenants_button submit_button">submit</button>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <button class="view_tenants_button submit_button">submit</button>
+                                    </div>
+                                   
                                 </form>
                             </div>
                         </div>
@@ -1047,21 +1158,31 @@ const change_current_month = (payment_month) => {
                             </div>
                             <div class="paid_in_full_form">
                                 <form @submit.prevent="submit_partial_rent(showUpdateTenant)">
-                                    House No:<select v-model="tenants_partial_rent_form.hse_number" required
+                                    <div>
+                                        House No:<select v-model="tenants_partial_rent_form.hse_number" required
                                         class="select">
                                         <option disabled value="">Please select house number</option>
                                         <option>{{ showUpdateTenant.hse_number }}</option>
-                                    </select>
-                                    Month: <select v-model="tenants_partial_rent_form.payment_date" required
-                                        class="select">
-                                        <option disabled value="">Please select month</option>
-                                        <option v-for="month in payment_months_options" :key="month">{{ month.month }}
-                                        </option>
-                                    </select>
-                                    Ammount Paid <input v-model="tenants_partial_rent_form.rent_paid" required
+                                        </select>
+                                    </div>
+                                    <div>
+                                        Month: <select v-model="tenants_partial_rent_form.payment_date" required
+                                            class="select">
+                                            <option disabled value="">Please select month</option>
+                                            <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        Ammount Paid <input v-model="tenants_partial_rent_form.rent_paid" required
                                         placeholder="Input Amount">
+                                    </div>
+                                    <div>
+                                        <button class="view_tenants_button submit_button">submit</button>
+                                    </div>
+                                    
 
-                                    <button class="view_tenants_button submit_button">submit</button>
+                                    
                                 </form>
                             </div>
                         </div>

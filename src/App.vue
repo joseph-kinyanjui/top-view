@@ -50,9 +50,9 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: #52319d;
+  color: rgb(15,0,23);
   text-decoration: underline;
-  text-decoration-color: #973cee;
+  text-decoration-color: rgb(15,0,23);
 }
 
 nav a.router-link-exact-active:hover {
@@ -64,7 +64,7 @@ nav a {
   padding: 0 1rem;
   font-size: 1.5em;
   font-weight: bold;
-  border-left: 1px solid #973cee;
+  border-left: 1px solid rgb(15,0,23);
 }
 
 nav a:first-of-type {

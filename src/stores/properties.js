@@ -6,7 +6,7 @@ const PROPERTY_STATEMENT_URL = "https://top-view-server.vercel.app/api/propertie
 
 export const usePropertiesList = defineStore('propertiesList', {
   state: () => ({
-    properties: [
+    properties:[
       {
       "_id": "662df8b712210d0fbba260b4",
       "landlord_name": "Pithoni Irungu",
@@ -1296,6 +1296,28 @@ export const usePropertiesList = defineStore('propertiesList', {
       "mri_units": 0,
       "mri_amount": 0,
       "createdAt": "2024-05-10T12:32:35.524Z"
+      },
+      {
+      "_id": "664084b65f5eb34e5029dc24",
+      "property_id": "662df8b712210d0fbba260b4",
+      "property_name": "Pithoni Irungu",
+      "total_rent_collected": 87100,
+      "commision": 6000,
+      "payment_date": "May-2024",
+      "payment_mode": "Bank",
+      "bank_name": "KCB",
+      "account_number": "01192514551000",
+      "kplc_meter": "8880888",
+      "kplc_units": "888",
+      "kplc_amount": 0,
+      "water_amount": 0,
+      "water_meter": "9990999",
+      "water_units": 0,
+      "mri_kra_pin": "7770777",
+      "mri_itax_pass": "strong pass",
+      "mri_units": 0,
+      "mri_amount": 0,
+      "createdAt": "2024-05-12T08:58:30.699Z"
       }
       ],
     loading: false,
@@ -1306,7 +1328,13 @@ export const usePropertiesList = defineStore('propertiesList', {
     },
     property_partial_payment_form:{
       property_name: '',
-      payment_date: ''
+      payment_date: '',
+      kplc_amount:0,
+      kplc_units:0,
+      water_amount:0,
+      water_units:0,
+      mri_amount:0,
+      mri_units:0,
     }
     
   }),

@@ -21,7 +21,7 @@ export const useTenantsList = defineStore("tenantsList", {
     },
     loading: false,
     current_payment_date: 'April-2024',
-    tenants: [
+    tenants:[
       {
       "_id": "662e0821dedf230886a104d0",
       "property_name": "Stephen Miiri- SM",
@@ -7975,6 +7975,40 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729490094",
       "tenant_id": "662e0821dedf230886a104cd",
       "createdAt": "2024-05-11T03:56:47.628Z"
+      },
+      {
+      "_id": "664086ca1fd9d706704cff22",
+      "property_name": "Pithoni Irungu",
+      "hse_number": "STG 3",
+      "tenant_name": "Bonface Murimi",
+      "payment_date": "October-2024",
+      "house_rate": 5500,
+      "rent_paid": 100,
+      "unpaid_rent": 5400,
+      "current_month_fully_paid": false,
+      "arrears": 5400,
+      "arrears_bf": 0,
+      "arrears_cf": 0,
+      "tenant_number": "0729490094",
+      "tenant_id": "662e0821dedf230886a10500",
+      "createdAt": "2024-05-12T09:07:22.059Z"
+      },
+      {
+      "_id": "664087e872181bbfe511b3f3",
+      "property_name": "Pithoni Irungu",
+      "hse_number": "sp/fd 2",
+      "tenant_name": "Patrick Mwangi",
+      "payment_date": "April-2024",
+      "house_rate": 6000,
+      "rent_paid": 250,
+      "unpaid_rent": 5750,
+      "current_month_fully_paid": false,
+      "arrears": 5750,
+      "arrears_bf": 0,
+      "arrears_cf": 0,
+      "tenant_number": "0729490094",
+      "tenant_id": "662e0821dedf230886a10509",
+      "createdAt": "2024-05-12T09:12:08.111Z"
       }
       ],
   }),
@@ -8018,7 +8052,8 @@ export const useTenantsList = defineStore("tenantsList", {
     },
     async updatePartialStatements(newStatementItem) {
       try {
-        await axios.put(`https://top-view-server.vercel.app/tenants/statements/${newStatementItem._id}`, newStatementItem);
+        let id = newStatementItem
+        await axios.put(`https://top-view-server.vercel.app/api/tenants/statements/${id._id}`, id);
       } catch (error) {
         console.error("error updating tenant statements", error);
       }
