@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, reactive, onMounted } from 'vue'
 import html2pdf from 'html2pdf.js'
 import { usePropertiesList } from '../stores/properties.js'
 import { useTenantsList } from '../stores/tenants.js'
@@ -21,19 +21,21 @@ onMounted(async () => {
     }
 })
 
-const tenants = tenantsStore.tenants
-const tenants_statements = tenantsStore.tenants_statements
-const properties = propertiesStore.properties
-const properties_statements = propertiesStore.properties_statements
+const tenants = ref(tenantsStore.tenants)
+const tenants_statements = ref(tenantsStore.tenants_statements)
+const properties = ref(propertiesStore.properties)
+const properties_statements = ref(propertiesStore.properties_statements)
 const temp_tenants_statements = ref([])
 const temp_properties_statements = ref([])
-const tenants_full_rent_form = tenantsStore.tenants_full_rent_form
-const tenants_partial_rent_form = tenantsStore.tenants_partial_rent_form
-const property_full_payment_form = propertiesStore.property_full_payment_form
-const property_partial_payment_form = propertiesStore.property_full_payment_form
-const update_payment_month_form = tenantsStore.update_payment_month_form
+const tenants_full_rent_form = ref(tenantsStore.tenants_full_rent_form)
+const tenants_partial_rent_form = ref(tenantsStore.tenants_partial_rent_form)
+const property_full_payment_form = ref(propertiesStore.property_full_payment_form)
+const property_partial_payment_form = ref(propertiesStore.property_full_payment_form)
+const update_payment_month_form = ref(tenantsStore.update_payment_month_form)
 const now = new Date();
 const current_payment_date = ref('April-2024')
+const error = ref('');
+const formFields = ref(propertiesStore.formFields)
 
 const showTenants = ref([])
 const showPayments = ref([])
@@ -53,6 +55,8 @@ const showingTenantStatements = ref(false)
 const showingPropertyStatements = ref(false)
 const showingUpdateTenant = ref(false)
 const showingUpdateProperty = ref(false)
+const showingAddHouse = ref(false)
+const showingAddProperty = ref(false)
 
 const payment_months_options = ref([
     { month: 'April-2024' },
@@ -78,13 +82,13 @@ const total_commision = computed(() => {
 });
 
 const total_rent_collected_per_property_per_month = computed(() => {
-    let filteredPropertyTotalRentList = tenants_statements.filter((propertyTotalRent) => propertyTotalRent.property_name === "Stephen Miiri- SM")
+    let filteredPropertyTotalRentList = tenants_statements.value.filter((propertyTotalRent) => propertyTotalRent.property_name === showPayments.value.property_name)
     return filteredPropertyTotalRentList.reduce((acc, item) => acc + item.rent_paid, 0);
 });
 
 /*POC*/
 const total_rent_collected = computed(() => {
-    let filteredPropertyTotalRentList = tenants_statements.filter((propertyTotalRent) => propertyTotalRent.property_name === "Stephen Miiri- SM")
+    let filteredPropertyTotalRentList = tenants_statements.value.filter((propertyTotalRent) => propertyTotalRent.property_name === "Stephen Miiri- SM")
     return filteredPropertyTotalRentList.reduce((acc, item) => acc + item.rent_paid, 0);
 });
 
@@ -182,7 +186,7 @@ const view_tenant_statements = (hse) => {
     tempShowTenant.value = hse
     showingTenantStatements.value = true
     showingTenantsList.value = false
-    filteredTenantStatements.value = tenants_statements.filter((tenant_statement) => tenant_statement.tenant_id === hse._id);
+    filteredTenantStatements.value = tenants_statements.value.filter((tenant_statement) => tenant_statement.tenant_id === hse._id);
     /*  showTenantStatements.value = filteredTenantStatements.value*/
 }
 
@@ -190,7 +194,7 @@ const view_tenant_list = (property) => {
     showTenants.value = property
     showingTenantsList.value = true
     showingPropertiesList.value = false
-    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === property.property_name);
+    filteredTenantsList.value = tenants.value.filter((tenant) => tenant.property_name === property.property_name);
 }
 
 const view_property_statements = (property) => {
@@ -201,7 +205,7 @@ const view_property_statements = (property) => {
     showingUpdateProperty.value = false
     showingPropertiesList.value = false
     showingPropertyStatements.value = true
-    filteredPropertyStatements.value = properties_statements.filter((property_statement) => property_statement.property_id === property._id);
+    filteredPropertyStatements.value = properties_statements.value.filter((property_statement) => property_statement.property_id === property._id);
 
 }
 
@@ -210,19 +214,209 @@ const view_tenant_statements_from_update_tenant = (hse) => {
     tempShowTenant.value = hse
     showingTenantStatements.value = true
     showingUpdateTenant.value = false;
-    filteredTenantStatements.value = tenants_statements.filter((tenant_statement) => tenant_statement.tenant_id === hse._id);
+    filteredTenantStatements.value = tenants_statements.value.filter((tenant_statement) => tenant_statement.tenant_id === hse._id);
 
     /*  showTenantStatements.value = filteredTenantStatements.value*/
 }
-const view_property_statements_from_update_property = (property) =>{
+const view_property_statements_from_update_property = (property) => {
     propertiesStore.fetchPropertiesStatements
     tempShowProperty.value = property
     showingPropertyStatements.value = true
     showingUpdateProperty.value = false;
-    filteredPropertyStatements.value = properties_statements.filter((property_statement) => property_statement.property_id === property._id);
+    filteredPropertyStatements.value = properties_statements.value.filter((property_statement) => property_statement.property_id === property._id);
+}
+
+const back_to_tenants_list_from_add_house = () => {
+    showingAddHouse.value = false
+}
+
+const back_to_properties_list_from_add_property = () => {
+    showingAddProperty.value = false
+}
+
+const view_add_new_property = () =>{
+    showingAddProperty.value = true
+
+}
+
+const view_add_new_house = () =>{
+    showingAddHouse.value = true
+
+}
+
+const formValues = reactive({
+    kplc_amount: '',
+    kplc_units: '',
+    water_amount: '',
+    water_units: '',
+    mri_amount: '',
+    mri_units: ''
+});
+
+const formErrors = reactive({
+    kplc_amount: '',
+    kplc_units: '',
+    water_amount: '',
+    water_units: '',
+    mri_amount: '',
+    mri_units: ''
+});
+
+const add_property_form_values = reactive({
+    landlord_name: '',
+    contact: '',
+    property_name: '',
+    property_location: '',
+    payment_mode: '',
+    bank_name:'',
+    account_number: '',
+    kplc_meter: '',
+    water_meter:'',
+    mri_kra_pin:'',
+    mri_itax_pass:''
+});
+
+const add_property_formFields = reactive({
+    landlord_name: {
+        label: "Landlord Name :",
+        placeholder: "Please input landlord name",
+      },
+      contact: {
+        label: "Contact :",
+        placeholder: "Please input landlord contact",
+      },
+      property_name: {
+        label: "Property Name :",
+        placeholder: "Please input Property Name ",
+      },
+      property_location: {
+        label: "Property Location :",
+        placeholder: "Please input Property Location",
+      },
+      payment_mode: {
+        label: "Payment Mode :",
+        placeholder: "Please input Payment Mode",
+      },
+      bank_name: {
+        label: "Bank Name :",
+        placeholder: "Please input Bank Name",
+      },
+      account_number: {
+        label: "Account Number :",
+        placeholder: "Please input Account Number",
+      },
+      kplc_meter: {
+        label: "KPLC Meter :",
+        placeholder: "Please input KPLC Meter",
+      },
+      water_meter: {
+        label: "Water Meter :",
+        placeholder: "Please input Water Meter",
+      },
+      mri_kra_pin: {
+        label: "MRI KRA PIN :",
+        placeholder: "Please input MRI KRA PIN",
+      },
+      mri_itax_pass: {
+        label: "MRI Itax PIN :",
+        placeholder: "Please input MRI Itax PIN",
+      },
+    })
+
+const add_property_form_errors = reactive({
+    landlord_name: '',
+    contact: '',
+    property_name: '',
+    property_location: '',
+    payment_mode: '',
+    bank_name:'',
+    account_number: '',
+    kplc_meter: '',
+    water_meter:'',
+    mri_kra_pin:'',
+    mri_itax_pass:''
+});
+
+const add_tanant_form_values = reactive({
+    property_name: '',
+    hse_number: '',
+    tenant_name: '',
+    house_rate: '',
+    deposit_held: '',
+    contact:'',
+    alternative_contact: '',
+    id_number: '',
+    status:''
+});
+
+const add_tenant_formFields = reactive({
+    property_name: {
+        label: "Property Name :",
+        placeholder: "Please input Property Name",
+      },
+      hse_number: {
+        label: "House Number :",
+        placeholder: "Please input House Number",
+      },
+      tenant_name: {
+        label: "Tenant Name :",
+        placeholder: "Please input Tenant Name ",
+      },
+      house_rate: {
+        label: "House Rate :",
+        placeholder: "Please input House Rate NUMBERS ONLY",
+      },
+      deposit_held: {
+        label: "Deposit Held :",
+        placeholder: "Please input Deposit Held",
+      },
+      contact: {
+        label: "Tenant Contact :",
+        placeholder: "Please input Tenant Contact",
+      },
+      alternative_contact: {
+        label: "Alternative Number :",
+        placeholder: "Please provide Alternative Number",
+      },
+      id_number: {
+        label: "Tenant ID Number :",
+        placeholder: "Please input Tenant ID Number",
+      },
+      status:{
+        label: "House Status :",
+        placeholder: "Please input House Status EMPTY or OCCUPPIED",
+      }
+    })
+
+const add_tenant_form_errors = reactive({
+    property_name: '',
+    hse_number: '',
+    tenant_name: '',
+    house_rate: '',
+    deposit_held: '',
+    contact:'',
+    alternative_contact: '',
+    id_number: '',
+    status:''
+});
+
+
+const validateInput = (field) => {
+    const regex = /^[0-9]*$/;
+    if (!regex.test(formValues[field])) {
+        formErrors[field] = 'Please enter a valid number.';
+    } else {
+        formErrors[field] = '';
+    }
+    formValues[field] = formValues[field].replace(/[^0-9]/g, '');
+};
+
+const add_new_property = () =>{
+    alert("adding property")
 }
 
 const submit_modified_property_statement = (property) => {
+    let hasErrors = false;
     let newPropertyStatement = {
         "property_id": property._id,
         "property_name": property.property_name,
@@ -233,48 +427,60 @@ const submit_modified_property_statement = (property) => {
         "bank_name": property.bank_name,
         "account_number": property.account_number,
         "kplc_meter": property.kplc_meter,
-        "kplc_units": property_partial_payment_form.kplc_units,
-        "kplc_amount": property_partial_payment_form.kplc_amount,
-        "water_amount": property_partial_payment_form.water_amount,
+        "kplc_units": property_partial_payment_form.value.kplc_units,
+        "kplc_amount": property_partial_payment_form.value.kplc_amount,
+        "water_amount": property_partial_payment_form.value.water_amount,
         "water_meter": property.water_meter,
-        "water_units": property_partial_payment_form.water_units,
+        "water_units": property_partial_payment_form.value.water_units,
         "mri_kra_pin": property.mri_kra_pin,
         "mri_itax_pass": property.mri_itax_pass,
-        "mri_units": property_partial_payment_form.mri_units,
-        "mri_amount": property_partial_payment_form.mri_amount
+        "mri_units": property_partial_payment_form.value.mri_units,
+        "mri_amount": property_partial_payment_form.value.mri_amount
     }
 
-    const existingStatement = properties_statements.find(item => item.payment_date === newPropertyStatement.payment_date && item.property_id == newPropertyStatement.property_id)
-
-    if (property_full_payment_form.payment_date === current_payment_date.value) {
-        if (!existingStatement && temp_properties_statements.value.length === 0) {
-            propertiesStore.updatePropertyStatements(newPropertyStatement)
-            temp_properties_statements.value.push(newPropertyStatement)
-            propertiesStore.fetchPropertiesStatements()
-            alert('property statement updated succesfully')
-        } else if (!existingStatement && temp_properties_statements.value.length > 0) {
-            if (temp_properties_statements._id) {
-                propertiesStore.updatePartialStatements(newPropertyStatement)
-                temp_properties_statements.value.push(newPropertyStatement)
-                propertiesStore.fetchPropertiesStatements()
-                alert('property statement patched succesfully')
-            } else {
-                alert('refresh the page to update non')
-            }
-
-        } else if (existingStatement) {
-            let id = existingStatement._id
-            let payload = {
-                ...newPropertyStatement,
-                _id: id
-            }
-            propertiesStore.updatePartialStatements(payload)
-            temp_properties_statements.value.push(payload)
-            propertiesStore.fetchPropertiesStatements()
-            alert('property statement patched succesfully yap')
+    Object.keys(formValues).forEach((field) => {
+        validateInput(field);
+        if (formErrors[field]) {
+            hasErrors = true;
         }
-    } else if (property_full_payment_form.payment_date !== current_payment_date.value) {
-        alert('You are updating property statements for ' + current_payment_date.value + ' change current date to update rent for ' + property_full_payment_form.payment_date)
+    });
+
+    const existingStatement = properties_statements.value.find(item => item.payment_date === newPropertyStatement.payment_date && item.property_id == newPropertyStatement.property_id)
+
+    if (property_full_payment_form.value.payment_date === current_payment_date.value) {
+        if (!hasErrors.value) {
+            if (!existingStatement && temp_properties_statements.value.length === 0) {
+                propertiesStore.updatePropertyStatements(newPropertyStatement)
+                temp_properties_statements.value.push(newPropertyStatement)
+                properties_statements.value.push(newPropertyStatement)
+                propertiesStore.fetchPropertiesStatements()
+                alert('property statement updated succesfully')
+            } else if (!existingStatement && temp_properties_statements.value.length > 0) {
+                if (temp_properties_statements.value._id) {
+                    propertiesStore.updatePartialStatements(newPropertyStatement)
+                    temp_properties_statements.value.push(newPropertyStatement)
+                    properties_statements.value.push(payload)
+                    propertiesStore.fetchPropertiesStatements()
+                    alert('property statement patched succesfully')
+                } else {
+                    alert('refresh the page to update non')
+                }
+
+            } else if (existingStatement) {
+                let id = existingStatement._id
+                let payload = {
+                    ...newPropertyStatement,
+                    _id: id
+                }
+                propertiesStore.updatePartialStatements(payload)
+                temp_properties_statements.value.push(payload)
+                properties_statements.value.push(payload)
+                propertiesStore.fetchPropertiesStatements()
+                alert('property statement patched succesfully yap')
+            }
+        }
+    } else if (property_full_payment_form.value.payment_date !== current_payment_date.value) {
+        alert('You are updating property statements for ' + current_payment_date.value + ' change current date to update rent for ' + property_full_payment_form.value.payment_date)
     } else {
         alert('Invalid input, check entries & try again')
     }
@@ -305,18 +511,19 @@ const submit_full_property_statement = (property) => {
         "mri_amount": 0
     }
 
-    const existingStatement = properties_statements.find(item => item.payment_date === newPropertyStatement.payment_date && item.property_id == newPropertyStatement.property_id)
+    const existingStatement = properties_statements.value.find(item => item.payment_date === newPropertyStatement.payment_date && item.property_id == newPropertyStatement.property_id)
 
-    if (property_full_payment_form.payment_date === current_payment_date.value) {
+    if (property_full_payment_form.value.payment_date === current_payment_date.value) {
         if (!existingStatement && temp_properties_statements.value.length === 0) {
             propertiesStore.updatePropertyStatements(newPropertyStatement)
             temp_properties_statements.value.push(newPropertyStatement)
             propertiesStore.fetchPropertiesStatements()
             alert('property statement updated succesfully')
         } else if (!existingStatement && temp_properties_statements.value.length > 0) {
-            if (temp_properties_statements._id) {
+            if (temp_properties_statements.value._id) {
                 propertiesStore.updatePartialStatements(newPropertyStatement)
                 temp_properties_statements.value.push(newPropertyStatement)
+                properties_statements.value.push(payload)
                 propertiesStore.fetchPropertiesStatements()
                 alert('property statement patched succesfully')
             } else {
@@ -331,11 +538,12 @@ const submit_full_property_statement = (property) => {
             }
             propertiesStore.updatePartialStatements(payload)
             temp_properties_statements.value.push(payload)
+            properties_statements.value.push(payload)
             propertiesStore.fetchPropertiesStatements()
             alert('property statement patched succesfully yap')
         }
     } else if (property_full_payment_form.payment_date !== current_payment_date.value) {
-        alert('You are updating property statements for ' + current_payment_date.value + ' change current date to update rent for ' + property_full_payment_form.payment_date)
+        alert('You are updating property statements for ' + current_payment_date.value + ' change current date to update rent for ' + property_full_payment_form.value.payment_date)
     } else {
         alert('Invalid input, check entries & try again')
     }
@@ -345,19 +553,19 @@ const submit_full_property_statement = (property) => {
 
 
 const submit_full_rent = (showUpdateTenant) => {
-    if (tenants_full_rent_form.hse_number == '' && tenants_full_rent_form.payment_date == '') {
+    if (tenants_full_rent_form.value.hse_number == '' && tenants_full_rent_form.value.payment_date == '') {
         alert('Select valid house number & the payment date')
-    } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.payment_date == '') {
+    } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.value.payment_date == '') {
         alert('Select a valid payment date')
-    } else if (tenants_full_rent_form.hse_number == '' && tenants_full_rent_form.payment_date !== '') {
+    } else if (tenants_full_rent_form.hse_number == '' && tenants_full_rent_form.value.payment_date !== '') {
         alert('Select a valid house number')
-    } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.payment_date !== '' && tenants_full_rent_form.payment_date == current_payment_date.value) {
+    } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.value.payment_date !== '' && tenants_full_rent_form.value.payment_date == current_payment_date.value) {
 
         const newStatementItem = {
             "property_name": showUpdateTenant.property_name,
-            "hse_number": tenants_full_rent_form.hse_number,
+            "hse_number": tenants_full_rent_form.value.hse_number,
             "tenant_name": showUpdateTenant.tenant_name,
-            "payment_date": tenants_full_rent_form.payment_date,
+            "payment_date": tenants_full_rent_form.value.payment_date,
             "house_rate": showUpdateTenant.house_rate,
             "rent_paid": showUpdateTenant.house_rate,
             "unpaid_rent": 0,
@@ -368,11 +576,12 @@ const submit_full_rent = (showUpdateTenant) => {
             "tenant_id": showUpdateTenant._id,
         }
 
-        const existingStatement = tenants_statements.find(item => item.payment_date === newStatementItem.payment_date && item.tenant_id == newStatementItem.tenant_id)
+        const existingStatement = tenants_statements.value.find(item => item.payment_date === newStatementItem.payment_date && item.tenant_id == newStatementItem.tenant_id)
 
         if (!existingStatement && temp_tenants_statements.value.length === 0) {
             tenantsStore.updateTenantStatements(newStatementItem)
             temp_tenants_statements.value.push(newStatementItem)
+            tenants_statements.value.push(newStatementItem)
             alert('Full rent for house number ' + newStatementItem.hse_number + ' for ' + newStatementItem.payment_date + ' has been updated succesfully ')
         } else if (!existingStatement && temp_tenants_statements.value.length > 0) {
             if (tempShowTenant.value.arrears === 0) {
@@ -393,8 +602,8 @@ const submit_full_rent = (showUpdateTenant) => {
             alert('invalid input')
         }
 
-    } else if (tenants_full_rent_form.hse_number !== '' && tenants_full_rent_form.payment_date !== '' && tenants_full_rent_form.payment_date !== current_payment_date.value) {
-        alert('You are updating rent for ' + current_payment_date.value + ' change current date to update rent for ' + tenants_full_rent_form.payment_date)
+    } else if (tenants_full_rent_form.value.hse_number !== '' && tenants_full_rent_form.value.payment_date !== '' && tenants_full_rent_form.value.payment_date !== current_payment_date.value) {
+        alert('You are updating rent for ' + current_payment_date.value + ' change current date to update rent for ' + tenants_full_rent_form.value.payment_date)
     } else {
         alert('Invalid input, check entries & try again')
     }
@@ -402,23 +611,23 @@ const submit_full_rent = (showUpdateTenant) => {
 }
 
 const submit_partial_rent = (showUpdateTenant) => {
-    if (tenants_partial_rent_form.hse_number !== '' && tenants_partial_rent_form.payment_date !== '' && tenants_partial_rent_form.payment_date == current_payment_date.value) {
+    if (tenants_partial_rent_form.value.hse_number !== '' && tenants_partial_rent_form.value.payment_date !== '' && tenants_partial_rent_form.value.payment_date == current_payment_date.value) {
         let newStatementItem = {
             "property_name": showUpdateTenant.property_name,
-            "hse_number": tenants_partial_rent_form.hse_number,
+            "hse_number": tenants_partial_rent_form.value.hse_number,
             "tenant_name": showUpdateTenant.tenant_name,
-            "payment_date": tenants_partial_rent_form.payment_date,
+            "payment_date": tenants_partial_rent_form.value.payment_date,
             "house_rate": showUpdateTenant.house_rate,
-            "rent_paid": Number(tenants_partial_rent_form.rent_paid),
-            "unpaid_rent": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.rent_paid),
+            "rent_paid": Number(tenants_partial_rent_form.value.rent_paid),
+            "unpaid_rent": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.value.rent_paid),
             "current_month_fully_paid": false,
-            "arrears": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.rent_paid),
+            "arrears": showUpdateTenant.house_rate - Number(tenants_partial_rent_form.value.rent_paid),
             "arrears_bf": 0,
             "arrears_cf": 0,
             "tenant_number": "0729490094",
             "tenant_id": showUpdateTenant._id,
         }
-        const existingStatement = tenants_statements.find(item => item.payment_date === newStatementItem.payment_date && item.property_name == newStatementItem.property_name && item.hse_number == newStatementItem.hse_number)
+        const existingStatement = tenants_statements.value.find(item => item.payment_date === newStatementItem.payment_date && item.property_name == newStatementItem.property_name && item.hse_number == newStatementItem.hse_number)
 
         if (!existingStatement && temp_tenants_statements.value.length === 0) {
             if (newStatementItem.rent_paid > newStatementItem.house_rate) {
@@ -426,13 +635,15 @@ const submit_partial_rent = (showUpdateTenant) => {
             } else if (newStatementItem.rent_paid === newStatementItem.house_rate) {
                 tenantsStore.updateTenantStatements(newStatementItem)
                 temp_tenants_statements.value.push(newStatementItem)
-                alert('Rent for ' + current_payment_date + ' is fully paid')
+                tenants_statements.value.push(newStatementItem)
+                alert('Rent for ' + current_payment_date.value + ' is fully paid')
             }
             else if (newStatementItem.rent_paid <= newStatementItem.house_rate && newStatementItem.rent_paid <= 0) {
                 alert('Input an amount greater than 0')
             } else if (newStatementItem.rent_paid <= newStatementItem.house_rate && newStatementItem.rent_paid > 0) {
                 tenantsStore.updateTenantStatements(newStatementItem)
                 temp_tenants_statements.value.push(newStatementItem)
+                tenants_statements.value.push(newStatementItem)
                 alert('Partial rent for house number ' + newStatementItem.hse_number + ' for ' + newStatementItem.payment_date + ' has been updated succesfully ')
             }
         } else if (!existingStatement && temp_tenants_statements.value.length > 0) {
@@ -455,9 +666,9 @@ const submit_partial_rent = (showUpdateTenant) => {
                     let arrears = existingStatement.house_rate - i
                     let newStatementItem = {
                         "property_name": existingStatement.property_name,
-                        "hse_number": tenants_partial_rent_form.hse_number,
+                        "hse_number": tenants_partial_rent_form.value.hse_number,
                         "tenant_name": existingStatement.tenant_name,
-                        "payment_date": tenants_partial_rent_form.payment_date,
+                        "payment_date": tenants_partial_rent_form.value.payment_date,
                         "house_rate": existingStatement.house_rate,
                         "rent_paid": Number(tenants_partial_rent_form.rent_paid),
                         "unpaid_rent": arrears,
@@ -479,8 +690,8 @@ const submit_partial_rent = (showUpdateTenant) => {
             }
         }
 
-    } else if (tenants_partial_rent_form.hse_number !== '' && tenants_partial_rent_form.payment_date !== '' && tenants_partial_rent_form.payment_date !== current_payment_date.value) {
-        alert('You are updating rent for ' + current_payment_date.value + ' change current date to update rent for ' + tenants_partial_rent_form.payment_date)
+    } else if (tenants_partial_rent_form.value.hse_number !== '' && tenants_partial_rent_form.value.payment_date !== '' && tenants_partial_rent_form.value.payment_date !== current_payment_date.value) {
+        alert('You are updating rent for ' + current_payment_date.value + ' change current date to update rent for ' + tenants_partial_rent_form.value.payment_date)
     }
     else {
         alert('Invalid input, check entries & try again')
@@ -519,29 +730,44 @@ const change_current_month = (payment_month) => {
     <div class="property_list" v-else>
         <template v-if="showPayments">
             <div class="properties" v-show="showingPropertiesList == true">
-                <!--div class="prop_list_wrap">
+                <div class="prop_list_wrap">
                     <div class="prop_list_wrap_header">
-                                                   <h2>Properties List</h2>
+                        <h2>Properties List</h2>
                     </div>
-                
-                </div-->
-                <!--template>
-                    <div class="data-table">
-                        <table>
-                        <thead>
-                            <tr>
-                            <th v-for="(header, index) in tableHeaders" :key="index">{{ header }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in data" :key="item.id">
-                            <td v-for="(value, key) in item" :key="[item.id, key]">{{ value }}</td>
-                            </tr>
-                        </tbody>
-                        </table>
+                    <div v-show="!showingAddProperty">
+                        <button @click="view_add_new_property()" class="view_tenants_button">
+                            Add new Property</button>
                     </div>
-                </template-->
-                <table style="width: 100%;">
+                    <div v-show="showingAddProperty">
+                        <button @click="back_to_properties_list_from_add_property()" class="view_tenants_button">
+                            Back To Property List</button>
+                    </div>
+
+                </div>
+
+                <div class="add_property_wrap" v-show="showingAddProperty">
+                    <div class="paid_in_full_form_properties_partial">
+                        <div class="paid_in_full_header">
+                            <h3>Add Property</h3>
+                        </div>
+                        <div class="tenant_paid_in_full_form">
+                            <form @submit.prevent="add_new_property()" class="modify_property_statements_form">
+                                <div v-for="(field, key) in add_property_formFields" :key="key">
+                                    <label :for="key">{{ field.label }}</label>
+                                    <input :id="key" type="text" class="select" :placeholder="field.placeholder"
+                                        required v-model="add_property_form_values[key]" @input="() => validateInput(key)" />
+                                    <span v-if="add_property_form_errors[key]">{{ add_property_form_errors[key] }}</span>
+                                </div>
+                                <div>
+                                    <button type="submit" class="view_tenants_button submit_button">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <table style="width: 100%;" v-show="!showingAddProperty">
                     <caption>
                         <h2>Properties List </h2>
                     </caption>
@@ -573,7 +799,7 @@ const change_current_month = (payment_month) => {
                         </td>
                         <td class="view_tenant_link">
                             <button @click="view_tenant_list(property)" class="view_tenants_button">
-                               View Tenants List</button>
+                                View Tenants List</button>
                         </td>
 
                     </tr>
@@ -596,7 +822,7 @@ const change_current_month = (payment_month) => {
                         <th class="view_tenats">Tenants List</th>
 
                     </tr>
-                    <tr class="house" v-for="property in properties" :key="property.property_name">
+                    <tr class="house" v-for="(property, key, index) in properties" :key="index">
                         <td class="landlord_name">
                             <div>{{ property.landlord_name }} </div>
                         </td>
@@ -655,9 +881,9 @@ const change_current_month = (payment_month) => {
                             <th class="account_number">Account Number</th>
 
                         </tr>
-                        <tr class="house" v-for="property in filteredPropertyStatements" :key="property._id">
+                        <tr class="house" v-for="(property, key, index) in filteredPropertyStatements" :key="index">
                             <td class="property_name">{{ property.property_name }} </td>
-                            <td class="total_rent_paid">0</td>
+                            <td class="total_rent_paid">{{ total_rent_collected_per_property_per_month }}</td>
                             <td class="commision-due">{{ property.commision }}</td>
                             <td class="payment">{{ property.payment_date }}</td>
                             <td class="payment_mode"> {{ property.payment_mode }}</td>
@@ -685,14 +911,14 @@ const change_current_month = (payment_month) => {
                                 <th class="commision">Ammount</th>
                                 <th class="payment_date">Date</th>
                             </tr>
-                            <tr class="house" v-for="property in filteredPropertyStatements" :key="property._id">
+                            <tr class="house" v-for="(property, key, index) in filteredPropertyStatements" :key="index">
                                 <td class="payment_mode"> KPLC </td>
                                 <td class="property_name">{{ property.kplc_meter }} </td>
                                 <td class="owner_contact">{{ property.kplc_units }} </td>
                                 <td class="commision-due">{{ property.kplc_amount }}</td>
                                 <td class="payment">{{ property.payment_date }}</td>
                             </tr>
-                            <tr class="house" v-for="property in filteredPropertyStatements" :key="property._id">
+                            <tr class="house" v-for="(property, key, index) in filteredPropertyStatements" :key="index">
                                 <td class="payment_mode"> Water </td>
                                 <td class="property_name">{{ property.water_meter }} </td>
                                 <td class="owner_contact">{{ property.water_units }} </td>
@@ -719,7 +945,7 @@ const change_current_month = (payment_month) => {
                                 <th class="commision">Amount </th>
                                 <th class="payment_date">Date </th>
                             </tr>
-                            <tr class="house" v-for="property in filteredPropertyStatements" :key="property._id">
+                            <tr class="house" v-for="(property, key, index) in filteredPropertyStatements" :key="index">
                                 <td class="payment_mode"> MRI </td>
                                 <td class="property_name">{{ property.mri_kra_pin }} </td>
                                 <td class="owner_contact">{{ property.mri_itax_pass }} </td>
@@ -810,19 +1036,21 @@ const change_current_month = (payment_month) => {
                                 <h3>Update Total Rent Collected per Property</h3>
                             </div>
                             <div class="">
-                                <form @submit.prevent="submit_full_property_statement(showPayments)" class="modify_property_statements">
-                                    <div>    
-                                        <span class="input_text">Select Month: </span><select v-model="property_full_payment_form.payment_date" required
-                                            class="select">
+                                <form @submit.prevent="submit_full_property_statement(showPayments)"
+                                    class="modify_property_statements">
+                                    <div>
+                                        <span class="input_text">Select Month: </span><select
+                                            v-model="property_full_payment_form.payment_date" required class="select">
                                             <option disabled value="">Please select month</option>
-                                            <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                            <option v-for="month in payment_months_options" :key="month">{{ month.month
+                                                }}
                                             </option>
                                         </select>
                                     </div>
                                     <div>
                                         <button class="view_tenants_button submit_button">submit</button>
                                     </div>
-                                    
+
                                 </form>
                             </div>
                         </div>
@@ -832,7 +1060,19 @@ const change_current_month = (payment_month) => {
                                 <h3>Partial Payment</h3>
                             </div>
                             <div class="tenant_paid_in_full_form">
-                                <form @submit.prevent="submit_modified_property_statement(showPayments)" class="modify_property_statements_form">
+                                <form @submit.prevent="submitForm" class="modify_property_statements_form">
+                                    <div v-for="(field, key) in formFields" :key="key">
+                                        <label :for="key">{{ field.label }}</label>
+                                        <input :id="key" type="text" class="select" :placeholder="field.placeholder"
+                                            required v-model="formValues[key]" @input="() => validateInput(key)" />
+                                        <span v-if="formErrors[key]">{{ formErrors[key] }}</span>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="view_tenants_button submit_button">Submit</button>
+                                    </div>
+
+                                </form>
+                                <!--form @submit.prevent="submit_modified_property_statement(showPayments)" class="modify_property_statements_form">
                                     <div>
                                         Property Name:<select v-model="property_partial_payment_form.property_name" required
                                         class="select">
@@ -850,7 +1090,9 @@ const change_current_month = (payment_month) => {
                                     </div>
                                     <div>
                                         KPLC Amount : <input v-model="property_partial_payment_form.kplc_amount" class="select" required
-                                        placeholder="Input KPLC Amount">
+                                        placeholder="Input KPLC Amount"
+                                        @input="validateInput"
+                                        >
                                     </div>
                                     <div>
                                         KPLC Units <input v-model="property_partial_payment_form.kplc_units" class="select" required
@@ -877,7 +1119,7 @@ const change_current_month = (payment_month) => {
                                         <button class="view_tenants_button submit_button">submit</button> 
                                     </div>
                                     
-                                </form>
+                                </form-->
                             </div>
                         </div>
                     </div>
@@ -890,10 +1132,44 @@ const change_current_month = (payment_month) => {
         <template v-if="showTenants">
             <div class="tenant_per_property" v-show="showingTenantsList == true">
                 <div class="back_to_properties_list">
-                    <button @click.prevent="back_to_properties_list" class="back_to_propeties_button">Back to Properties
+                    <div v-show="!showingAddHouse">
+                        <button @click.prevent="back_to_properties_list" class="back_to_propeties_button">Back to Properties
                         List</button>
+                    </div>
+                    <div v-show="!showingAddHouse">
+                        <button @click="view_add_new_house()" class="view_tenants_button">
+                        Add new House</button>
+                    </div>
+                    <div>
+                        <button @click.prevent="back_to_tenants_list_from_add_house" class="back_to_propeties_button">Back to Tenants
+                            List
+                        </button>
+                    </div>
                 </div>
-                <div class="tenant">
+
+                <div class="add_property_wrap" v-show="showingAddHouse">
+                    <div class="paid_in_full_form_properties_partial">
+                        <div class="paid_in_full_header">
+                            <h3>Add House</h3>
+                        </div>
+                        <div class="tenant_paid_in_full_form">
+                            <form @submit.prevent="add_new_tanant()" class="modify_property_statements_form">
+                                <div v-for="(field, key) in add_tenant_formFields" :key="key">
+                                    <label :for="key">{{ field.label }}</label>
+                                    <input :id="key" type="text" class="select" :placeholder="field.placeholder"
+                                        required v-model="add_tanant_form_values[key]" @input="() => validateInput(key)" />
+                                    <span v-if="add_tenant_form_errors[key]">{{ add_tenant_form_errors[key] }}</span>
+                                </div>
+                                <div>
+                                    <button type="submit" class="view_tenants_button submit_button">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tenant" v-show="!showingAddHouse">
                     <table style="width:100%">
                         <caption>
                             <h2>Tenants List for {{ showTenants.property_name }}</h2>
@@ -982,7 +1258,7 @@ const change_current_month = (payment_month) => {
                             <td colspan="4">
                                 <div class="totals"> Totals</div>
                             </td>
-                            <td>{{ total_rent_collected }}</td>
+                            <td>{{ total_rent_collected }} </td>
                             <td>{{ total_unpaid_rent }}</td>
                             <td>{{ total_arrears_bf }}</td>
                             <td>{{ total_arrears_cf }}</td>
@@ -991,8 +1267,8 @@ const change_current_month = (payment_month) => {
 
                     </table>
 
-                  
-                    
+
+
                 </div>
 
                 <div class="tenant tenant_statement_download" id="tenant_statement_download">
@@ -1044,18 +1320,18 @@ const change_current_month = (payment_month) => {
                         </tr>
 
                     </table>
-                    
+
                 </div>
 
                 <div class="download_button_wrap">
-                        <button @click='download_tenant_statement(tempShowTenant)' class="back_to_propeties_button">Download
-                        Tenant Statements</button>    
-                    </div>
+                    <button @click='download_tenant_statement(tempShowTenant)' class="back_to_propeties_button">Download
+                        Tenant Statements</button>
+                </div>
             </div>
             <div class="update_tenant" v-if="showUpdateTenant">
                 <div v-show="showingUpdateTenant">
                     <div class="update_tenant_header">
-                    
+
                         <div class="update_property_header_nav">
                             <div class="back_to_properties_list">
                                 <button @click.prevent="back_to_tenants_list" class="back_to_propeties_button">Back to
@@ -1064,9 +1340,9 @@ const change_current_month = (payment_month) => {
                             </div>
 
                             <div class="back_to_properties_list">
-                            <button @click.prevent="view_tenant_statements_from_update_tenant(showUpdateTenant)"
-                                class="back_to_propeties_button">View Tenant
-                                Statements</button>
+                                <button @click.prevent="view_tenant_statements_from_update_tenant(showUpdateTenant)"
+                                    class="back_to_propeties_button">View Tenant
+                                    Statements</button>
                             </div>
                         </div>
 
@@ -1119,7 +1395,7 @@ const change_current_month = (payment_month) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="update">
                         <div class="paid_in_full">
@@ -1137,17 +1413,18 @@ const change_current_month = (payment_month) => {
                                     </div>
                                     <div>
                                         Month: <select v-model="tenants_full_rent_form.payment_date" required
-                                        class="select">
-                                        <option disabled value="">Please select month</option>
-                                        <option v-for="month in payment_months_options" :key="month">{{ month.month }}
-                                        </option>
+                                            class="select">
+                                            <option disabled value="">Please select month</option>
+                                            <option v-for="month in payment_months_options" :key="month">{{ month.month
+                                                }}
+                                            </option>
                                         </select>
                                     </div>
-                                    
+
                                     <div>
                                         <button class="view_tenants_button submit_button">submit</button>
                                     </div>
-                                   
+
                                 </form>
                             </div>
                         </div>
@@ -1160,29 +1437,30 @@ const change_current_month = (payment_month) => {
                                 <form @submit.prevent="submit_partial_rent(showUpdateTenant)">
                                     <div>
                                         House No:<select v-model="tenants_partial_rent_form.hse_number" required
-                                        class="select">
-                                        <option disabled value="">Please select house number</option>
-                                        <option>{{ showUpdateTenant.hse_number }}</option>
+                                            class="select">
+                                            <option disabled value="">Please select house number</option>
+                                            <option>{{ showUpdateTenant.hse_number }}</option>
                                         </select>
                                     </div>
                                     <div>
                                         Month: <select v-model="tenants_partial_rent_form.payment_date" required
                                             class="select">
                                             <option disabled value="">Please select month</option>
-                                            <option v-for="month in payment_months_options" :key="month">{{ month.month }}
+                                            <option v-for="month in payment_months_options" :key="month">{{ month.month
+                                                }}
                                             </option>
                                         </select>
                                     </div>
                                     <div>
                                         Ammount Paid <input v-model="tenants_partial_rent_form.rent_paid" required
-                                        placeholder="Input Amount">
+                                            placeholder="Input Amount">
                                     </div>
                                     <div>
                                         <button class="view_tenants_button submit_button">submit</button>
                                     </div>
-                                    
 
-                                    
+
+
                                 </form>
                             </div>
                         </div>

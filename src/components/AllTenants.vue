@@ -1,15 +1,15 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useTenantsList } from "../stores/tenants.js";
 
 const tenantsStore = useTenantsList();
 
-const tenants = tenantsStore.tenants;
+const tenants = ref(tenantsStore.tenants)
 
 
-const activeTenants = tenants.filter((tenant) => tenant.status === "active");
+const activeTenants = tenants.value.filter((tenant) => tenant.status === "active");
 
-const terminatedTenants = tenants.filter((tenant) => tenant.status === "terminated");
+const terminatedTenants = tenants.value.filter((tenant) => tenant.status === "terminated");
 
 const total_deposit_active_tenants = computed(() => {
     return activeTenants.reduce((acc, item) => acc + item.deposit_held, 0);

@@ -21,6 +21,10 @@ body{
   }
 }*/
 
+button{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1324px) {
   .property_list, .all_tenants_wrap{
     display: flex;

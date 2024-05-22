@@ -67,7 +67,7 @@ const from_property_statements = () => {
 const update_property_statements = (property) => {
     showingTenantsList.value = true
     showingPropertyStatements.value = false
-    filteredTenantsList.value = tenants.filter((tenant) => tenant.property_name === property.property_name);
+    filteredTenantsList.value = tenants.value.filter((tenant) => tenant.property_name === property.property_name);
 }
 
 const view_property_statements_from_update_property = (property) => {
@@ -86,7 +86,7 @@ const view_property_statements = (property) => {
     tempShowProperty.value = property
     showingPropertyStatements.value = true
     showingPropertiesList.value = false
-    filteredPropertyStatements.value = properties_statements.filter((property_statement) => property_statement.property_id === property._id);
+    filteredPropertyStatements.value = properties_statements.value.filter((property_statement) => property_statement.property_id === property._id);
 
 }
 
