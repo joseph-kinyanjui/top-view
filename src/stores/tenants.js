@@ -7406,5 +7406,11 @@ export const useTenantsList = defineStore("tenantsList", {
     update_tenants_full_rent_form(field) {
       this.tenants_full_rent_form[field] = value;
     },
+    searchTenants(Tenant) {
+      return this.tenants.filter(tenant => tenant.property_name.toLowerCase().includes(Tenant.toLowerCase()));
+    },
+    filterTenantsStatements(property_name) {
+      return this.tenants_statements.filter(tenant_statement => tenant_statement.property_name === property_name && tenant_statement.payment_date === this.current_payment_date);
+    }
   },
 });
