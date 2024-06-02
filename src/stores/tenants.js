@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const TENANT_URL = "https://top-view-server.vercel.app/api/tenants/";
-const TENANT_STATEMENT_URL = "https://top-view-server.vercel.app/api/tenants/statements/";
+const TENANT_URL = "https://top-view-ltd-server.vercel.app/api/tenants/";
+const TENANT_STATEMENT_URL = "https://top-view-ltd-server.vercel.app/api/tenants/statements/";
 
 export const useTenantsList = defineStore("tenantsList", {
   state: () => ({
@@ -21,7 +21,7 @@ export const useTenantsList = defineStore("tenantsList", {
     },
     loading: false,
     current_payment_date: 'April-2024',
-    tenants:[
+    /*tenants:[
       {
       "_id": "662e0821dedf230886a104d0",
       "property_name": "Stephen Miiri- SM",
@@ -37,7 +37,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0705235864",
       "alternative_number": "0705235864",
       "id_number": "12345690",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -56,7 +56,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704737288",
       "alternative_number": "0704737288",
       "id_number": "00000004",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -75,7 +75,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0718664549",
       "alternative_number": "0718664549",
       "id_number": "00000005",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -94,7 +94,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711520052",
       "alternative_number": "0711520052",
       "id_number": "00000008",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -113,7 +113,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0790940146",
       "alternative_number": "0790940146",
       "id_number": "00000010",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -132,7 +132,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720732568",
       "alternative_number": "0720732568",
       "id_number": "00000014",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -151,7 +151,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "11122211",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -170,7 +170,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0719657210",
       "alternative_number": "0719657210",
       "id_number": "11122218",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -189,7 +189,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "11122219",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -208,7 +208,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725148311",
       "alternative_number": "0725148311",
       "id_number": "11122220",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -227,7 +227,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0728145909",
       "alternative_number": "0728145909",
       "id_number": "11122222",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -246,7 +246,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0728911839",
       "alternative_number": "0728911839",
       "id_number": "11122226",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -265,7 +265,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720256367",
       "alternative_number": "0720256367",
       "id_number": "11122227",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -284,7 +284,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222335",
       "alternative_number": "0711222335",
       "id_number": "99988881",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -303,7 +303,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222336",
       "alternative_number": "0711222336",
       "id_number": "99988882",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -322,7 +322,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222337",
       "alternative_number": "0711222337",
       "id_number": "99988883",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -341,7 +341,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729490094",
       "alternative_number": "0729490094",
       "id_number": "12345678",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -360,7 +360,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222333",
       "alternative_number": "0711222333",
       "id_number": "12345679",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -379,7 +379,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0713532426",
       "alternative_number": "0713532426",
       "id_number": "12345680",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -398,7 +398,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0718664549",
       "alternative_number": "0718664549",
       "id_number": "12345682",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -417,7 +417,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720105799",
       "alternative_number": "0720105799",
       "id_number": "12345684",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -436,7 +436,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711520052",
       "alternative_number": "0711520052",
       "id_number": "12345685",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -455,7 +455,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722350415",
       "alternative_number": "0722350415",
       "id_number": "12345686",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -474,7 +474,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0790940146",
       "alternative_number": "0790940146",
       "id_number": "12345687",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -493,7 +493,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0707756469",
       "alternative_number": "0707756469",
       "id_number": "23456793",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -512,7 +512,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720557502",
       "alternative_number": "0720557502",
       "id_number": "23456794",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -531,7 +531,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729490094",
       "alternative_number": "0729490094",
       "id_number": "00000001",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -550,7 +550,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0000111222",
       "alternative_number": "0000111222",
       "id_number": "00000002",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -569,7 +569,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0713532426",
       "alternative_number": "0713532426",
       "id_number": "00000003",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -588,7 +588,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0706976474",
       "alternative_number": "0706976474",
       "id_number": "00000006",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -607,7 +607,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722350415",
       "alternative_number": "0722350415",
       "id_number": "00000009",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -626,7 +626,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725407622",
       "alternative_number": "0725407622",
       "id_number": "00000011",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -645,7 +645,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0743900674",
       "alternative_number": "0743900674",
       "id_number": "00000015",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -664,7 +664,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111223",
       "alternative_number": "0700111223",
       "id_number": "11122212",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -683,7 +683,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0701362222",
       "alternative_number": "0701362222",
       "id_number": "11122215",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -702,7 +702,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0740712787",
       "alternative_number": "0740712787",
       "id_number": "11122224",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -721,7 +721,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723152307",
       "alternative_number": "0723152307",
       "id_number": "11122225",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -740,7 +740,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704737288",
       "alternative_number": "0704737288",
       "id_number": "12345681",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -759,7 +759,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "254713933366",
       "alternative_number": "254713933366",
       "id_number": "12345689",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -778,7 +778,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720732568",
       "alternative_number": "0720732568",
       "id_number": "12345691",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -797,7 +797,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0795013039",
       "alternative_number": "0795013039",
       "id_number": "23456792",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -816,7 +816,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720105799",
       "alternative_number": "0720105799",
       "id_number": "00000007",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -835,7 +835,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "11122216",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -854,7 +854,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "11122221",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -873,7 +873,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0710512123",
       "alternative_number": "0710512123",
       "id_number": "11122228",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -892,7 +892,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222333",
       "alternative_number": "0711222333",
       "id_number": "99988879",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -911,7 +911,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222334",
       "alternative_number": "0711222334",
       "id_number": "99988880",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -930,7 +930,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222338",
       "alternative_number": "0711222338",
       "id_number": "99988884",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -949,7 +949,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0706976474",
       "alternative_number": "0706976474",
       "id_number": "12345683",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -968,7 +968,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725407622",
       "alternative_number": "0725407622",
       "id_number": "12345688",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -987,7 +987,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0743900674",
       "alternative_number": "0743900674",
       "id_number": "12345692",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1006,7 +1006,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720926895",
       "alternative_number": "0720926895",
       "id_number": "23456789",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1025,7 +1025,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722552077",
       "alternative_number": "0722552077",
       "id_number": "23456790",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1044,7 +1044,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0717276638",
       "alternative_number": "0717276638",
       "id_number": "23456791",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1063,7 +1063,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0777111222",
       "alternative_number": "0777111222",
       "id_number": "23456795",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1082,7 +1082,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729816178",
       "alternative_number": "0729816178",
       "id_number": "23456796",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1101,7 +1101,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0777111222",
       "alternative_number": "0777111222",
       "id_number": "23456797",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1120,7 +1120,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722928478",
       "alternative_number": "0722928478",
       "id_number": "23456798",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1139,7 +1139,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "254713933366",
       "alternative_number": "254713933366",
       "id_number": "00000012",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1158,7 +1158,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0705235864",
       "alternative_number": "0705235864",
       "id_number": "00000013",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1177,7 +1177,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111224",
       "alternative_number": "0700111224",
       "id_number": "11122213",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1196,7 +1196,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725587897",
       "alternative_number": "0725587897",
       "id_number": "11122214",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1215,7 +1215,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0743806985",
       "alternative_number": "0743806985",
       "id_number": "11122217",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1234,7 +1234,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "11122223",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1253,7 +1253,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222344",
       "alternative_number": "0711222344",
       "id_number": "99988890",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1272,7 +1272,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222348",
       "alternative_number": "0711222348",
       "id_number": "99988894",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1291,7 +1291,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222349",
       "alternative_number": "0711222349",
       "id_number": "99988895",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1310,7 +1310,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222351",
       "alternative_number": "0711222351",
       "id_number": "99988897",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1329,7 +1329,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222354",
       "alternative_number": "0711222354",
       "id_number": "99988900",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1348,7 +1348,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222357",
       "alternative_number": "0711222357",
       "id_number": "99988903",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1367,7 +1367,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222359",
       "alternative_number": "0711222359",
       "id_number": "99988905",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1386,7 +1386,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "123456791",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1405,7 +1405,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0114042280",
       "alternative_number": "0114042280",
       "id_number": "123456807",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1424,7 +1424,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0798735091 ",
       "alternative_number": " 0798735091 ",
       "id_number": "123456810",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1443,7 +1443,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0757175891",
       "alternative_number": "0757175891",
       "id_number": "123456816",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1462,7 +1462,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0705406766",
       "alternative_number": "0705406766",
       "id_number": "98765412",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1481,7 +1481,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0721 598739",
       "alternative_number": "0721 598739",
       "id_number": "32165487",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1500,7 +1500,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729628259",
       "alternative_number": "0729628259",
       "id_number": "32165486",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1519,7 +1519,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0708484954",
       "alternative_number": "0708484954",
       "id_number": "32165482",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1538,7 +1538,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0718 782923",
       "alternative_number": "0718 782923",
       "id_number": "32165478",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1557,7 +1557,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222340",
       "alternative_number": "0711222340",
       "id_number": "99988886",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1576,7 +1576,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222345",
       "alternative_number": "0711222345",
       "id_number": "99988891",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1595,7 +1595,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222346",
       "alternative_number": "0711222346",
       "id_number": "99988892",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1614,7 +1614,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222353",
       "alternative_number": "0711222353",
       "id_number": "99988899",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1633,7 +1633,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222356",
       "alternative_number": "0711222356",
       "id_number": "99988902",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1652,7 +1652,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0741736121 ",
       "alternative_number": " 0741736121 ",
       "id_number": "123456795",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1671,7 +1671,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0718083494",
       "alternative_number": "0718083494",
       "id_number": "123456802",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1690,7 +1690,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720901962",
       "alternative_number": "0720901962",
       "id_number": "123456803",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1709,7 +1709,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0794853719 ",
       "alternative_number": " 0794853719 ",
       "id_number": "123456809",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1728,7 +1728,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0791847994 ",
       "alternative_number": " 0791847994 ",
       "id_number": "123456811",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1747,7 +1747,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "795193737",
       "alternative_number": "795193737",
       "id_number": "123456812",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1766,7 +1766,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "123456813",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1785,7 +1785,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "741514320",
       "alternative_number": "741514320",
       "id_number": "123456814",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1804,7 +1804,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0704016657 ",
       "alternative_number": " 0704016657 ",
       "id_number": "123456815",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1823,7 +1823,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0112860022",
       "alternative_number": "0112860022",
       "id_number": "123456818",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1842,7 +1842,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "123456820",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1861,7 +1861,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222339",
       "alternative_number": "0711222339",
       "id_number": "99988885",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1880,7 +1880,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222342",
       "alternative_number": "0711222342",
       "id_number": "99988888",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1899,7 +1899,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222347",
       "alternative_number": "0711222347",
       "id_number": "99988893",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1918,7 +1918,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222352",
       "alternative_number": "0711222352",
       "id_number": "99988898",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1937,7 +1937,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222358",
       "alternative_number": "0711222358",
       "id_number": "99988904",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1956,7 +1956,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "123456792",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1975,7 +1975,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0700514934 ",
       "alternative_number": " 0700514934 ",
       "id_number": "123456793",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -1994,7 +1994,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0768740898 ",
       "alternative_number": " 0768740898 ",
       "id_number": "123456799",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2013,7 +2013,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0745064063 ",
       "alternative_number": " 0745064063 ",
       "id_number": "123456800",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2032,7 +2032,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704840070",
       "alternative_number": "0704840070",
       "id_number": "123456805",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2051,7 +2051,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0757467057",
       "alternative_number": "0757467057",
       "id_number": "123456808",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2070,7 +2070,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "721267409",
       "alternative_number": "721267409",
       "id_number": "32165485",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2089,7 +2089,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720760316",
       "alternative_number": "720760316",
       "id_number": "32165484",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2108,7 +2108,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222341",
       "alternative_number": "0711222341",
       "id_number": "99988887",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2127,7 +2127,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222343",
       "alternative_number": "0711222343",
       "id_number": "99988889",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2146,7 +2146,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222350",
       "alternative_number": "0711222350",
       "id_number": "99988896",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2165,7 +2165,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711222355",
       "alternative_number": "0711222355",
       "id_number": "99988901",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2184,7 +2184,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0700111222 ",
       "alternative_number": " 0700111222 ",
       "id_number": "123456789",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2203,7 +2203,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0707604392 ",
       "alternative_number": " 0707604392 ",
       "id_number": "123456790",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2222,7 +2222,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " '0700111222 ",
       "alternative_number": " '0700111222 ",
       "id_number": "123456794",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2241,7 +2241,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0743080244",
       "alternative_number": "0743080244",
       "id_number": "123456796",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2260,7 +2260,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0729177490 ",
       "alternative_number": " 0729177490 ",
       "id_number": "123456797",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2279,7 +2279,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "716548072",
       "alternative_number": "716548072",
       "id_number": "123456798",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2298,7 +2298,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0769635581",
       "alternative_number": "0769635581",
       "id_number": "123456801",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2317,7 +2317,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "123456804",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2336,7 +2336,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0703723274",
       "alternative_number": "0703723274",
       "id_number": "123456806",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2355,7 +2355,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704016657",
       "alternative_number": "0704016657",
       "id_number": "123456817",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2374,7 +2374,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0113743255 ",
       "alternative_number": " 0113743255 ",
       "id_number": "123456819",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2393,7 +2393,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723493944",
       "alternative_number": "0723493944",
       "id_number": "32165483",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2412,7 +2412,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0724674906",
       "alternative_number": "0724674906",
       "id_number": "32165481",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2431,7 +2431,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0707 654385",
       "alternative_number": "0707 654385",
       "id_number": "32165480",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2450,7 +2450,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725834339",
       "alternative_number": "725834339",
       "id_number": "32165479",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2469,7 +2469,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729 851587",
       "alternative_number": "0729 851587",
       "id_number": "32165474",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2488,7 +2488,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "717834502",
       "alternative_number": "717834502",
       "id_number": "95684230",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2507,7 +2507,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0759855422",
       "alternative_number": "0759855422",
       "id_number": "15397463",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2526,7 +2526,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0715252162",
       "alternative_number": "0715252162",
       "id_number": "15397458",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2545,7 +2545,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0707548644",
       "alternative_number": "0707548644",
       "id_number": "15397450",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2564,7 +2564,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0710637083",
       "alternative_number": "0710637083",
       "id_number": "15397447",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2583,7 +2583,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0790503407",
       "alternative_number": "0790503407",
       "id_number": "15397443",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2602,7 +2602,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "733939998",
       "alternative_number": "733939998",
       "id_number": "12687455",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2621,7 +2621,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "706548148",
       "alternative_number": "706548148",
       "id_number": "12687456",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2640,7 +2640,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720214369",
       "alternative_number": "720214369",
       "id_number": "12687459",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2659,7 +2659,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "705464508",
       "alternative_number": "705464508",
       "id_number": "12687462",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2678,7 +2678,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0712102259",
       "alternative_number": "0712102259",
       "id_number": "12687466",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2697,7 +2697,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0742741468",
       "alternative_number": "0742741468",
       "id_number": "85214627",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2716,7 +2716,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725324344",
       "alternative_number": "0725324344",
       "id_number": "85214626",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2735,7 +2735,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722355061",
       "alternative_number": "0722355061",
       "id_number": "85214620",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2754,7 +2754,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700010313",
       "alternative_number": "0700010313",
       "id_number": "85214619",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2773,7 +2773,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0714543466",
       "alternative_number": "0714543466",
       "id_number": "85214615",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2792,7 +2792,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111225",
       "alternative_number": "0700111225",
       "id_number": "12457893",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2811,7 +2811,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0707538161",
       "alternative_number": "0707538161",
       "id_number": "12457892",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2830,7 +2830,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "caretaker",
       "alternative_number": "caretaker",
       "id_number": "95126480",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2849,7 +2849,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0719499196",
       "alternative_number": "0719499196",
       "id_number": "95126484",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2868,7 +2868,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "722888250",
       "alternative_number": "722888250",
       "id_number": "95126485",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2887,7 +2887,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0791957328/0700325233",
       "alternative_number": "0791957328/0700325233",
       "id_number": "95126492",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2906,7 +2906,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0710931983/0729228261",
       "alternative_number": "0710931983/0729228261",
       "id_number": "95126495",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2925,7 +2925,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "715861626",
       "alternative_number": "715861626",
       "id_number": "95126499",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2944,7 +2944,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "712332530",
       "alternative_number": "712332530",
       "id_number": "95126500",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2963,7 +2963,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725244677",
       "alternative_number": "725244677",
       "id_number": "84216576",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -2982,7 +2982,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725068672",
       "alternative_number": "0725068672",
       "id_number": "84216570",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3001,7 +3001,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111223",
       "alternative_number": "'0700111223",
       "id_number": "97845625",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3020,7 +3020,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0706316596",
       "alternative_number": "0706316596",
       "id_number": "48621372",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3039,7 +3039,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111223",
       "alternative_number": "0700111223",
       "id_number": "48621370",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3058,7 +3058,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111228",
       "alternative_number": "0700111228",
       "id_number": "48621365",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3077,7 +3077,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "719311807",
       "alternative_number": "719311807",
       "id_number": "48621362",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3096,7 +3096,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "720091521",
       "current_month_fully_paid": true
       },
@@ -3115,7 +3115,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0712537092",
       "current_month_fully_paid": true
       },
@@ -3134,7 +3134,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222333",
       "alternative_number": "0700222333",
       "id_number": "12456991",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3153,7 +3153,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "793408541",
       "alternative_number": "793408541",
       "id_number": "77845119",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3172,7 +3172,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "77845117",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3191,7 +3191,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "704386643",
       "alternative_number": "704386643",
       "id_number": "56482147",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3210,7 +3210,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "746392294",
       "alternative_number": "746392294",
       "id_number": "56482243",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3229,7 +3229,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "727602954",
       "alternative_number": "727602954",
       "id_number": "56482307",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3248,7 +3248,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720803811",
       "alternative_number": "720803811",
       "id_number": "56482347",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3267,7 +3267,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "726231724",
       "alternative_number": "726231724",
       "id_number": "56482379",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3286,7 +3286,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111555",
       "alternative_number": "'0700111555",
       "id_number": "56482419",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3305,7 +3305,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "706407408",
       "alternative_number": "706407408",
       "id_number": "56482467",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3324,7 +3324,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "727811980",
       "alternative_number": "727811980",
       "id_number": "56482507",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3343,7 +3343,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "712992928",
       "alternative_number": "712992928",
       "id_number": "56482515",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3362,7 +3362,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "715532189",
       "alternative_number": "715532189",
       "id_number": "56482547",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3381,7 +3381,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "728504506",
       "alternative_number": "728504506",
       "id_number": "56482571",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3400,7 +3400,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111555",
       "alternative_number": "'0700111555",
       "id_number": "56482643",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3419,7 +3419,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "113694914",
       "alternative_number": "113694914",
       "id_number": "56482707",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3438,7 +3438,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "794559542",
       "alternative_number": "794559542",
       "id_number": "56482715",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3457,7 +3457,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0718 279507",
       "alternative_number": "0718 279507",
       "id_number": "32165473",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3476,7 +3476,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0729845454",
       "alternative_number": "0729845454",
       "id_number": "25789458",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3495,7 +3495,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0714601878",
       "alternative_number": "0714601878",
       "id_number": "25789459",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3514,7 +3514,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0706354990",
       "alternative_number": "0706354990",
       "id_number": "25789464",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3533,7 +3533,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "705016657",
       "alternative_number": "705016657",
       "id_number": "95684233",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3552,7 +3552,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725673700",
       "alternative_number": "0725673700",
       "id_number": "15397462",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3571,7 +3571,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720956475",
       "alternative_number": "0720956475",
       "id_number": "15397460",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3590,7 +3590,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0728030303",
       "alternative_number": "0728030303",
       "id_number": "15397459",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3609,7 +3609,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0705388989",
       "alternative_number": "0705388989",
       "id_number": "15397456",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3628,7 +3628,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0724990126",
       "alternative_number": "0724990126",
       "id_number": "15397452",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3647,7 +3647,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0713938510",
       "alternative_number": "0713938510",
       "id_number": "15397451",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3666,7 +3666,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725244275",
       "alternative_number": "0725244275",
       "id_number": "15397448",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3685,7 +3685,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "15397445",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3704,7 +3704,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0715924768",
       "alternative_number": "0715924768",
       "id_number": "12687452",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3723,7 +3723,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "759793137",
       "alternative_number": "759793137",
       "id_number": "12687457",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3742,7 +3742,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704527978",
       "alternative_number": "0704527978",
       "id_number": "85214625",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3761,7 +3761,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0740832028",
       "alternative_number": "0740832028",
       "id_number": "85214622",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3780,7 +3780,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0796456901",
       "alternative_number": "0796456901",
       "id_number": "85214618",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3799,7 +3799,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0113758104",
       "alternative_number": "0113758104",
       "id_number": "85214613",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3818,7 +3818,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723753281",
       "alternative_number": "0723753281",
       "id_number": "85214611",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3837,7 +3837,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0740967486",
       "alternative_number": "0740967486",
       "id_number": "85214610",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3856,7 +3856,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111223",
       "alternative_number": "0700111223",
       "id_number": "12457895",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3875,7 +3875,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111224",
       "alternative_number": "0700111224",
       "id_number": "12457894",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3894,7 +3894,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "12457888",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3913,7 +3913,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "711726932",
       "alternative_number": "711726932",
       "id_number": "95126482",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3932,7 +3932,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725150456",
       "alternative_number": "725150456",
       "id_number": "95126483",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3951,7 +3951,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "702677147",
       "alternative_number": "702677147",
       "id_number": "95126486",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3970,7 +3970,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0707326343",
       "alternative_number": "0707326343",
       "id_number": "95126488",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -3989,7 +3989,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "729951313",
       "alternative_number": "729951313",
       "id_number": "95126491",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4008,7 +4008,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "724424494",
       "alternative_number": "724424494",
       "id_number": "95126494",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4027,7 +4027,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "724705183",
       "alternative_number": "724705183",
       "id_number": "95126496",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4046,7 +4046,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "721227045",
       "alternative_number": "721227045",
       "id_number": "95126501",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4065,7 +4065,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0719623533",
       "alternative_number": "0719623533",
       "id_number": "97845623",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4084,7 +4084,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "97845624",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4103,7 +4103,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "48621371",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4122,7 +4122,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111224",
       "alternative_number": "0700111224",
       "id_number": "48621369",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4141,7 +4141,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111225",
       "alternative_number": "0700111225",
       "id_number": "48621368",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4160,7 +4160,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111227",
       "alternative_number": "0700111227",
       "id_number": "48621366",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4179,7 +4179,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111229",
       "alternative_number": "0700111229",
       "id_number": "48621364",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4198,7 +4198,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0700111222",
       "current_month_fully_paid": true
       },
@@ -4217,7 +4217,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0702511743",
       "current_month_fully_paid": true
       },
@@ -4236,7 +4236,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0722589631",
       "current_month_fully_paid": true
       },
@@ -4255,7 +4255,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "724627724",
       "alternative_number": "724627724",
       "id_number": "12456983",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4274,7 +4274,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "741315792",
       "alternative_number": "741315792",
       "id_number": "12456985",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4293,7 +4293,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222333",
       "alternative_number": "0700222333",
       "id_number": "12456987",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4312,7 +4312,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "723951865",
       "alternative_number": "723951865",
       "id_number": "12456989",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4331,7 +4331,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "794332116",
       "alternative_number": "794332116",
       "id_number": "12456997",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4350,7 +4350,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "712768060",
       "alternative_number": "712768060",
       "id_number": "12457001",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4369,7 +4369,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "728957338",
       "alternative_number": "728957338",
       "id_number": "77845129",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4388,7 +4388,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708216837",
       "alternative_number": "708216837",
       "id_number": "77845121",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4407,7 +4407,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725249891",
       "alternative_number": "725249891",
       "id_number": "56482163",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4426,7 +4426,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "719461395",
       "alternative_number": "719461395",
       "id_number": "56482171",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4445,7 +4445,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "759275041",
       "alternative_number": "759275041",
       "id_number": "56482179",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4464,7 +4464,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111556",
       "alternative_number": "0700111556",
       "id_number": "56482195",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4483,7 +4483,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "707629445",
       "alternative_number": "707629445",
       "id_number": "56482227",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4502,7 +4502,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "790850647",
       "alternative_number": "790850647",
       "id_number": "56482235",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4521,7 +4521,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "702787645",
       "alternative_number": "702787645",
       "id_number": "56482267",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4540,7 +4540,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "799940801",
       "alternative_number": "799940801",
       "id_number": "56482283",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4559,7 +4559,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "768242765",
       "alternative_number": "768242765",
       "id_number": "56482299",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4578,7 +4578,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "714352038",
       "alternative_number": "714352038",
       "id_number": "56482315",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4597,7 +4597,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "703739194",
       "alternative_number": "703739194",
       "id_number": "56482331",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4616,7 +4616,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "721897268",
       "alternative_number": "721897268",
       "id_number": "56482403",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4635,7 +4635,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708642424",
       "alternative_number": "708642424",
       "id_number": "56482411",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4654,7 +4654,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708432022",
       "alternative_number": "708432022",
       "id_number": "56482435",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4673,7 +4673,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708881981",
       "alternative_number": "708881981",
       "id_number": "56482451",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4692,7 +4692,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "759733361",
       "alternative_number": "759733361",
       "id_number": "56482459",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4711,7 +4711,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111556",
       "alternative_number": "0700111556",
       "id_number": "56482483",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4730,7 +4730,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "724071896",
       "alternative_number": "724071896",
       "id_number": "56482523",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4749,7 +4749,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "729823398",
       "alternative_number": "729823398",
       "id_number": "56482579",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4768,7 +4768,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "704808810",
       "alternative_number": "704808810",
       "id_number": "56482595",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4787,7 +4787,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "704988335",
       "alternative_number": "704988335",
       "id_number": "56482635",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4806,7 +4806,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "795496358",
       "alternative_number": "795496358",
       "id_number": "56482651",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4825,7 +4825,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111555",
       "alternative_number": "'0700111555",
       "id_number": "56482667",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4844,7 +4844,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725426620",
       "alternative_number": "725426620",
       "id_number": "56482699",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4863,7 +4863,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708841444",
       "alternative_number": "708841444",
       "id_number": "56482731",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4901,7 +4901,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0726980384 ",
       "alternative_number": " 0726980384 ",
       "id_number": "32165477",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4920,7 +4920,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0703 399385",
       "alternative_number": "0703 399385",
       "id_number": "32165475",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4939,7 +4939,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0759884901",
       "alternative_number": "0759884901",
       "id_number": "25789456",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4958,7 +4958,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "25789461",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4977,7 +4977,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "764200737",
       "alternative_number": "764200737",
       "id_number": "95684236",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -4996,7 +4996,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722486148",
       "alternative_number": "0722486148",
       "id_number": "15397461",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5015,7 +5015,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0725125689",
       "alternative_number": "0725125689",
       "id_number": "15397457",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5034,7 +5034,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720966128/0712091111",
       "alternative_number": "0720966128/0712091111",
       "id_number": "15397455",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5053,7 +5053,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723150898",
       "alternative_number": "0723150898",
       "id_number": "15397454",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5072,7 +5072,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "15397444",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5091,7 +5091,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0741203127",
       "alternative_number": "0741203127",
       "id_number": "15397442",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5110,7 +5110,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "15397437",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5129,7 +5129,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0711997966",
       "alternative_number": "0711997966",
       "id_number": "15397436",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5148,7 +5148,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "759503696",
       "alternative_number": "759503696",
       "id_number": "12687453",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5167,7 +5167,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "729705450",
       "alternative_number": "729705450",
       "id_number": "12687454",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5186,7 +5186,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "748851159",
       "alternative_number": "748851159",
       "id_number": "12687460",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5205,7 +5205,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "729810506",
       "alternative_number": "729810506",
       "id_number": "12687464",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5224,7 +5224,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0715405920",
       "alternative_number": "0715405920",
       "id_number": "12687465",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5243,7 +5243,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0716942648/0710761708",
       "alternative_number": "0716942648/0710761708",
       "id_number": "85214630",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5262,7 +5262,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0114375419",
       "alternative_number": "0114375419",
       "id_number": "85214628",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5281,7 +5281,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0705182711",
       "alternative_number": "0705182711",
       "id_number": "85214616",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5300,7 +5300,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "85214614",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5319,7 +5319,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0703522090",
       "alternative_number": "0703522090",
       "id_number": "85214612",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5338,7 +5338,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0794273108",
       "alternative_number": "0794273108",
       "id_number": "85214609",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5357,7 +5357,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0799426046",
       "alternative_number": "0799426046",
       "id_number": "85214608",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5376,7 +5376,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0799426046",
       "alternative_number": "0799426046",
       "id_number": "85214607",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5395,7 +5395,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "12457896",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5414,7 +5414,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722362881",
       "alternative_number": "0722362881",
       "id_number": "12457891",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5433,7 +5433,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0740929696",
       "alternative_number": "0740929696",
       "id_number": "12457890",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5452,7 +5452,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0724053379",
       "alternative_number": "0724053379",
       "id_number": "12457887",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5471,7 +5471,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222333",
       "alternative_number": "0700222333",
       "id_number": "95126478",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5490,7 +5490,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0716932084",
       "alternative_number": "0716932084",
       "id_number": "95126490",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5509,7 +5509,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "727261607",
       "alternative_number": "727261607",
       "id_number": "95126493",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5528,7 +5528,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0714665157",
       "alternative_number": "0714665157",
       "id_number": "95126498",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5547,7 +5547,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222333",
       "alternative_number": "0700222333",
       "id_number": "95126503",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5566,7 +5566,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "84216578",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5585,7 +5585,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0721466589",
       "alternative_number": "0721466589",
       "id_number": "84216577",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5604,7 +5604,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720170560",
       "alternative_number": "720170560",
       "id_number": "84216575",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5623,7 +5623,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111223",
       "alternative_number": "0700111223",
       "id_number": "97845622",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5642,7 +5642,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111226",
       "alternative_number": "0700111226",
       "id_number": "48621367",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5661,7 +5661,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "791410051",
       "alternative_number": "791410051",
       "id_number": "48621363",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5680,7 +5680,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0727931898",
       "current_month_fully_paid": true
       },
@@ -5699,7 +5699,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0724753652",
       "current_month_fully_paid": true
       },
@@ -5718,7 +5718,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222334",
       "alternative_number": "0700222334",
       "id_number": "12456993",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5737,7 +5737,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708223703",
       "alternative_number": "708223703",
       "id_number": "12456999",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5756,7 +5756,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "727942273",
       "alternative_number": "727942273",
       "id_number": "77845127",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5775,7 +5775,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "77845123",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5794,7 +5794,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "785225564",
       "alternative_number": "785225564",
       "id_number": "77845115",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5813,7 +5813,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111555",
       "alternative_number": "0700111555",
       "id_number": "56482139",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5832,7 +5832,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111557",
       "alternative_number": "0700111557",
       "id_number": "56482203",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5851,7 +5851,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111558",
       "alternative_number": "0700111558",
       "id_number": "56482211",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5870,7 +5870,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "723395542",
       "alternative_number": "723395542",
       "id_number": "56482219",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5889,7 +5889,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "794436539",
       "alternative_number": "794436539",
       "id_number": "56482259",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5908,7 +5908,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "727526234",
       "alternative_number": "727526234",
       "id_number": "56482275",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5927,7 +5927,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "111202570",
       "alternative_number": "111202570",
       "id_number": "56482291",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5946,7 +5946,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "745110785",
       "alternative_number": "745110785",
       "id_number": "56482323",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5965,7 +5965,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "745064087",
       "alternative_number": "745064087",
       "id_number": "56482355",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -5984,7 +5984,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "746118783",
       "alternative_number": "746118783",
       "id_number": "56482371",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6003,7 +6003,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "705674582",
       "alternative_number": "705674582",
       "id_number": "56482387",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6022,7 +6022,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "741534313",
       "alternative_number": "741534313",
       "id_number": "56482395",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6041,7 +6041,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111555",
       "alternative_number": "0700111555",
       "id_number": "56482475",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6060,7 +6060,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708184862",
       "alternative_number": "708184862",
       "id_number": "56482531",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6079,7 +6079,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "790721528",
       "alternative_number": "790721528",
       "id_number": "56482539",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6098,7 +6098,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "703388200",
       "alternative_number": "703388200",
       "id_number": "56482555",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6117,7 +6117,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "716102784",
       "alternative_number": "716102784",
       "id_number": "56482619",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6136,7 +6136,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "746313754",
       "alternative_number": "746313754",
       "id_number": "56482659",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6155,7 +6155,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111556",
       "alternative_number": "'0700111556",
       "id_number": "56482675",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6174,7 +6174,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "743368796",
       "alternative_number": "743368796",
       "id_number": "56482683",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6193,7 +6193,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "717353378",
       "alternative_number": "717353378",
       "id_number": "56482739",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6212,7 +6212,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0757175891",
       "alternative_number": "0757175891",
       "id_number": "32165476",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6231,7 +6231,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0701365689",
       "alternative_number": "0701365689",
       "id_number": "25789457",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6250,7 +6250,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0714768110",
       "alternative_number": "0714768110",
       "id_number": "25789460",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6269,7 +6269,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0745668459",
       "alternative_number": "0745668459",
       "id_number": "25789462",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6288,7 +6288,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "25789463",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6307,7 +6307,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111222",
       "alternative_number": "'0700111222",
       "id_number": "25789465",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6326,7 +6326,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "708715673",
       "alternative_number": "708715673",
       "id_number": "95684231",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6345,7 +6345,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "713352030",
       "alternative_number": "713352030",
       "id_number": "95684232",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6364,7 +6364,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": " 0710112145 ",
       "alternative_number": " 0710112145 ",
       "id_number": "95684234",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6383,7 +6383,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720901190",
       "alternative_number": "720901190",
       "id_number": "95684235",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6402,7 +6402,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0722470695",
       "alternative_number": "0722470695",
       "id_number": "15397453",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6421,7 +6421,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0745228764",
       "alternative_number": "0745228764",
       "id_number": "15397449",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6440,7 +6440,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723916008",
       "alternative_number": "0723916008",
       "id_number": "15397446",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6459,7 +6459,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0701473338",
       "alternative_number": "0701473338",
       "id_number": "15397441",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6478,7 +6478,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0741095205",
       "alternative_number": "0741095205",
       "id_number": "15397440",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6497,7 +6497,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0724741367",
       "alternative_number": "0724741367",
       "id_number": "15397439",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6516,7 +6516,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0746122225",
       "alternative_number": "0746122225",
       "id_number": "15397438",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6535,7 +6535,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0719210032",
       "alternative_number": "0719210032",
       "id_number": "15397435",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6554,7 +6554,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0720509541",
       "alternative_number": "0720509541",
       "id_number": "15397434",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6573,7 +6573,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "724307364",
       "alternative_number": "724307364",
       "id_number": "12687458",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6592,7 +6592,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "726622924",
       "alternative_number": "726622924",
       "id_number": "12687461",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6611,7 +6611,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "112229669",
       "alternative_number": "112229669",
       "id_number": "12687463",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6630,7 +6630,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0716011450",
       "alternative_number": "0716011450",
       "id_number": "85214629",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6649,7 +6649,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0704938130",
       "alternative_number": "0704938130",
       "id_number": "85214624",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6668,7 +6668,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0713919221/0712826729",
       "alternative_number": "0713919221/0712826729",
       "id_number": "85214623",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6687,7 +6687,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0726377409",
       "alternative_number": "0726377409",
       "id_number": "85214621",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6706,7 +6706,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0712970979",
       "alternative_number": "0712970979",
       "id_number": "85214617",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6725,7 +6725,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0724425538",
       "alternative_number": "0724425538",
       "id_number": "12457889",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6744,7 +6744,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0723430686",
       "alternative_number": "0723430686",
       "id_number": "12457886",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6763,7 +6763,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0739465863/0748642266",
       "alternative_number": "0739465863/0748642266",
       "id_number": "95126479",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6782,7 +6782,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "707634052",
       "alternative_number": "707634052",
       "id_number": "95126481",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6801,7 +6801,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725164488",
       "alternative_number": "725164488",
       "id_number": "95126487",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6820,7 +6820,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "719462616",
       "alternative_number": "719462616",
       "id_number": "95126489",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6839,7 +6839,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "791393838",
       "alternative_number": "791393838",
       "id_number": "95126497",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6858,7 +6858,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "729594608",
       "alternative_number": "729594608",
       "id_number": "95126502",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6877,7 +6877,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0748325889",
       "alternative_number": "0748325889",
       "id_number": "84216574",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6896,7 +6896,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0742978495",
       "alternative_number": "0742978495",
       "id_number": "84216573",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6915,7 +6915,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "719504259",
       "alternative_number": "719504259",
       "id_number": "84216572",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6934,7 +6934,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "725447903",
       "alternative_number": "725447903",
       "id_number": "84216571",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6953,7 +6953,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111222",
       "alternative_number": "0700111222",
       "id_number": "97845621",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -6972,7 +6972,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0725570497",
       "current_month_fully_paid": true
       },
@@ -6991,7 +6991,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": 0,
       "alternative_number": 0,
       "id_number": 0,
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "0716709792",
       "current_month_fully_paid": true
       },
@@ -7010,7 +7010,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700222335",
       "alternative_number": "0700222335",
       "id_number": "12456995",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7029,7 +7029,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "728758953",
       "alternative_number": "728758953",
       "id_number": "77845125",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7048,7 +7048,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "717530397",
       "alternative_number": "717530397",
       "id_number": "56482155",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7067,7 +7067,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "0700111555",
       "alternative_number": "0700111555",
       "id_number": "56482187",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7086,7 +7086,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "720758454",
       "alternative_number": "720758454",
       "id_number": "56482251",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7105,7 +7105,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "707189937",
       "alternative_number": "707189937",
       "id_number": "56482339",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7124,7 +7124,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "704669134",
       "alternative_number": "704669134",
       "id_number": "56482363",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7143,7 +7143,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "710715532",
       "alternative_number": "710715532",
       "id_number": "56482427",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7162,7 +7162,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "705674582",
       "alternative_number": "705674582",
       "id_number": "56482443",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7181,7 +7181,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "701877311",
       "alternative_number": "701877311",
       "id_number": "56482491",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7200,7 +7200,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "741152533",
       "alternative_number": "741152533",
       "id_number": "56482499",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7219,7 +7219,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "110398297",
       "alternative_number": "110398297",
       "id_number": "56482563",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7238,7 +7238,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "742279111",
       "alternative_number": "742279111",
       "id_number": "56482587",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7257,7 +7257,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "737638820",
       "alternative_number": "737638820",
       "id_number": "56482603",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7276,7 +7276,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "'0700111555",
       "alternative_number": "'0700111555",
       "id_number": "56482611",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7295,7 +7295,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "743836197",
       "alternative_number": "743836197",
       "id_number": "56482627",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7314,7 +7314,7 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "713175069",
       "alternative_number": "713175069",
       "id_number": "56482691",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       },
@@ -7333,11 +7333,12 @@ export const useTenantsList = defineStore("tenantsList", {
       "tenant_number": "757223985",
       "alternative_number": "757223985",
       "id_number": "56482723",
-      "status": "active",
+      "status": "Occupied",
       "deposit_refunded": "FALSE",
       "current_month_fully_paid": true
       }
-      ],
+      ],*/
+      tenants:[],
     tenants_statements: [],
   }),
   actions: {
@@ -7350,6 +7351,22 @@ export const useTenantsList = defineStore("tenantsList", {
       } catch (error) {
         console.error("Error fetching data", error);
         this.loading = false;
+      }
+    },
+    async addNewHouse(newHouse) {
+      try {
+        await axios.post(TENANT_URL, newHouse);
+        alert('House added')
+      } catch (error) {
+        console.error("error creating new house", error);
+      }
+    },
+    async addNewTenant(tenant) {
+      try {
+        await axios.put(`${TENANT_URL}` + `${tenant._id}`, tenant);
+
+      } catch (error) {
+        console.error("error adding new Tenant", error);
       }
     },
     async fetchTenantStatements() {
@@ -7381,7 +7398,7 @@ export const useTenantsList = defineStore("tenantsList", {
     async updatePartialStatements(newStatementItem) {
       try {
         let id = newStatementItem
-        await axios.put(`https://top-view-server.vercel.app/api/tenants/statements/${id._id}`, id);
+        await axios.put(`https://top-view-ltd-server.vercel.app/api/tenants/statements/${id.id}`, id);
       } catch (error) {
         console.error("error updating tenant statements", error);
       }

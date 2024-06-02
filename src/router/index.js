@@ -2,12 +2,19 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PropertiesList from '@/components/PropertiesList.vue'
 import AllTenants from '@/components/AllTenants.vue'
 import TenantsList from '@/components/TenantsList.vue'
+import Landing from '@/components/Landing.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
+      component: Landing,
+ 
+    },
+    {
+      path: '/properties',
+      name: 'properties',
       component: PropertiesList,
       children: [
         {

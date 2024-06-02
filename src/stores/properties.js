@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const PROPERTIES_URL = "https://top-view-server.vercel.app/api/properties";
+const PROPERTIES_URL = "https://top-view-ltd-server.vercel.app/api/properties";
 const PROPERTY_STATEMENT_URL =
-  "https://top-view-server.vercel.app/api/properties/statements";
+  "https://top-view-ltd-server.vercel.app/api/properties/statements";
 
 export const usePropertiesList = defineStore("propertiesList", {
   state: () => ({
-    properties: [
+    /*properties: [/*
       {
         _id: "662df8b712210d0fbba260b4",
         landlord_name: "Pithoni Irungu",
@@ -492,7 +492,8 @@ export const usePropertiesList = defineStore("propertiesList", {
         mri_units: "777",
         mri_amount: 700,
       },
-    ],
+    ],*/
+    properties:[],
     properties_statements: [],
     loading: false,
     property_full_payment_form: {
@@ -502,27 +503,27 @@ export const usePropertiesList = defineStore("propertiesList", {
     formFields: {
       kplc_amount: {
         label: "KPLC AMOUNT :",
-        placeholder: "Please input kplc amount",
+        placeholder: "Please Input kplc amount",
       },
       kplc_units: {
         label: "KPLC UNITS :",
-        placeholder: "Please input kplc units",
+        placeholder: "Please Input kplc units",
       },
       water_amount: {
         label: "WATER AMOUNT :",
-        placeholder: "Please input water amount",
+        placeholder: "Please Input water amount",
       },
       water_units: {
         label: "WATER UNITS :",
-        placeholder: "Please input water units",
+        placeholder: "Please Input water units",
       },
       mri_amount: {
         label: "MRI AMOUNT :",
-        placeholder: "Please input mri amount",
+        placeholder: "Please Input mri amount",
       },
       mri_units: {
         label: "MRI UNITS :",
-        placeholder: "Please input mri units",
+        placeholder: "Please Input mri units",
       },
     },
 
@@ -548,6 +549,14 @@ export const usePropertiesList = defineStore("propertiesList", {
         console.error("error fetchig properties list", error);
       }
     },
+    async addNewProperty(newProperty) {
+      try {
+        await axios.post(PROPERTIES_URL, newProperty);
+        alert('property added')
+      } catch (error) {
+        console.error("error creating new property", error);
+      }
+    },
     async fetchPropertiesStatements() {
       try {
         const response = await axios.get(PROPERTY_STATEMENT_URL);
@@ -569,7 +578,7 @@ export const usePropertiesList = defineStore("propertiesList", {
     async updatePartialStatements(newStatementItem) {
       try {
         await axios.put(
-          `https://top-view-server.vercel.app/api/properties/statements/${newStatementItem._id}`,
+          `https://top-view-ltd-server.vercel.app/api/properties/statements/${newStatementItem._id}`,
           newStatementItem
         );
       } catch (error) {

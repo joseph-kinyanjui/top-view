@@ -37,7 +37,7 @@ const total_deposit_terminated_tenants = computed(() => {
                 </tr>
 
                 <tr class="house" v-for="hse in tenants" :key="hse.hse_number">
-                    <template v-if="hse.status == 'active'">
+                    <template v-if="hse.status == 'act ive'">
                         <td class="tenant_name">{{ hse.tenant_name }}</td>
                         <td class="hse_number">{{ hse.property_name }}</td>
                         <td class="tenant_number">{{ hse.tenant_number }}</td>

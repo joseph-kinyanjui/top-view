@@ -4,6 +4,12 @@ body{
   line-height: 36px;
   color: rgb(15,0,23);
 }
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 /*
 @media screen and (max-width: 960px) {
   .property_list, .all_tenants_wrap{
@@ -167,7 +173,6 @@ button{
 }
 
 .input_text{
-  border: 1px solid;
   padding: 0.25em;
   font-weight: bold;
   color: rgb(15,0,23);
@@ -420,3 +425,112 @@ h3 span{
   display: flex;
   justify-content: space-between;
 }
+
+.background{
+  padding: 1em;
+  min-height: 70vh;
+  position: relative;
+ background-image: url('./src/assets/city.jpg');
+ background-size: cover;
+ background-position: center;
+  background-repeat: no-repeat;
+}
+/*
+.background {
+  background-image: url('./src/assets/city.jpg'); /* Replace with your image URL *
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  position: relative;
+}*/
+.glassy-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255,0.1);
+  backdrop-filter: blur(1.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid gray;
+}
+.content {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  min-height: 50%;
+}
+.content h2 {
+  margin-top: 0;
+}/*
+.content p {
+  font-size: 16px;
+  color: #333;
+}*/
+.content button, .content button .RouterLink{
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+.content button:hover, .content button:hover .RouterLink {
+  background-color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 5%;
+    font-size: medium;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .content button, .content button .RouterLink{
+    padding: 5px 12px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+}
+
+.RouterLink{
+  font-size: larger;
+}
+
+.brand :hover{
+  background:none !important;
+}
+
+.three_nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em;
+}
+
+
+
