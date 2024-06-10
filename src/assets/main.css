@@ -101,6 +101,7 @@ button{
   padding: 0.25em;
   border-radius: 1em;
   margin-top: 1.25em;
+  margin-bottom: 0.25em;
   outline: none;
   border: 0.25px solid rgb(15,0,23, 0.35);
   background-image: linear-gradient(to right bottom, rgb(5,25,55, 0.85), rgb(18,52,97, 0.85), rgb(29,82,143, 0.85), rgb(36,115,192, 0.85), rgb(33,150,243,0.85)) !important;
@@ -559,3 +560,94 @@ h3 span{
   transition: background-color 0.3s;
 }
 
+.property_statement_summary{
+  border: 1px solid rgb(15,0,23);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.property_statement_gross_wrap{
+  display: flex;
+  flex-direction: column;
+}
+
+.property_statement_summary_header{
+  border: 0.5px solid rgb(153,51,0, 0.25);
+  display: flex;
+  border-radius: 5px;
+  color: rgb(243, 228, 26);
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: space-between;
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.statement_header_item{
+  display: flex;
+  padding-left: 1em;
+  align-items: center;
+  flex: 1;
+}
+
+.statement_header_amount{
+  border-left: 1px solid rgb(153,51,0);
+}
+
+.property_statememt_date{
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: rgb(153,51,0);
+}
+
+.property_statement_summary_item p{
+  padding: 0.25em;
+  font-weight:500;
+}
+
+.property_statement_summary_item{
+  margin-top: 0.25em;
+  display: flex;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.property_statement_summary_item div{
+  flex: 1;
+}
+
+.property_statement_summary_item_form{
+  display: flex;
+  flex-direction: column;
+}
+
+.property_statement_summary_item_form div{
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.statement_header_amount_form{
+  padding-left: 1em;
+}
+
+.gross_pay{
+  padding: 0.2em;
+  margin-top: 0.33em;
+  margin-bottom: 0.33em;
+  display: flex;
+}
+
+.gross_wrap{
+  flex: 1;
+}
+
+.gross_value{
+  flex: 1;
+  padding-left: 0.33em;
+  color: rgb(15,0,23);
+  font-weight: bold;
+}

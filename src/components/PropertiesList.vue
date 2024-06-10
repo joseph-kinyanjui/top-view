@@ -114,6 +114,29 @@ const total_rent_collected = computed(() => {
 const total_rent_collected_per_hse = computed(() => {
     return filteredTenantStatements.value.reduce((acc, item) => acc + item.rent_paid, 0);
 });
+
+const total_rent_collected_per_property = computed(() => {
+    return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.rent_paid, 0);
+});
+
+const total_arrears_per_property = computed(() => {
+    return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears, 0);
+});
+
+const total_arrears_bf_per_property = computed(() => {
+    return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears_bf, 0);
+});
+
+const total_arrears_paid_per_property = computed(() => {
+    return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears_paid, 0);
+});
+
+const total_arrears_cf_per_property = computed(() => {
+    return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears_cf, 0);
+});
+
+const property_gross_pay = total_rent_collected_per_property.value
+
 /*
 const total_rent_collected_per_property = computed(() => {
     return filteredPropertyStatements.value.reduce((acc, item) => acc + item.commision, 0);
@@ -349,6 +372,29 @@ const add_property_formFields = reactive({
         label: "MRI Itax PIN :",
         placeholder: "Please Input MRI Itax PIN",
     },
+})
+
+const property_other_statement_form_values = reactive({
+    expense_name: '',
+    contact: '',
+    expense_id: ''
+})
+
+const property_other_statement_form_errors = reactive({
+    expense_name: '',
+    contact: '',
+    expense_id: ''
+})
+
+const property_other_statement_formFields = reactive({
+    expense_name: {
+        label: "Expense Name ",
+        placeholder: "Please Input Expense name",
+    },
+    Expense_amount: {
+        label: "Expense Amount  ",
+        placeholder: "Please Input Expense Amount ",
+    }
 })
 
 const add_property_form_errors = reactive({
@@ -986,23 +1032,26 @@ const change_current_month = (payment_month) => {
                                         </div>
                                     </div>
                                     <div class="rent_paid">
-                                        <div class="rent_paid"
+                                        <template
                                             v-for="(property_tenant_statement, index) in filteredPropertyStatementsPerMonth"
                                             :key="index">
                                             <div v-if="property_tenant_statement.hse_number === tenant.hse_number">
                                                 {{ property_tenant_statement.arrears }}
                                             </div>
-                                        </div>
+                                        </template>
                                     </div>
+
                                     <div class="rent_paid">
-                                        <div class="rent_paid"
-                                            v-for="(property_tenant_statement, index) in filteredPropertyStatementsPerMonth"
+                                        <template v-for="(statement, index) in filteredPropertyStatementsPerMonth"
                                             :key="index">
-                                            <div v-if="property_tenant_statement.hse_number === tenant.hse_number">
-                                                {{ property_tenant_statement.arrears_bf }}
+                                            <div v-if="statement.hse_number === tenant.hse_number">
+                                                {{ statement.arrears_bf }}
                                             </div>
-                                        </div>
+                                        </template>
+
                                     </div>
+
+
                                     <div class="rent_paid">
                                         <div class="rent_paid"
                                             v-for="(property_tenant_statement, index) in filteredPropertyStatementsPerMonth"
@@ -1019,6 +1068,160 @@ const change_current_month = (payment_month) => {
                                             <div v-if="property_tenant_statement.hse_number === tenant.hse_number">
                                                 {{ property_tenant_statement.arrears_cf }}
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="property-statement_footer property-header">
+                                <div class="hse_number">Totals</div>
+                                <div class="tenant_name"> </div>
+                                <div class="house_rate"> </div>
+                                <div class="rent">{{ total_rent_collected_per_property }}</div>
+                                <div class="unpaid_rent">{{ total_arrears_per_property }}</div>
+                                <div class="arrears_bf">{{ total_arrears_bf_per_property }}</div>
+                                <div class="arrears_paid">{{ total_arrears_paid_per_property }}</div>
+                                <div class="arrears_cf">{{ total_arrears_cf_per_property }}</div>
+                            </div>
+
+                            <div class="property_statement_summary">
+                                <h4 class="property_statememt_date"> {{ current_payment_date }} Statement Summary</h4>
+                                <div class="">
+                                    <div class="property_statement_summary_header">
+                                        <div class="statement_header_item">
+                                            <h4>Summary</h4>
+                                        </div>
+                                        <div class="statement_header_item statement_header_amount">
+                                            <h4>Amount</h4>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_gross_wrap">
+                                        <div class="property_statement_summary_item">
+                                            <div>
+                                                <p>Total Rent Paid:</p>
+                                            </div>
+                                            <div class="statement_header_amount">
+                                                <p>{{ total_rent_collected_per_property }}</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="property_statement_summary_item">
+                                            <div>
+                                                <p>Total Unpaid Paid:</p>
+                                            </div>
+                                            <div class="statement_header_amount">
+                                                <p>{{ total_arrears_per_property }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="property_statement_summary_item">
+                                            <div>
+                                                <p>Total Collections:</p>
+                                            </div>
+                                            <div class="statement_header_amount">
+                                                <p>{{ total_rent_collected_per_property }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="property_statement_summary_item">
+                                            <div>
+                                                <p>Deposit:</p>
+                                            </div>
+                                            <div class="statement_header_amount">
+                                                <p>{{ total_arrears_per_property }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="property_statement_summary_item property_statement_summary_item_form">
+                                            <div> 
+                                                <h5>Other Incomes:</h5>
+                                                <div>
+                                                    {{ other_income_list}}
+                                                </div>
+                                            </div>
+                                            <div class="property_other_statement_form_wrap">
+                                                <form @submit.prevent="add_new_property()"
+                                                    class="property_other_statement_form">
+                                                    <div v-for="(field, key) in property_other_statement_formFields" :key="key">
+                                                        <div >
+                                                            <label :for="key">{{ field.label }}</label>
+                                                        </div>
+                                                        <div class=" statement_header_amount statement_header_amount_form">
+                                                            <input :id="key" type="text" class="select_other_statement select "
+                                                            :placeholder="field.placeholder" required
+                                                            v-model="property_other_statement_form_values[key]" />
+                                                             <span v-if="property_other_statement_form_errors[key]">{{
+                                                            property_other_statement_form_errors[key]
+                                                            }}</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit"
+                                                            class="submit_button" style="color:rgb(243, 228, 26); margin-left: 33%;">Submit</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="property_statement_summary_header gross_pay">
+                                            <div class="gross_wrap">
+                                                <h3>Gross Pay:</h3>
+                                            </div>
+                                            <div class="statement_header_amount gross_value">
+                                                <p>{{ property_gross_pay }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <h3 style="text-align: center;">Deductions</h3>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <p>Commision Payable:</p>
+                                        </div>
+                                        <div class="statement_header_amount">
+                                            <p>{{ total_arrears_per_property }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <p>Deposit Refund:</p>
+                                        </div>
+                                        <div class="statement_header_amount">
+                                            <p>{{ total_arrears_per_property }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <p>Over Payment:</p>
+                                        </div>
+                                        <div class="statement_header_amount">
+                                            <p>{{ total_arrears_per_property }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <p>Paid To Landlord:</p>
+                                        </div>
+                                        <div class="statement_header_amount">
+                                            <p>{{ total_arrears_per_property }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_item">
+                                        <div>
+                                            <p>Total Deductions:</p>
+                                        </div>
+                                        <div class="statement_header_amount">
+                                            <p>{{ total_arrears_per_property }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="property_statement_summary_header gross_pay">
+                                        <div class="gross_wrap">
+                                            <h3>Net Pay:</h3>
+                                        </div>
+                                        <div class="statement_header_amount gross_value">
+                                            <p>{{ total_arrears_per_property }}</p>
                                         </div>
                                     </div>
                                 </div>
