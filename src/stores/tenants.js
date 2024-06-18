@@ -7403,6 +7403,15 @@ export const useTenantsList = defineStore("tenantsList", {
         console.error("error updating tenant statements", error);
       }
     },
+    async updateTenantDeposit(tenant) {
+      try {
+        let id = tenant._id
+        console.log(id)
+        await axios.put(`https://top-view-ltd-server.vercel.app/api/tenants/${id}`, tenant);
+      } catch (error) {
+        console.error("error updating tenant statements", error);
+      }
+    },
     update_tenants_full_rent_form(field) {
       this.tenants_full_rent_form[field] = value;
     },

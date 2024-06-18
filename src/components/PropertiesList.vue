@@ -38,6 +38,8 @@ const current_payment_date = ref('April-2024')
 const error = ref('');
 const formFields = ref(propertiesStore.formFields)
 const filterTenantsStatements = ref(tenantsStore.filterTenantsStatements())
+const other_income_list = ref([])
+
 
 const showTenants = ref([])
 const showPayments = ref([])
@@ -119,6 +121,14 @@ const total_rent_collected_per_property = computed(() => {
     return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.rent_paid, 0);
 });
 
+const total_other_deposit_per_property = computed(() => {
+    return other_income_list.value.reduce((acc, item) => acc + Number(item.deposit_held), 0);
+});
+
+const total_other_income_per_property = computed(() => {
+    return other_income_list.value.reduce((acc, item) => acc + Number(item.income_amount), 0);
+});
+
 const total_arrears_per_property = computed(() => {
     return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears, 0);
 });
@@ -135,7 +145,9 @@ const total_arrears_cf_per_property = computed(() => {
     return filteredPropertyStatementsPerMonth.value.reduce((acc, item) => acc + item.arrears_cf, 0);
 });
 
-const property_gross_pay = total_rent_collected_per_property.value
+const property_gross_pay = computed(() => {
+    return (total_arrears_per_property.value || 0)  + (total_rent_collected_per_property.value || 0) + (total_other_income_per_property.value || 0) + (total_other_deposit_per_property.value || 0)
+})
 
 /*
 const total_rent_collected_per_property = computed(() => {
@@ -377,13 +389,19 @@ const add_property_formFields = reactive({
 const property_other_statement_form_values = reactive({
     expense_name: '',
     contact: '',
-    expense_id: ''
+    expense_id: '',
+    deposit: null,
+    house_number: '',
+    income_amount: null,
+    income_name:''
 })
 
 const property_other_statement_form_errors = reactive({
     expense_name: '',
     contact: '',
-    expense_id: ''
+    expense_id: '',
+    deposit: '',
+    house_number: ''
 })
 
 const property_other_statement_formFields = reactive({
@@ -391,7 +409,7 @@ const property_other_statement_formFields = reactive({
         label: "Expense Name ",
         placeholder: "Please Input Expense name",
     },
-    Expense_amount: {
+    expense_amount: {
         label: "Expense Amount  ",
         placeholder: "Please Input Expense Amount ",
     }
@@ -430,7 +448,7 @@ const add_tenant_form_values = reactive({
     hse_number: '',
     tenant_name: '',
     house_rate: '',
-    deposit_held: '',
+    deposit_held: 0,
     contact: '',
     alternative_contact: '',
     id_number: '',
@@ -727,6 +745,41 @@ const submit_full_property_statement = (property) => {
     } else {
         alert('Invalid input, check entries & try again')
     }
+
+
+}
+
+
+const add_new_other_statement_income = (x, y) => {
+    let payload = {
+        ...x,
+        ...y
+    }
+    other_income_list.value.push(payload)
+    console.log(payload)
+}
+
+const add_new_other_statement_deposit = (income, expense) => {
+    let payload = {
+        ...income,
+        ...expense
+    }
+
+    const existingDeposit = other_income_list.value.find(item => item.deposit_amount === payload.deposit_amount && item.hse_number === payload.deposit_amount)
+
+    if (!existingDeposit) {
+        let x = tenants.value.filter((tenant) => tenant.property_id === payload._id && tenant.hse_number === payload.house_number);
+        console.log(payload)
+        x[0].deposit_held = payload.deposit
+        let y = x[0].deposit_held
+        console.log(x[0])
+        other_income_list.value.push(x[0])
+         tenantsStore.updateTenantDeposit(x[0])
+    } else if (existingDeposit) {
+        alert("Deposit Already Updated!")
+    } else (
+        alert("Refresh Page & Retry")
+    )
 
 
 }
@@ -1121,41 +1174,121 @@ const change_current_month = (payment_month) => {
                                                 <p>{{ total_rent_collected_per_property }}</p>
                                             </div>
                                         </div>
-                                        <div class="property_statement_summary_item">
-                                            <div>
-                                                <p>Deposit:</p>
-                                            </div>
-                                            <div class="statement_header_amount">
-                                                <p>{{ total_arrears_per_property }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="property_statement_summary_item property_statement_summary_item_form">
-                                            <div> 
-                                                <h5>Other Incomes:</h5>
-                                                <div>
-                                                    {{ other_income_list}}
+                                        <div
+                                            class="property_other_statement_form_wrap property_other_statement_form_wrap_deposit">
+                                            <form
+                                                @submit.prevent="add_new_other_statement_deposit(property_other_statement_form_values, showPayments)"
+                                                class="property_other_statement_form">
+                                                <div class="other_statement_form_input">
+                                                    <div>
+                                                        <label class="other_statement_label"> Deposit</label>
+                                                    </div>
+                                                    <div class="">
+                                                        <input type="text" class="other_statement_select"
+                                                            placeholder="Please input deposit amount" required
+                                                            v-model="property_other_statement_form_values.deposit" />
+                                                        <span v-if="property_other_statement_form_errors.deposit">{{
+                                                            property_other_statement_form_errors.deposit
+                                                        }}</span>
+                                                    </div>
+                                                    <div class="">
+                                                        <select
+                                                            v-model="property_other_statement_form_values.house_number"
+                                                            required class="select other_statement_select">
+                                                            <option disabled value="">Please select House Number
+                                                            </option>
+                                                            <option v-for="(tenant, index) in filteredTenantsList"
+                                                                :key="index">{{
+                                                                    tenant.hse_number }}
+                                                            </option>
+                                                        </select>
+                                                        <span v-if="property_other_statement_form_errors.deposit">{{
+                                                            property_other_statement_form_errors.deposit
+                                                        }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="deposit_input_btn">Ok</button>
+                                                    </div>
                                                 </div>
+
+                                            </form>
+                                        </div>
+
+                                        <div
+                                            class="property_statement_summary_item property_statement_summary_item_form">
+                                            <div class="other_income_list">
+                                                <div class=" other_incomes_list">
+                                                    <h5>Other Incomes List:</h5>
+                                                    <div v-for="(income, index) in other_income_list" :key="index"
+                                                        class="property_statement_summary_item property_statement_summary_item_income">
+                                                        <template v-if="income.deposit_held">
+                                                            <div>
+                                                                <p>Hse Number {{income.hse_number}} Deposit</p>
+                                                            </div>
+                                                            <div class="statement_header_amount">
+                                                                <p>{{ income.deposit_held }}</p>
+                                                            </div>  
+                                                        </template>
+                                                        <template v-else>
+                                                            <div>
+                                                                <p>{{income.income_name}} </p>
+                                                            </div>
+                                                            <div class="statement_header_amount">
+                                                                <p>{{ income.income_amount }}</p>
+                                                            </div>  
+                                                        </template>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <!--div class="property_statement_other_income_item"
+                                                    v-for="(income, index) in other_income_list" :key="index">
+                                                    <template>
+                                                        <div>
+                                                            <p>{{ income }}:</p>
+                                                        </div>
+                                                        <div class="statement_header_amount">
+                                                            <p>{{ income }}</p>
+                                                        </div>
+
+                                                    </template>
+                                                </div-->
                                             </div>
                                             <div class="property_other_statement_form_wrap">
-                                                <form @submit.prevent="add_new_property()"
+                                                <div class="other_income_form_header">
+                                                    <h5>Input other Income items here: </h5>
+                                                </div>
+                                                <form
+                                                    @submit.prevent="add_new_other_statement_income(property_other_statement_form_values, showPayments)"
                                                     class="property_other_statement_form">
-                                                    <div v-for="(field, key) in property_other_statement_formFields" :key="key">
-                                                        <div >
-                                                            <label :for="key">{{ field.label }}</label>
+                                                    <div class="other_statement_form_input other_expense_name">
+                                                        <div>
+                                                            <label for="key" class="other_statement_label"> Income Name
+                                                                : </label>
                                                         </div>
-                                                        <div class=" statement_header_amount statement_header_amount_form">
-                                                            <input :id="key" type="text" class="select_other_statement select "
-                                                            :placeholder="field.placeholder" required
-                                                            v-model="property_other_statement_form_values[key]" />
-                                                             <span v-if="property_other_statement_form_errors[key]">{{
-                                                            property_other_statement_form_errors[key]
-                                                            }}</span>
+                                                        <div class="">
+                                                            <input type="text" class="other_statement_select"
+                                                                placeholder="Please Input Income Name" required
+                                                                v-model="property_other_statement_form_values.income_name" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="other_statement_form_input other_expense_name">
+                                                        <div>
+                                                            <label for="key" class="other_statement_label"> Income
+                                                                Amount : </label>
+                                                        </div>
+                                                        <div class="">
+                                                            <input type="text" class="other_statement_select"
+                                                                placeholder="Please Input Income Amount" required
+                                                                v-model="property_other_statement_form_values.income_amount" />
                                                         </div>
 
                                                     </div>
                                                     <div>
-                                                        <button type="submit"
-                                                            class="submit_button" style="color:rgb(243, 228, 26); margin-left: 33%;">Submit</button>
+                                                        <button type="submit" class="submit_button"
+                                                            style="color:rgb(243, 228, 26); margin-left: 33%;">Submit</button>
                                                     </div>
 
                                                 </form>
@@ -1181,7 +1314,7 @@ const change_current_month = (payment_month) => {
                                             <p>Commision Payable:</p>
                                         </div>
                                         <div class="statement_header_amount">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>0</p>
                                         </div>
                                     </div>
                                     <div class="property_statement_summary_item">
@@ -1189,7 +1322,7 @@ const change_current_month = (payment_month) => {
                                             <p>Deposit Refund:</p>
                                         </div>
                                         <div class="statement_header_amount">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>0</p>
                                         </div>
                                     </div>
                                     <div class="property_statement_summary_item">
@@ -1197,7 +1330,7 @@ const change_current_month = (payment_month) => {
                                             <p>Over Payment:</p>
                                         </div>
                                         <div class="statement_header_amount">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>0</p>
                                         </div>
                                     </div>
                                     <div class="property_statement_summary_item">
@@ -1205,7 +1338,7 @@ const change_current_month = (payment_month) => {
                                             <p>Paid To Landlord:</p>
                                         </div>
                                         <div class="statement_header_amount">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>0</p>
                                         </div>
                                     </div>
                                     <div class="property_statement_summary_item">
@@ -1213,7 +1346,7 @@ const change_current_month = (payment_month) => {
                                             <p>Total Deductions:</p>
                                         </div>
                                         <div class="statement_header_amount">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>0</p>
                                         </div>
                                     </div>
                                     <div class="property_statement_summary_header gross_pay">
@@ -1221,7 +1354,7 @@ const change_current_month = (payment_month) => {
                                             <h3>Net Pay:</h3>
                                         </div>
                                         <div class="statement_header_amount gross_value">
-                                            <p>{{ total_arrears_per_property }}</p>
+                                            <p>{{ property_gross_pay }}</p>
                                         </div>
                                     </div>
                                 </div>

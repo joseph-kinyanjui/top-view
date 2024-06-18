@@ -112,6 +112,18 @@ button{
   -moz-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
 }
 
+.deposit_input_btn{
+  font-size: large;
+  font-weight: bold;
+  min-width: 4em;
+  padding: 0.25em;
+  margin-left: 25%;
+  border-radius: 1em;
+  box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
+}
+
 .change_current_month_properties, .paid_in_full_form_properties{
   border: 0.25px solid rgb(15,0,23, 0.35);
   border-radius: 2.5em;
@@ -152,6 +164,16 @@ button{
   -webkit-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
   -moz-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
 
+}
+
+.other_statement_select{
+  font-size: large;
+  font-weight: bold;
+  margin-left: 1em;
+  padding: 0.33em;
+  border-radius: 1em;
+  border: 0.5px solid rgb(15,0,23, 0.25);
+  background-color: rgba(245, 220, 33, 0.293);
 }
 
 .total_rent_per_property_h2{
@@ -561,7 +583,7 @@ h3 span{
 }
 
 .property_statement_summary{
-  border: 1px solid rgb(15,0,23);
+  border: 1px solid rgb(15,0,23, 0.25);
   padding: 5px;
   border-radius: 5px;
 }
@@ -569,6 +591,12 @@ h3 span{
 .property_statement_gross_wrap{
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+  padding-bottom: 0.5em;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-bottom: 1em;
 }
 
 .property_statement_summary_header{
@@ -622,12 +650,25 @@ h3 span{
 .property_statement_summary_item_form{
   display: flex;
   flex-direction: column;
+  border: 1px solid rgb(0,0,0, 0.25);
+  padding: 0.25em;
+  flex-direction: column-reverse;
 }
 
-.property_statement_summary_item_form div{
-  margin-top: 0.5em;
+
+.other_income_list{
+  border: 1px solid red;
+  margin-top: 0.25em;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  padding-left: 0.25em;
+  margin-bottom: 0.25em;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+
 }
 
 .statement_header_amount_form{
@@ -650,4 +691,47 @@ h3 span{
   padding-left: 0.33em;
   color: rgb(15,0,23);
   font-weight: bold;
+}
+
+.other_statement_form_input{
+  padding: 0.25em;
+  display: flex;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.other_income_list div{
+  width: 100%;
+}
+
+
+.property_statement_other_income_item{
+  border: 1px solid blue;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  display: flex;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.other_statement_label{
+  padding-left: 0.25em;
+}
+
+.property_other_statement_form_wrap_deposit{
+margin-top: 0.25em;
+}
+
+.other_expense_name{
+  margin-bottom: 0.25em;
+}
+
+.other_incomes_list{
+  padding-bottom: 1em;
 }
