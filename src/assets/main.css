@@ -113,15 +113,17 @@ button{
 }
 
 .deposit_input_btn{
+  padding: 0.5em;
+  border: none;
+  color: #fdfbfb;
+  background-image: linear-gradient(to right bottom, rgb(5,25,55, 0.75), rgb(18,52,97, 0.75), rgb(29,82,143, 0.75), rgb(36,115,192, 0.75), rgb(33,150,243,0.75)) !important;
   font-size: large;
   font-weight: bold;
   min-width: 4em;
-  padding: 0.25em;
-  margin-left: 25%;
   border-radius: 1em;
-  box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
-  -webkit-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
-  -moz-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
+  box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
 }
 
 .change_current_month_properties, .paid_in_full_form_properties{
@@ -155,20 +157,19 @@ button{
 .select{
   font-size: large;
   font-weight: bold;
- /* width: 33%;*/
   padding: 0.33em;
   border-radius: 1em;
   border: 0.5px solid rgb(15,0,23, 0.35);
   background-color: rgb(145,234,228, 0.15);
-  box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
-  -webkit-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
-  -moz-box-shadow: 2px 2px 2px 0px rgb(15,0,23, 0.75);
+  box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
 
 }
 
 .other_statement_select{
   font-size: large;
-  font-weight: bold;
+  font-weight: 500;
   margin-left: 1em;
   padding: 0.33em;
   border-radius: 1em;
@@ -538,6 +539,32 @@ h3 span{
     cursor: pointer;
     transition: background-color 0.3s;
   }
+  .other_statement_form_input_deposit{
+    padding: 0.25em;
+    display: flex;
+    margin-bottom: .25em;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  }
+   
+  .other_statement_form_input_deductions{
+    padding: 0.25em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: .25em;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+    -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+    -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  }
+
 }
 
 .RouterLink{
@@ -583,7 +610,7 @@ h3 span{
 }
 
 .property_statement_summary{
-  border: 1px solid rgb(15,0,23, 0.25);
+  border: 1px solid rgb(153,51,0, 0.33);
   padding: 5px;
   border-radius: 5px;
 }
@@ -593,7 +620,7 @@ h3 span{
   flex-direction: column;
   border-radius: 5px;
   padding-bottom: 0.5em;
-  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0.75px 0.75px 0px rgb(15,0,23,0.33);
   padding-left: 0.5em;
   padding-right: 0.5em;
   margin-bottom: 1em;
@@ -619,7 +646,7 @@ h3 span{
 }
 
 .statement_header_amount{
-  border-left: 1px solid rgb(153,51,0);
+  border-left: 1px solid rgb(153,51,0, 0.5);
 }
 
 .property_statememt_date{
@@ -648,27 +675,29 @@ h3 span{
 }
 
 .property_statement_summary_item_form{
+  margin-top: 0.25em;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(0,0,0, 0.25);
   padding: 0.25em;
   flex-direction: column-reverse;
+  box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0px rgb(15,0,23,0.25);
 }
 
 
 .other_income_list{
-  border: 1px solid red;
+  border: 1px solid rgb(153,51,0, 0.33);
   margin-top: 0.25em;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-left: 0.25em;
+  padding-right: 0.25em;
   margin-bottom: 0.25em;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
-  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
-  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
-
 }
 
 .statement_header_amount_form{
@@ -676,10 +705,9 @@ h3 span{
 }
 
 .gross_pay{
-  padding: 0.2em;
+  padding-left: 0.25em;
   margin-top: 0.33em;
   margin-bottom: 0.33em;
-  display: flex;
 }
 
 .gross_wrap{
@@ -696,11 +724,77 @@ h3 span{
 .other_statement_form_input{
   padding: 0.25em;
   display: flex;
+  flex-wrap: wrap;
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
   -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
   -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.other_statement_form_input_deposit{
+  padding: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.other_statement_form_input_deductions{
+  padding: 0.25em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -webkit-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgb(15,0,23,0.55);
+}
+
+.deposit_input_wrap{
+  display: flex;
+  flex: 1;
+  margin-bottom: 0.25em;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px;
+}
+
+.deposit_select_hse{
+  flex: 1;
+  margin-bottom: 0.25em;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.deposit_select_hse_btn{
+  margin-bottom: 0.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-bottom: 0.25em;
+  align-items: center;
+  padding: 2px;
+}
+
+.deposit_input_wrap_value{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex: 1;
+}
+
+.deposit_input_wrap_label{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex: 1;
 }
 
 .other_income_list div{
@@ -709,9 +803,8 @@ h3 span{
 
 
 .property_statement_other_income_item{
-  border: 1px solid blue;
-  margin-bottom: .25em;
-  margin-right: .25em;
+  margin-bottom: 0.25em;
+  margin-right: 0.25em;
   display: flex;
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.1);
@@ -725,7 +818,7 @@ h3 span{
 }
 
 .property_other_statement_form_wrap_deposit{
-margin-top: 0.25em;
+  margin-top: 0.25em;
 }
 
 .other_expense_name{
@@ -734,4 +827,31 @@ margin-top: 0.25em;
 
 .other_incomes_list{
   padding-bottom: 1em;
+}
+
+.deductions_header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deductions_header_wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::placeholder {
+  font-weight: 200;
+  font-style: italic;
+}
+
+.header_underline{
+  text-decoration: underline;
+}
+
+.deductions_wrap{
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
 }
