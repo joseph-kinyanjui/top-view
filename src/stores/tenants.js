@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 const TENANT_URL = "https://top-view-ltd-server.vercel.app/api/tenants/";
+const TERMINATED_TENANT_URL = "https://top-view-ltd-server.vercel.app/api/terminated_tenants/";
 const TENANT_STATEMENT_URL = "https://top-view-ltd-server.vercel.app/api/tenants/statements/";
 
 export const useTenantsList = defineStore("tenantsList", {
@@ -7338,7 +7339,8 @@ export const useTenantsList = defineStore("tenantsList", {
       "current_month_fully_paid": true
       }
       ],*/
-      tenants:[],
+    tenants:[],
+    terminated_tenants:[],
     tenants_statements: [],
   }),
   actions: {
@@ -7347,6 +7349,17 @@ export const useTenantsList = defineStore("tenantsList", {
         this.loading = true;
         const response = await axios.get(TENANT_URL);
         this.tenants = response.data;
+        this.loading = false;
+      } catch (error) {
+        console.error("Error fetching data", error);
+        this.loading = false;
+      }
+    },
+    async fetchTerminatedTenants() {
+      try {
+        this.loading = true;
+        const response = await axios.get(TERMINATED_TENANT_URL);
+        this.terminated_tenants = response.data;
         this.loading = false;
       } catch (error) {
         console.error("Error fetching data", error);

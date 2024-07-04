@@ -14,6 +14,7 @@ onMounted(async () => {
         propertiesStore.fetchProperties()
         tenantsStore.fetchTenants()
         tenantsStore.fetchTenantStatements()
+        tenantsStore.fetchTerminatedTenants()
         propertiesStore.fetchPropertiesStatements()
     } catch (error) {
         console.error('error fetching data:', error)
@@ -39,6 +40,7 @@ const error = ref('');
 const formFields = ref(propertiesStore.formFields)
 const filterTenantsStatements = ref(tenantsStore.filterTenantsStatements())
 const other_income_list = ref([])
+const property_expense_list = ref([])
 
 
 const showTenants = ref([])
@@ -397,20 +399,31 @@ const property_other_statement_form_values = reactive({
 })
 
 const property_monthly_deductions = reactive({
-    commision: '',
-    overpayment: '',
-    paid_to_landlord: '',
-    depodit_refund: '',
-    other_expenses: []
+    commision: null,
+    overpayment: null,
+    paid_to_landlord: null,
+    deposit_held: null,
+    deposit_refund: null,
+    house_number: '',
+    expense_name: '',
+    expense_amount: null
 })
 
 const property_monthly_deductions_form_errors = reactive({
     commision: '',
     overpayment: '',
     paid_to_landlord: '',
-    depodit_refund: '',
-    other_expenses: []
+    deposit_held: '',
+    deposit_refund: '',
+    house_number: '',
+    expense_name: ''
 })
+
+const populatedFields = computed(() => {
+  return Object.entries(property_monthly_deductions).filter(([key, value]) => value !== '' && value !== null);
+});
+
+
 
 const property_other_statement_form_errors = reactive({
     expense_name: '',
@@ -766,11 +779,37 @@ const submit_full_property_statement = (property) => {
 }
 
 const deduct_property_commision = (x, y) => {
+
+    console.log(x)
     alert('deduct commision')
 }
 
 const tenant_deposit_refund = (x, y) => {
-    alert('Refund deposit')
+
+    const existingDeposit = tenants.value.find(item => item.property_id === y && item.hse_number === x.house_number)
+
+    if (existingDeposit) {
+        console.log(existingDeposit)
+        console.log(x)
+    } else {
+        console.log('apa ni wapi?')
+        //console.log(x)
+    }
+    /*
+    if (!existingDeposit) {
+        let x = tenants.value.filter((tenant) => tenant.property_id === payload._id && tenant.hse_number === payload.house_number);
+        console.log(payload)
+        x[0].deposit_held = payload.deposit
+        let y = x[0].deposit_held
+        console.log(x[0])
+        other_income_list.value.push(x[0])
+        tenantsStore.updateTenantDeposit(x[0])
+    } else if (existingDeposit) {
+        alert("Deposit Already Updated!")
+    } else (
+        alert("Refresh Page & Retry")
+    )
+    alert('Refund deposit')*/
 }
 
 const deduct_property_overpayment = (x, y) => {
@@ -790,13 +829,17 @@ const add_new_other_statement_income = (x, y) => {
     console.log(payload)
 }
 
+const add_other_property_expenses = (i, j) => {
+    console.log(i)
+}
+
 const add_new_other_statement_deposit = (income, expense) => {
     let payload = {
         ...income,
         ...expense
     }
 
-    const existingDeposit = other_income_list.value.find(item => item.deposit_amount === payload.deposit_amount && item.hse_number === payload.deposit_amount)
+    const existingDeposit = other_income_list.value.find(item => item.deposit_amount === payload.deposit_amount && item.hse_number === payload.hse_number)
 
     if (!existingDeposit) {
         let x = tenants.value.filter((tenant) => tenant.property_id === payload._id && tenant.hse_number === payload.house_number);
@@ -1221,7 +1264,7 @@ const change_current_month = (payment_month) => {
                                                                 v-model="property_other_statement_form_values.deposit" />
                                                             <span v-if="property_other_statement_form_errors.deposit">{{
                                                                 property_other_statement_form_errors.deposit
-                                                            }}</span>
+                                                                }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="deposit_select_hse">
@@ -1237,7 +1280,7 @@ const change_current_month = (payment_month) => {
                                                         </select>
                                                         <span v-if="property_other_statement_form_errors.deposit">{{
                                                             property_other_statement_form_errors.deposit
-                                                        }}</span>
+                                                            }}</span>
                                                     </div>
                                                     <div class="deposit_select_hse_btn">
                                                         <button type="submit" class="deposit_input_btn">Ok</button>
@@ -1327,10 +1370,9 @@ const change_current_month = (payment_month) => {
                                                 <h3 style="text-align: center;">Deductions</h3>
                                             </div>
                                         </div>
-                                        <div
-                                            class="property_other_statement_form_wrap_deposit">
+                                        <div class="property_other_statement_form_wrap_deposit">
                                             <form
-                                                @submit.prevent="deduct_property_commision(property_other_statement_form_values, showPayments)"
+                                                @submit.prevent="deduct_property_commision(property_monthly_deductions, showPayments._id)"
                                                 class="property_other_statement_form">
                                                 <div class="other_statement_form_input_deductions">
                                                     <div class="deposit_input_wrap">
@@ -1340,24 +1382,27 @@ const change_current_month = (payment_month) => {
                                                         </div>
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
-                                                                placeholder="Please input commision payable amount" required
+                                                                placeholder="Please input commision payable amount"
+                                                                required
                                                                 v-model="property_monthly_deductions.commision" />
-                                                            <span v-if="property_monthly_deductions_form_errors.commision">{{
-                                                                property_monthly_deductions_form_errors.commision
+                                                            <span
+                                                                v-if="property_monthly_deductions_form_errors.commision">{{
+                                                                    property_monthly_deductions_form_errors.commision
                                                                 }}</span>
                                                         </div>
                                                     </div>
 
                                                     <div class="deposit_input_wrap">
-                                                        <div class="deposit_input_wrap_label"> 
+                                                        <div class="deposit_input_wrap_label">
                                                             <label class="other_statement_label"> Over Payment:</label>
                                                         </div>
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
                                                                 placeholder="Please input over payment amount" required
                                                                 v-model="property_monthly_deductions.overpayment" />
-                                                            <span v-if="property_monthly_deductions_form_errors.overpayment">{{
-                                                                property_monthly_deductions_form_errors.overpayment
+                                                            <span
+                                                                v-if="property_monthly_deductions_form_errors.overpayment">{{
+                                                                    property_monthly_deductions_form_errors.overpayment
                                                                 }}</span>
                                                         </div>
                                                     </div>
@@ -1368,10 +1413,12 @@ const change_current_month = (payment_month) => {
                                                         </div>
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
-                                                                placeholder="Please input paid to landlord amount" required
+                                                                placeholder="Please input paid to landlord amount"
+                                                                required
                                                                 v-model="property_monthly_deductions.paid_to_landlord" />
-                                                            <span v-if="property_monthly_deductions_form_errors.paid_to_landlord">{{
-                                                                property_monthly_deductions_form_errors.paid_to_landlord
+                                                            <span
+                                                                v-if="property_monthly_deductions_form_errors.paid_to_landlord">{{
+                                                                    property_monthly_deductions_form_errors.paid_to_landlord
                                                                 }}</span>
                                                         </div>
                                                     </div>
@@ -1385,7 +1432,7 @@ const change_current_month = (payment_month) => {
                                         <div
                                             class="property_other_statement_form_wrap property_other_statement_form_wrap_deposit">
                                             <form
-                                                @submit.prevent="add_new_other_statement_deposit(property_other_statement_form_values, showPayments)"
+                                                @submit.prevent="tenant_deposit_refund(property_monthly_deductions, showPayments._id)"
                                                 class="property_other_statement_form">
                                                 <div class="other_statement_form_input_deposit">
                                                     <div class="deposit_input_wrap">
@@ -1396,15 +1443,14 @@ const change_current_month = (payment_month) => {
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
                                                                 placeholder="Please input deposit refund amount" required
-                                                                v-model="property_other_statement_form_values.deposit" />
-                                                            <span v-if="property_other_statement_form_errors.deposit">{{
-                                                                property_other_statement_form_errors.deposit
+                                                                v-model="property_monthly_deductions.deposit_refund" />
+                                                            <span v-if="property_monthly_deductions_form_errors.deposit_refund">{{
+                                                                property_monthly_deductions_form_errors.deposit_refund
                                                                 }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="deposit_select_hse">
-                                                        <select
-                                                            v-model="property_other_statement_form_values.house_number"
+                                                        <select v-model="property_monthly_deductions.house_number"
                                                             required class="select other_statement_select">
                                                             <option disabled value="">Please select House Number
                                                             </option>
@@ -1413,8 +1459,9 @@ const change_current_month = (payment_month) => {
                                                                     tenant.hse_number }}
                                                             </option>
                                                         </select>
-                                                        <span v-if="property_other_statement_form_errors.deposit">{{
-                                                            property_other_statement_form_errors.deposit
+                                                        <span
+                                                            v-if="property_monthly_deductions_form_errors.house_number">{{
+                                                                property_monthly_deductions.house_number
                                                             }}</span>
                                                     </div>
                                                     <div class="deposit_select_hse_btn">
@@ -1428,24 +1475,24 @@ const change_current_month = (payment_month) => {
                                             <div class="other_income_list">
                                                 <div class=" other_incomes_list">
                                                     <h5 class="header_underline">Other Deductions List:</h5>
-                                                    <div v-for="(income, index) in other_income_list" :key="index"
+                                                    <div v-for="([key, value]) in populatedFields" :key="key"
                                                         class="property_statement_summary_item property_statement_summary_item_income">
-                                                        <template v-if="income.deposit_held">
-                                                            <div>
-                                                                <p>Hse Number {{ income.hse_number }} Deposit</p>
+                                                            <div v-if="key === 'commision'">
+                                                                <p>Commision :{{value }}</p>
                                                             </div>
-                                                            <div class="statement_header_amount">
-                                                                <p>{{ income.deposit_held }}</p>
+                                                            <div v-if="key === 'overpayment'">
+                                                                <p>OverPayment :{{value }}</p>
                                                             </div>
-                                                        </template>
-                                                        <template v-else>
-                                                            <div>
-                                                                <p>{{ income.income_name }} </p>
+                                                            <div v-if="key === 'paid_to_landlord'">
+                                                                <p>Paid To Landlord :{{value }}</p>
                                                             </div>
-                                                            <div class="statement_header_amount">
-                                                                <p>{{ income.income_amount }}</p>
+                                                            <div v-if="key === 'deposit_refund'">
+                                                                <p>Deposit refund :{{value }}</p>
                                                             </div>
-                                                        </template>
+                                                            <div v-if="key === 'expense_name'">
+                                                                <p>Expense Name :{{value }}</p>
+                                                                <p v-if="key === 'expense_amount'">amount: {{ value }}</p>
+                                                            </div>
 
                                                     </div>
                                                 </div>
@@ -1455,7 +1502,7 @@ const change_current_month = (payment_month) => {
                                                     <h5 class="header_underline">Input other Expenses here: </h5>
                                                 </div>
                                                 <form
-                                                    @submit.prevent="add_new_other_statement_income(property_other_statement_form_values, showPayments)"
+                                                    @submit.prevent="add_other_property_expenses(property_monthly_deductions, showPayments._id)"
                                                     class="property_other_statement_form">
                                                     <div class="other_statement_form_input other_expense_name">
                                                         <div class="deposit_input_wrap_label">
@@ -1465,19 +1512,19 @@ const change_current_month = (payment_month) => {
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
                                                                 placeholder="Please Input Expense Name" required
-                                                                v-model="property_other_statement_form_values.income_name" />
+                                                                v-model="property_monthly_deductions.expense_name" />
                                                         </div>
 
                                                     </div>
                                                     <div class="other_statement_form_input other_expense_name">
-                                                        <div  class="deposit_input_wrap_label">
+                                                        <div class="deposit_input_wrap_label">
                                                             <label for="key" class="other_statement_label"> Expense
                                                                 Amount : </label>
                                                         </div>
                                                         <div class="deposit_input_wrap_value">
                                                             <input type="text" class="other_statement_select"
                                                                 placeholder="Please Input Expense Amount" required
-                                                                v-model="property_other_statement_form_values.income_amount" />
+                                                                v-model="property_monthly_deductions.expense_amount" />
                                                         </div>
 
                                                     </div>

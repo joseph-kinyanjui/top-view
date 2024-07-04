@@ -1,14 +1,26 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, reactive, onMounted } from 'vue'
 import { useTenantsList } from "../stores/tenants.js";
 
 const tenantsStore = useTenantsList();
 
 const tenants = ref(tenantsStore.tenants)
+const isLoading = ref(true);
 
+onMounted(async () => {
+    try {
+        tenantsStore.fetchTenants()
+        tenantsStore.fetchTenantStatements()
+        tenantsStore.fetchTerminatedTenants()
+    } catch (error) {
+        console.error('error fetching data:', error)
+    } finally {
+        isLoading.value = false;
+    }
+})
 
 const activeTenants = tenants.value.filter((tenant) => tenant.status === "active");
-
+const terminated_tenants = ref(tenantsStore.terminated_tenants)
 const terminatedTenants = tenants.value.filter((tenant) => tenant.status === "terminated");
 
 const total_deposit_active_tenants = computed(() => {
@@ -20,7 +32,7 @@ const total_deposit_terminated_tenants = computed(() => {
 });
 </script>
 
-/**HTML*/
+/*HTML*/
 <template>
     <div class="all_tenants_wrap">
         <div class="active_tenant">
@@ -37,7 +49,7 @@ const total_deposit_terminated_tenants = computed(() => {
                 </tr>
 
                 <tr class="house" v-for="hse in tenants" :key="hse.hse_number">
-                    <template v-if="hse.status == 'act ive'">
+                    <template v-if="hse.status == 'active' || hse.status == 'Occupied'">
                         <td class="tenant_name">{{ hse.tenant_name }}</td>
                         <td class="hse_number">{{ hse.property_name }}</td>
                         <td class="tenant_number">{{ hse.tenant_number }}</td>
@@ -69,15 +81,13 @@ const total_deposit_terminated_tenants = computed(() => {
                     <th class="deposit_refunded">Deposit Refunded</th>
                 </tr>
 
-                <tr class="house" v-for="hse in tenants" :key="hse.hse_number">
-                    <template v-if="hse.status == 'terminated'">
+                <tr class="house" v-for="(hse, index) in terminated_tenants" :key="index">
                         <td class="tenant_name">{{ hse.tenant_name }}</td>
                         <td class="hse_number">{{ hse.property_name }}</td>
                         <td class="tenant_number">{{ hse.tenant_number }}</td>
                         <td class="hse_number">{{ hse.hse_number }}</td>
                         <td class="deposit_held">{{ hse.deposit_held }}</td>
                         <td class="deposit_refunded">True</td>
-                    </template>
                 </tr>
 
                 <tr class="totals_row">

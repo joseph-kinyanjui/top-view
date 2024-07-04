@@ -1,5 +1,28 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, reactive, onMounted } from 'vue'
+import html2pdf from 'html2pdf.js'
+import { usePropertiesList } from '../stores/properties.js'
+import { useTenantsList } from '../stores/tenants.js'
+import { Store } from 'vuex';
+
+const tenantsStore = useTenantsList()
+const propertiesStore = usePropertiesList()
+const isLoading = ref(true);
+
+onMounted(async () => {
+    try {
+        tenantsStore.fetchTenants()
+        tenantsStore.fetchTenantStatements()
+        tenantsStore.fetchTerminatedTenants()
+    } catch (error) {
+        console.error('error fetching data:', error)
+    } finally {
+        isLoading.value = false;
+    }
+})
+
+const terminated_tenants = ref(tenantsStore.terminated_tenants)
+const tenants_statements = ref(tenantsStore.tenants_statements)
 
 const total_rent_collected = computed(() => {
   return tenant.reduce((acc, item) => acc + item.rent_paid, 0);
@@ -45,7 +68,7 @@ const total_arrears_cf = computed(() => {
         <th class="alternative_number">Alternative number </th>
         <th class="id_number">Id Number</th>
       </tr>
-      <tr class="house" v-for="hse in tenant" :key="hse.hse_number">
+      <tr class="house" v-for="(hse, index) in terminated_tenants" :key="index" >
 
         <td class="hse_number">{{ hse.property_name }} </td>
         <td class="hse_number">{{ hse.hse_number }} </td>
